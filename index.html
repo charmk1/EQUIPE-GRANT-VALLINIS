@@ -18,50 +18,36 @@
     }
     body { margin:0; font-family:'Inter',sans-serif; color:var(--marine-dark); background:var(--white);}
     
-    /* Navigation Header - Design Expert Professionnel */
+    /* Navigation Header - Grant Vallinis Style */
     .main-header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.97);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(21, 34, 57, 0.08);
-      padding: 18px 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 14px 0;
       transition: all 0.3s ease;
-      box-shadow: 0 1px 30px rgba(21, 34, 57, 0.06);
     }
     
     .nav-container {
-      max-width: 1300px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 40px;
+      padding: 0 24px;
     }
     
     .logo {
       font-family: 'Playfair Display', serif;
-      font-size: 2.1rem;
-      font-weight: 600;
-      color: var(--marine-dark);
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: #333;
       text-decoration: none;
-      letter-spacing: 0.8px;
-      transition: all 0.3s ease;
-      text-shadow: 0 1px 2px rgba(21, 34, 57, 0.1);
-    }
-    
-    .logo:hover {
-      color: var(--marine);
-      transform: translateY(-1px);
-    }
-    
-    .main-nav {
-      display: flex;
-      align-items: center;
-      gap: 0;
+      letter-spacing: 0.3px;
     }
     
     .nav-menu {
@@ -69,47 +55,22 @@
       list-style: none;
       margin: 0;
       padding: 0;
-      gap: 45px;
+      gap: 40px;
       align-items: center;
-    }
-    
-    .nav-menu li {
-      position: relative;
     }
     
     .nav-menu a {
       text-decoration: none;
-      color: #4a5568;
-      font-weight: 500;
-      font-size: 1.05rem;
-      padding: 12px 8px;
-      transition: all 0.3s ease;
-      letter-spacing: 0.4px;
-      border-radius: 6px;
-      position: relative;
-      text-transform: capitalize;
+      color: #666;
+      font-weight: 400;
+      font-size: 1.0rem;
+      padding: 8px 0;
+      transition: all 0.2s ease;
+      letter-spacing: 0.2px;
     }
     
     .nav-menu a:hover {
-      color: var(--marine-dark);
-      background: rgba(21, 34, 57, 0.04);
-      transform: translateY(-1px);
-    }
-    
-    .nav-menu a::after {
-      content: '';
-      position: absolute;
-      bottom: 6px;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--marine);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-    
-    .nav-menu a:hover::after {
-      width: 80%;
+      color: #333;
     }
     
     .mobile-menu-toggle {
@@ -119,15 +80,9 @@
       font-size: 1.5rem;
       color: #333;
       cursor: pointer;
-      padding: 8px;
     }
     
-    /* Mobile Navigation */
     @media (max-width: 768px) {
-      .nav-container {
-        padding: 0 20px;
-      }
-      
       .nav-menu {
         position: fixed;
         top: 65px;
@@ -139,7 +94,6 @@
         padding: 24px 0;
         gap: 20px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
@@ -156,7 +110,6 @@
         padding: 12px 32px;
         width: 100%;
         text-align: center;
-        border-radius: 0;
         font-size: 1.1rem;
       }
       
@@ -172,15 +125,15 @@
     .hero { 
       position:relative; 
       width:100vw; 
-      height:75vh; 
-      min-height:500px; 
-      max-height:800px; 
+      height:57vh; 
+      min-height:370px; 
+      max-height:580px; 
       display:flex; 
       align-items:center; 
       justify-content:center; 
       overflow:hidden; 
       background:var(--marine);
-      margin-top: 75px;
+      margin-top: 65px;
     }
     .hero video {
       position:absolute; top:0; left:0;
@@ -571,7 +524,7 @@
       .two-col-section { padding: 0 2vw; }
       .form-section { padding: 15px 5vw 15px 5vw; }
       .bulle-item-form-out { padding: 11px 7vw; }
-      .hero { height: 50vh; min-height: 300px; max-height: 400px;}
+      .hero { height: 36vh; min-height: 185px; max-height: 250px;}
       .hero-content h1 { font-size:1.19rem; padding:7px 9px;}
       .hero-content p { font-size:1rem; padding:6px 7px;}
       .btn, .hi-btn, .vkq-form-btn, .vkq-result-btn { font-size:1rem; padding:12px 11px;}
@@ -644,6 +597,10 @@
       <iframe src="https://calendly.com/grantvallinis/consultation-strategique-acheteur?embed_domain=site.com&embed_type=Inline"
         width="100%" height="810" style="border-radius:15px; min-height:810px; display:block; background:#fff;"
         frameborder="0" scrolling="no"></iframe>
+    </div>
+    <!-- MAP GAUCHE -->
+    <div class="map-wrap">
+      <div id="real-map"></div>
     </div>
   </div>
   <!-- Colonne droite : bulles + formulaire -->
@@ -816,52 +773,28 @@
           <iframe width="100%" height="160" src="https://www.youtube.com/embed/qP_fxusSCHc" title="Tranquilli-T" frameborder="0" allowfullscreen style="border: none;"></iframe>
         </a>
       </div>
-      <h4 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Tranquilli-T : La protection complète pendant la transaction</h4>
+      <h4 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Tranquilli-T : Pour une transaction immobilière en toute quiétude</h4>
       <p style="font-size: 13px; line-height: 1.4; color: #444;">
-        Le programme Tranquilli-T offre une protection unique, en plus de l'expertise professionnelle de votre agent.
+        Le programme Tranquilli-T est exclusif à RE/MAX et propose<br>une compensation financière ainsi qu'une assistance juridique.
         <br><a href="https://www.remax-quebec.com/en/tranquilli-t" target="_blank" style="color: #c69a40; font-weight: 500; text-decoration: underline;">En savoir plus</a>
       </p>
     </div>
-    <!-- Sérénité -->
-    <div style="width: 300px; max-width: 100%; text-align: center;">
-      <div style="border-radius: 10px; overflow: hidden; margin-bottom: 10px;">
-        <a href="https://www.remax-quebec.com/en/serenite" target="_blank">
-          <iframe width="100%" height="160" src="https://www.youtube.com/embed/t4X3bvG9ESo" title="Sérénité" frameborder="0" allowfullscreen style="border: none;"></iframe>
-        </a>
-      </div>
-      <h4 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Sérénité : La protection contre les imprévus</h4>
-      <p style="font-size: 13px; line-height: 1.4; color: #444;">
-        Programme Sérénité, le seul programme au Québec qui vous protège contre les imprévus non couverts par l'inspection en bâtiment.
-        <br><a href="https://www.remax-quebec.com/en/serenite" target="_blank" style="color: #c69a40; font-weight: 500; text-decoration: underline;">En savoir plus</a>
-      </p>
-    </div>
   </div>
 </section>
 
-<!-- SECTION FAQ -->
-<section class="mini-faq-row">
-  <div class="faq-row">
-    <div class="faq-dropcap">Q</div>
-    <div class="faq-q" data-fr="Comment ça marche ?" data-en="How does it work?">Comment ça marche ?</div>
-    <div class="faq-a" data-fr="1) Vous remplissez le formulaire 2) On vous appelle pour discuter de vos besoins 3) On planifie un rendez-vous personnalisé" data-en="1) Fill out the form 2) We call to discuss your needs 3) We schedule a personalized meeting">1) Vous remplissez le formulaire 2) On vous appelle pour discuter de vos besoins 3) On planifie un rendez-vous personnalisé</div>
-  </div>
-  <div class="faq-row">
-    <div class="faq-dropcap">€</div>
-    <div class="faq-q" data-fr="C'est vraiment gratuit ?" data-en="Is it really free?">C'est vraiment gratuit ?</div>
-    <div class="faq-a" data-fr="Oui, la consultation est entièrement gratuite et sans engagement. Notre rémunération provient uniquement de la vente." data-en="Yes, the consultation is completely free with no commitment. We only get paid when you buy.">Oui, la consultation est entièrement gratuite et sans engagement. Notre rémunération provient uniquement de la vente.</div>
-  </div>
-  <div class="faq-row">
-    <div class="faq-dropcap">⏱</div>
-    <div class="faq-q" data-fr="Combien de temps ça prend ?" data-en="How long does it take?">Combien de temps ça prend ?</div>
-    <div class="faq-a" data-fr="Entre 30 à 60 minutes selon vos besoins. On prend le temps qu'il faut pour bien vous conseiller." data-en="Between 30 to 60 minutes depending on your needs. We take the time needed to advise you properly.">Entre 30 à 60 minutes selon vos besoins. On prend le temps qu'il faut pour bien vous conseiller.</div>
-  </div>
-  <div class="faq-row">
-    <div class="faq-dropcap">🌍</div>
-    <div class="faq-q" data-fr="Quelles langues ?" data-en="What languages?">Quelles langues ?</div>
-    <div class="faq-a" data-fr="Français, anglais, espagnol, portugais, roumain, arabe et hindi avec notre équipe multilingue." data-en="French, English, Spanish, Portuguese, Romanian, Arabic and Hindi with our multilingual team.">Français, anglais, espagnol, portugais, roumain, arabe et hindi avec notre équipe multilingue.</div>
-  </div>
+<!-- MINI FAQ -->
+<div class="mini-faq-row" id="mini-faq-row"></div>
+<!-- VIDEO BAS + FOOTER -->
+<section style="background:#152239;margin-top:40px;padding:0;" class="footer-section">
+  <video autoplay muted loop playsinline style="width:100vw;max-width:100vw;min-height:390px;height:52vh;object-fit:cover;display:block;">
+    <source src="https://ia800704.us.archive.org/30/items/7347585-uhd-3840-2160-25fps/7347585-uhd_3840_2160_25fps.mp4" type="video/mp4">
+  </video>
+  <footer style="color:#f4ecd8;font-size:13px;padding:24px 0 30px 0;text-align:center;">
+    Montréal • Rive-Sud • Laval – © 2025
+  </footer>
 </section>
 
+<!-- JS MAP + QUIZ + FAQ + SLIDER + LANG -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 // Mobile menu toggle
@@ -876,98 +809,252 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
   });
 });
 
-// Leaflet Map
-var map = L.map('map').setView([45.5017, -73.5673], 10);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors'
-}).addTo(map);
+  // MAP col gauche (quiz)
+  var map = L.map('real-map').setView([45.5, -73.55], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+  // MAP section ajoutée - responsive
+  if(window.mapSection) {
+    window.mapSection.remove();
+    window.mapSection = undefined;
+  }
+  if(document.getElementById('map')) {
+    window.mapSection = L.map('map', {
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      dragging: true,
+      zoomControl: true,
+      attributionControl: false,
+      tap: false
+    }).setView([45.56, -73.65], 11);
 
-// Budget slider function
-function getBudgetValue(value) {
-  return parseInt(value).toLocaleString('fr-CA') + ' $';
-}
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      minZoom: 10,
+      maxZoom: 16,
+    }).addTo(window.mapSection);
 
-// Language switching
-let currentLang = 'fr';
-function switchLang() {
-  currentLang = currentLang === 'fr' ? 'en' : 'fr';
-  document.getElementById('langLabel').textContent = currentLang === 'fr' ? 'EN' : 'FR';
-  
-  document.querySelectorAll('[data-fr][data-en]').forEach(el => {
-    if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'email' || el.type === 'tel')) {
-      el.placeholder = el.getAttribute('data-' + currentLang);
-    } else if (el.innerHTML.includes('<')) {
-      el.innerHTML = el.getAttribute('data-' + currentLang);
-    } else {
-      el.textContent = el.getAttribute('data-' + currentLang);
+    L.marker([45.5017, -73.5673]).addTo(window.mapSection)
+      .bindPopup("<b>Île de Montréal</b><br>Centre urbain & vie culturelle");
+    L.marker([45.6095, -73.7124]).addTo(window.mapSection)
+      .bindPopup("<b>Laval</b><br>Banlieue moderne, familles, innovation");
+    L.marker([45.4657, -73.4371]).addTo(window.mapSection)
+      .bindPopup("<b>Brossard / Montérégie</b><br>Quartiers dynamiques, diversité, écoles");
+  }
+  // Budget Range
+  function getBudgetValue(val) {
+    return (Number(val).toLocaleString('fr-CA')) + ' $';
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    if(document.getElementById('budget-range')) {
+      document.getElementById('budget-range').addEventListener('input', function(e){
+        document.getElementById('budget-value').innerText = getBudgetValue(e.target.value);
+        document.getElementById('budget-hidden').value = e.target.value;
+      });
     }
+    // Numéric only fields (phone)
+    document.querySelectorAll('input[type="tel"][data-number="true"]').forEach(input => {
+      input.addEventListener('input', function(e){
+        this.value = this.value.replace(/[^\d\+\-\(\)\s]/g, '');
+      });
+    });
   });
+</script>
+<script>
+// MINI FAQ bilingue
+const faqs = {
+  fr: [
+    {q:"Pourquoi prendre un courtier pour acheter ?", a:"Un courtier protège vos intérêts, négocie pour vous, détecte les pièges cachés et vous accompagne à chaque étape-clé."},
+    {q:"Combien coûte ce service ?", a:"Pour l'acheteur, c'est généralement gratuit (rémunéré par le vendeur). Tout est transparent dès le départ."},
+    {q:"Êtes-vous là aux moments cruciaux ?", a:"Toujours : visites, négociation, et accompagnement jusqu'à la conclusion de l'achat."},
+    {q:"Est-ce vraiment sans obligation ?", a:"Oui. La consultation est offerte sans engagement. Zéro pression, juste des conseils honnêtes pour bien acheter."}
+  ],
+  en: [
+    {q:"Why use a broker to buy?", a:"A broker protects your interests, negotiates for you, detects hidden pitfalls, and supports you at every key step."},
+    {q:"How much does this service cost?", a:"For buyers, it's usually free (paid by the seller). Everything is transparent from the start."},
+    {q:"Are you present at the key moments?", a:"Always: visits, negotiation, and support all the way to the closing."},
+    {q:"Is it really with no obligation?", a:"Yes. The consultation is free, with no obligation. Zero pressure—just honest answers to help you buy right."}
+  ]
+};
+function renderFaq(lang) {
+  let html = '';
+  (faqs[lang] || []).forEach((faq,i) => {
+    html += `
+      <div class="faq-row">
+        <span class="faq-dropcap">${i+1}</span>
+        <div class="faq-q">${faq.q}</div>
+        <div class="faq-a">${faq.a}</div>
+      </div>
+    `;
+  });
+  document.getElementById('mini-faq-row').innerHTML = html;
 }
-
-// Quiz functionality (simplified)
-const quizData = [
+renderFaq('fr');
+</script>
+<script>
+// QUIZ FIT TO CALENDLY WIDTH
+const quizSteps = [
   {
-    fr: { question: "Quel est votre budget approximatif ?", options: ["Moins de 300k", "300k-500k", "500k-800k", "Plus de 800k"] },
-    en: { question: "What's your approximate budget?", options: ["Under 300k", "300k-500k", "500k-800k", "Over 800k"] }
+    question: "Ce qui compte le plus pour toi dans ton achat...",
+    answers: {
+      "Investisseur": "💰 Trouver la meilleure opportunité pour investir",
+      "Méthodique": "📊 Être accompagné pas à pas sans stress",
+      "Émotionnel": "❤️ Avoir un coup de cœur qui te ressemble",
+      "Efficace": "⚡ Acheter rapidement, sans complications"
+    }
   },
   {
-    fr: { question: "Dans quel délai souhaitez-vous acheter ?", options: ["Immédiatement", "Dans 3 mois", "Dans 6 mois", "Plus tard"] },
-    en: { question: "When do you want to buy?", options: ["Immediately", "In 3 months", "In 6 months", "Later"] }
+    question: "Ta plus grande crainte quand tu achètes une propriété...",
+    answers: {
+      "Investisseur": "💰 Payer trop cher ou rater un bon deal",
+      "Méthodique": "📊 Ne pas tout comprendre ou oublier un détail important",
+      "Émotionnel": "❤️ Acheter un lieu qui ne me ressemble pas",
+      "Efficace": "⚡ Perdre du temps et devoir recommencer"
+    }
   },
   {
-    fr: { question: "Avez-vous déjà une pré-qualification de prêt ?", options: ["Oui, déjà fait", "En cours", "Pas encore", "Je ne sais pas"] },
-    en: { question: "Do you have mortgage pre-qualification?", options: ["Yes, done", "In progress", "Not yet", "I don't know"] }
+    question: "Le courtier idéal pour toi serait...",
+    answers: {
+      "Investisseur": "💰 Quelqu'un qui maîtrise le marché et les chiffres",
+      "Méthodique": "📊 Un guide rassurant qui structure chaque étape",
+      "Émotionnel": "❤️ Quelqu'un à l'écoute de mes envies profondes",
+      "Efficace": "⚡ Un pro qui me fait gagner du temps et va à l'essentiel"
+    }
   }
 ];
-
-let currentQuizIndex = 0;
-let quizAnswers = [];
-
-function showQuizQuestion() {
-  const quizCard = document.getElementById('vkq-quiz-card');
-  const question = quizData[currentQuizIndex][currentLang];
-  
-  quizCard.innerHTML = `
-    <h3 style="margin-bottom:20px; color:var(--marine);">${question.question}</h3>
-    <div style="display:flex; flex-direction:column; gap:10px;">
-      ${question.options.map((option, index) => 
-        `<button onclick="selectQuizAnswer(${index})" style="padding:12px; background:var(--bleu-matin); border:1px solid var(--marine); border-radius:8px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='var(--marine)'; this.style.color='white'" onmouseout="this.style.background='var(--bleu-matin)'; this.style.color='inherit'">${option}</button>`
-      ).join('')}
-    </div>
-  `;
-  
-  document.getElementById('vkq-progress').style.width = ((currentQuizIndex + 1) / quizData.length * 100) + '%';
-}
-
-function selectQuizAnswer(answerIndex) {
-  quizAnswers.push(answerIndex);
-  currentQuizIndex++;
-  
-  if (currentQuizIndex < quizData.length) {
-    showQuizQuestion();
-  } else {
-    showQuizResult();
+const profiles = {
+  "Investisseur": {
+    title: "INVESTISSEUR",
+    desc: "Tu veux maximiser ton retour. On t'accompagne avec des comparables, des analyses, et une vraie stratégie de croissance."
+  },
+  "Méthodique": {
+    title: "MÉTHODIQUE",
+    desc: "Tu veux comprendre, planifier et éviter les surprises. On structure tout pour que tu avances en toute confiance."
+  },
+  "Émotionnel": {
+    title: "ÉMOTIONNEL",
+    desc: "Tu veux un coup de cœur qui te ressemble. On sélectionne des propriétés qui ont une âme, pas juste des murs."
+  },
+  "Efficace": {
+    title: "EFFICACE",
+    desc: "Tu veux avancer vite, avec clarté. On simplifie chaque étape pour te faire gagner du temps sans compromis."
   }
+};
+let step = 0;
+let responses = [];
+const colors = ["#ffffff", "#152239", "#152239", "#ffffff"];
+const textColors = ["#152239", "#ffffff", "#ffffff", "#152239"];
+function updateProgressBar() {
+  const progress = document.getElementById("vkq-progress");
+  const percent = ((step) / quizSteps.length) * 100;
+  progress.style.width = percent + "%";
 }
-
-function showQuizResult() {
-  const quizCard = document.getElementById('vkq-quiz-card');
-  const resultText = currentLang === 'fr' ? 
-    "Parfait ! Vos réponses nous aideront à personnaliser votre consultation." :
-    "Perfect! Your answers will help us personalize your consultation.";
-  
-  const buttonText = currentLang === 'fr' ? "Planifier ma consultation" : "Schedule my consultation";
-  
-  quizCard.innerHTML = `
-    <div style="text-align:center;">
-      <h3 style="color:var(--marine); margin-bottom:15px;">${resultText}</h3>
-      <button onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})" class="vkq-result-btn">${buttonText}</button>
+function renderStep() {
+  const container = document.getElementById("vkq-quiz-card");
+  const current = quizSteps[step];
+  updateProgressBar();
+  container.style.opacity = 0;
+  setTimeout(() => {
+    container.innerHTML = `
+      <div style="font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: #152239; margin-bottom: 6px;">Quel est ton profil d'acheteur ?</div>
+      <div style="font-size: 0.95rem; font-weight: 500; color: #999; margin-bottom: 24px;">${step + 1} / ${quizSteps.length}</div>
+      <div style="font-size: 1.05rem; font-weight: 600; color: #444; margin-bottom: 24px;">${current.question}</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        ${Object.entries(current.answers).map(([key, value], i) => {
+          const colorIndex = i;
+          return `<button onclick="vkqChoose(this, '${key}')" class="vkq-btn" data-index="${colorIndex}" style="background: ${colors[colorIndex]}; color: ${textColors[colorIndex]}; padding: 20px 14px; height: 88px; border-radius: 12px; border: 2px solid #152239; font-weight: 600; cursor: pointer; font-size: 0.96rem; text-align: center; transition: all 0.4s ease-in-out; box-shadow: 0 3px 11px rgba(0,0,0,0.07); display: flex; align-items: center; justify-content: center;">
+            ${value}
+          </button>`;
+        }).join('')}
+      </div>
+      <style>
+        .vkq-btn {
+          transition: all 0.4s ease-in-out;
+        }
+        .vkq-btn:hover {
+          background-color: #1d2f50 !important;
+          color: white !important;
+          transform: scale(1.02);
+          box-shadow: 0 6px 14px rgba(0, 0, 0, 0.13);
+        }
+        .vkq-btn.active {
+          background-color: #ffffff !important;
+          color: #152239 !important;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+          transform: scale(1.05);
+        }
+      </style>
+    `;
+    container.style.opacity = 1;
+  }, 200);
+}
+function vkqChoose(button, choice) {
+  const buttons = document.querySelectorAll(".vkq-btn");
+  buttons.forEach(btn => btn.classList.remove("active"));
+  button.classList.add("active");
+  setTimeout(() => {
+    responses.push(choice);
+    step++;
+    if (step < quizSteps.length) {
+      renderStep();
+    } else {
+      showResult();
+    }
+  }, 550);
+}
+function showResult() {
+  const container = document.getElementById("vkq-quiz-card");
+  const count = responses.reduce((acc, v) => { acc[v] = (acc[v] || 0) + 1; return acc; }, {});
+  const dominant = Object.entries(count).sort((a, b) => b[1] - a[1])[0][0];
+  const p = profiles[dominant];
+  container.innerHTML = `
+    <div style="font-family: 'Playfair Display', serif; font-size: 1.32rem; font-weight: 700; color: #152239; margin-bottom: 6px;">Quel est ton profil d'acheteur ?</div>
+    <div style="font-size: 0.96rem; font-weight: 500; color: #999; margin-bottom: 16px;">TON PROFIL :</div>
+    <div style="background: #152239; color: #fff; padding: 22px 16px; border-radius: 8px; font-size: 1rem; font-weight: 500; margin-bottom: 16px;">
+      <div style="font-size: 1.17rem; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">${p.title}</div>
+      ${p.desc}
     </div>
+    <div style="font-size: 0.86rem; color: #152239; margin-bottom: 18px;">Autres profils : ${Object.values(profiles).filter(e => e.title !== p.title).map(e => e.title).join(', ')}</div>
+    <form action="https://formsubmit.co/wissem.nessah@remax-quebec.com" method="POST" autocomplete="off" style="display: flex; flex-direction: column; gap: 11px; text-align: left;">
+      <input type="hidden" name="Profil acheteur" value="${p.title}">
+      <input type="text" name="Nom" required placeholder="Nom complet" style="padding: 10px 6px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem;">
+      <input type="email" name="Email" required placeholder="Courriel" style="padding: 10px 6px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem;">
+      <input type="tel" name="Téléphone" required placeholder="Téléphone" pattern="^[0-9\\s\\-\\+\\(\\)]*$" style="padding: 10px 6px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem;">
+      <button type="submit" class="vkq-result-btn">RECEVOIR MON GUIDE DE L'ACHETEUR</button>
+      <div style="font-size: 0.82rem; color: #888; text-align: center; margin-top: 4px;">Toutes vos informations restent strictement confidentielles.</div>
+    </form>
   `;
 }
-
-// Initialize quiz
-showQuizQuestion();
+renderStep();
+window.vkqChoose = vkqChoose;
+</script>
+<script>
+// SWITCH LANG
+function switchLang() {
+  var lang = document.documentElement.lang === "fr" ? "en" : "fr";
+  document.documentElement.lang = lang;
+  document.getElementById('langLabel').innerText = lang === "fr" ? "EN" : "FR";
+  document.querySelectorAll('[data-fr],[data-en]').forEach(function(el) {
+    var txt = el.getAttribute(lang === 'fr' ? 'data-fr' : 'data-en');
+    if(txt) {
+      if(el.placeholder !== undefined) el.placeholder = txt;
+      else el.innerHTML = txt;
+    }
+  });
+  document.querySelectorAll('select option').forEach(function(opt) {
+    if(opt.getAttribute('data-fr') && opt.getAttribute('data-en')) {
+      opt.textContent = lang === 'fr' ? opt.getAttribute('data-fr') : opt.getAttribute('data-en');
+    }
+  });
+  document.querySelectorAll('.radio-group label').forEach(function(lbl) {
+    var inpt = lbl.querySelector('input');
+    if(inpt && inpt.getAttribute('data-fr') && inpt.getAttribute('data-en')) {
+      lbl.lastChild.nodeValue = lang === 'fr' ? inpt.getAttribute('data-fr') : inpt.getAttribute('data-en');
+    }
+  });
+  renderFaq(lang);
+}
 </script>
 </body>
 </html>
