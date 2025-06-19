@@ -20,14 +20,14 @@
     
     /* Navigation Header - Grant Vallinis Style */
     .main-header {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding: 14px 0;
       transition: all 0.3s ease;
     }
@@ -45,7 +45,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.75rem;
       font-weight: 500;
-      color: #333;
+      color: white;
       text-decoration: none;
       letter-spacing: 0.3px;
     }
@@ -61,7 +61,7 @@
     
     .nav-menu a {
       text-decoration: none;
-      color: #666;
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 400;
       font-size: 1.0rem;
       padding: 8px 0;
@@ -70,7 +70,7 @@
     }
     
     .nav-menu a:hover {
-      color: #333;
+      color: white;
     }
     
     .mobile-menu-toggle {
@@ -125,15 +125,15 @@
     .hero { 
       position:relative; 
       width:100vw; 
-      height:57vh; 
-      min-height:370px; 
-      max-height:580px; 
+      height:100vh; 
+      min-height:100vh; 
+      max-height:100vh; 
       display:flex; 
       align-items:center; 
       justify-content:center; 
       overflow:hidden; 
       background:var(--marine);
-      margin-top: 65px;
+      margin-top: 0;
     }
     .hero video {
       position:absolute; top:0; left:0;
@@ -191,9 +191,9 @@
       transform: scale(1.045);
     }
     .lang-switch-btn {
-      position:fixed; top:85px; right:22px; z-index:9999;
-      background:var(--marine); color:var(--beige); border-radius:20px; padding:9px 19px;
-      font-weight:700; font-size:1.08rem; box-shadow:0 2px 12px #1d263033; border:none; cursor:pointer;
+      position:absolute; top:20px; right:22px; z-index:9999;
+      background:rgba(255,255,255,0.2); color:white; border-radius:20px; padding:9px 19px;
+      font-weight:700; font-size:1.08rem; box-shadow:0 2px 12px rgba(0,0,0,0.2); border:none; cursor:pointer;
       text-transform:uppercase; letter-spacing:0.04em;
     }
     .lang-switch-btn:hover { background:var(--beige); color:var(--marine);}
@@ -524,7 +524,7 @@
       .two-col-section { padding: 0 2vw; }
       .form-section { padding: 15px 5vw 15px 5vw; }
       .bulle-item-form-out { padding: 11px 7vw; }
-      .hero { height: 36vh; min-height: 185px; max-height: 250px;}
+      .hero { height: 70vh; min-height: 400px; max-height: 70vh;}
       .hero-content h1 { font-size:1.19rem; padding:7px 9px;}
       .hero-content p { font-size:1rem; padding:6px 7px;}
       .btn, .hi-btn, .vkq-form-btn, .vkq-result-btn { font-size:1rem; padding:12px 11px;}
@@ -598,10 +598,7 @@
         width="100%" height="810" style="border-radius:15px; min-height:810px; display:block; background:#fff;"
         frameborder="0" scrolling="no"></iframe>
     </div>
-    <!-- MAP GAUCHE -->
-    <div class="map-wrap">
-      <div id="real-map"></div>
-    </div>
+
   </div>
   <!-- Colonne droite : bulles + formulaire -->
   <div class="col-droite-perso">
@@ -809,12 +806,7 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
   });
 });
 
-  // MAP col gauche (quiz)
-  var map = L.map('real-map').setView([45.5, -73.55], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
+
   // MAP section ajoutée - responsive
   if(window.mapSection) {
     window.mapSection.remove();
