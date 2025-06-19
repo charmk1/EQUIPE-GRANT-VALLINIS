@@ -18,7 +18,7 @@
     }
     body { margin:0; font-family:'Inter',sans-serif; color:var(--marine-dark); background:var(--white);}
     
-    /* Navigation Header Styles - Style Grant Vallinis */
+    /* Navigation Header - Style Grant Vallinis */
     .main-header {
       position: fixed;
       top: 0;
@@ -149,21 +149,19 @@
       }
     }
     
-    /* Adjust hero section to account for fixed header */
     .hero { 
       position:relative; 
       width:100vw; 
-      height:57vh; 
-      min-height:370px; 
-      max-height:580px; 
+      height:75vh; 
+      min-height:500px; 
+      max-height:800px; 
       display:flex; 
       align-items:center; 
       justify-content:center; 
       overflow:hidden; 
       background:var(--marine);
-      margin-top: 65px; /* Add space for fixed header */
+      margin-top: 77px;
     }
-    
     .hero video {
       position:absolute; top:0; left:0;
       min-width:100vw; min-height:100%; width:100vw; height:100%; object-fit:cover; z-index:0;
@@ -220,7 +218,7 @@
       transform: scale(1.045);
     }
     .lang-switch-btn {
-      position:fixed; top:18px; right:22px; z-index:9999;
+      position:fixed; top:85px; right:22px; z-index:9999;
       background:var(--marine); color:var(--beige); border-radius:20px; padding:9px 19px;
       font-weight:700; font-size:1.08rem; box-shadow:0 2px 12px #1d263033; border:none; cursor:pointer;
       text-transform:uppercase; letter-spacing:0.04em;
@@ -526,465 +524,430 @@
       .text-content { width: 100%; max-width: 100%; text-align: center; }
       .text-content h2 { font-size: 1.6rem; }
       .text-content p { font-size: 1.05rem; }
+      .section {
+        flex-direction: column;
+        padding: 36px 24px;
+      }
+      .map-container,
+      .text-content {
+        width: 100%;
+        max-width: none;
+        text-align: center;
+      }
+      #map {
+        width: 95vw;
+        height: 220px;
+        max-width: none;
+      }
     }
-    .vkq-section-hider { display: none !important; }
-    .display-none { display: none !important; }
-    .vkq-form-group { margin-bottom: 18px; }
-    .vkq-form-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--marine); text-align: center; margin-bottom: 20px; }
-    .vkq-form-question { font-size: 1.1rem; font-weight: 600; color: var(--marine-dark); margin-bottom: 12px; }
-    .vkq-form-input { width: 100%; padding: 12px 16px; font-size: 1rem; border: 2px solid #ddd; border-radius: 8px; background: #fafafa; box-sizing: border-box; }
-    .vkq-form-input:focus { border-color: var(--marine); outline: none; background: #fff; }
-    .vkq-form-radio-group { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px; }
-    .vkq-form-radio-item { display: flex; align-items: center; gap: 8px; }
-    .vkq-form-radio-item input[type="radio"] { margin: 0; }
-    .vkq-form-radio-item label { margin: 0; font-weight: 500; font-size: 1rem; cursor: pointer; }
-    .vkq-form-btn { width: 100%; margin-top: 24px; }
-    .vkq-result-section { margin-top: 30px; padding: 24px; background: var(--bleu-matin); border-radius: 16px; border-left: 5px solid var(--marine); }
-    .vkq-result-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--marine); margin-bottom: 16px; text-align: center; }
-    .vkq-result-content { font-size: 1.1rem; color: var(--marine-dark); line-height: 1.6; }
-    .vkq-result-btn { margin-top: 20px; width: 100%; }
-    @media (max-width: 768px) {
-      .two-col-section { flex-direction: column; gap: 24px; }
-      .calendar-side, .col-droite-perso { max-width: 100%; }
-      .form-section { padding: 24px 20px; }
-      .values-section { flex-direction: column; align-items: center; }
-      .value-bulle { max-width: 100%; }
-      .mini-faq-row { flex-direction: column; gap: 24px; }
-      .mini-faq-row .faq-row { max-width: 100%; }
-      .hero-content h1 { font-size: 2rem; }
-      .hero-content p { font-size: 1.1rem; }
+    /* Fin ajout styles 3 sections */
+    @media (max-width:950px) {
+      .two-col-section { flex-direction: column; gap: 25px;}
+      .calendar-side, .col-droite-perso { max-width: 99vw; min-width: 10px; }
+      .form-section, .bulle-item-form-out, .vkq-quiz-card { max-width: 99vw; }
+      #vkq-quiz-zone { max-width:99vw; }
     }
-    @media (max-width: 480px) {
-      .hero { margin-top: 60px; min-height: 300px; }
-      .hero-content { padding: 20px 4vw; }
-      .hero-content h1 { font-size: 1.8rem; }
-      .hero-content p { font-size: 1rem; }
-      .form-section { padding: 20px 16px; }
-      .signature-slogan { font-size: 1.8rem; }
-      .nav-container { padding: 0 16px; }
+    @media (max-width:700px) {
+      .two-col-section { padding: 0 2vw; }
+      .form-section { padding: 15px 5vw 15px 5vw; }
+      .bulle-item-form-out { padding: 11px 7vw; }
+      .hero { height: 50vh; min-height: 300px; max-height: 400px;}
+      .hero-content h1 { font-size:1.19rem; padding:7px 9px;}
+      .hero-content p { font-size:1rem; padding:6px 7px;}
+      .btn, .hi-btn, .vkq-form-btn, .vkq-result-btn { font-size:1rem; padding:12px 11px;}
+      .values-section, .mini-faq-row { gap:10px; }
+      .value-bulle { min-width: 90vw; padding: 13px 11px;}
+      .signature-slogan { font-size: 1.19rem;}
     }
   </style>
 </head>
 <body>
-  <!-- Navigation Header -->
-  <header class="main-header">
-    <div class="nav-container">
-      <a href="#" class="logo">Grant Vallinis</a>
-      <nav class="main-nav">
-        <ul class="nav-menu" id="navMenu">
-          <li><a href="#approche">Approche</a></li>
-          <li><a href="#videos">Vidéos</a></li>
-          <li><a href="#photos">Photos</a></li>
-          <li><a href="#temoignages">Témoignages</a></li>
-          <li><a href="#equipe">Équipe</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
-      </nav>
-    </div>
-  </header>
 
-  <button class="lang-switch-btn" onclick="switchLang()">FR / EN</button>
-
-  <section class="hero">
-    <video autoplay muted playsinline loop>
-      <source src="https://cdn.pixabay.com/video/2018/08/01/18060-278893302_large.mp4" type="video/mp4">
-    </video>
-    <div class="hero-content">
-      <h1>Consultation personnalisée | Acheteur</h1>
-      <p>Ensemble, trouvons la propriété de vos rêves avec une approche sur mesure et un accompagnement professionnel.</p>
-      <a href="#contact-form" class="btn">Démarrer ma consultation</a>
-    </div>
-  </section>
-
-  <div class="values-section">
-    <div class="value-bulle">
-      <h3>Écoute personnalisée</h3>
-      <p>Analyse approfondie de vos besoins, budget et critères prioritaires pour une recherche ciblée et efficace.</p>
-    </div>
-    <div class="value-bulle">
-      <h3>Veille immobilière</h3>
-      <p>Surveillance active du marché et accès privilégié aux propriétés avant leur mise sur le marché public.</p>
-    </div>
-    <div class="value-bulle">
-      <h3>Négociation experte</h3>
-      <p>Stratégies de négociation personnalisées pour optimiser votre investissement et sécuriser l'acquisition.</p>
-    </div>
-  </div>
-
-  <div class="bandelette-blanche">
-    <div class="container">
-      <div class="multi-left">
-        <h2 class="multi-title">Accompagnement multilingue personnalisé</h2>
-        <p class="multi-desc">Notre équipe vous accompagne dans votre langue préférée pour une communication fluide et une compréhension parfaite de chaque étape.</p>
-        <div class="lang-list">
-          <div class="lang-item">
-            <svg width="23" height="17" viewBox="0 0 23 17" fill="none">
-              <rect width="23" height="17" rx="2" fill="#ffffff"/>
-              <rect x="0" y="0" width="7.67" height="17" fill="#002868"/>
-              <rect x="15.33" y="0" width="7.67" height="17" fill="#BF0A30"/>
-            </svg>
-            Français
-          </div>
-          <div class="lang-item">
-            <svg width="23" height="17" viewBox="0 0 23 17" fill="none">
-              <rect width="23" height="17" rx="2" fill="#ffffff"/>
-              <rect x="0" y="0" width="23" height="8.5" fill="#BF0A30"/>
-              <rect x="0" y="8.5" width="23" height="8.5" fill="#ffffff"/>
-            </svg>
-            English
-          </div>
-          <div class="lang-item">
-            <svg width="23" height="17" viewBox="0 0 23 17" fill="none">
-              <rect width="23" height="17" rx="2" fill="#ffffff"/>
-              <rect x="0" y="0" width="23" height="5.67" fill="#000000"/>
-              <rect x="0" y="5.67" width="23" height="5.67" fill="#DD0000"/>
-              <rect x="0" y="11.33" width="23" height="5.67" fill="#FFCE00"/>
-            </svg>
-            Deutsch
-          </div>
-          <div class="lang-item">
-            <svg width="23" height="17" viewBox="0 0 23 17" fill="none">
-              <rect width="23" height="17" rx="2" fill="#ffffff"/>
-              <rect x="0" y="0" width="23" height="5.67" fill="#009246"/>
-              <rect x="0" y="5.67" width="23" height="5.67" fill="#ffffff"/>
-              <rect x="0" y="11.33" width="23" height="5.67" fill="#CE2B37"/>
-            </svg>
-            Italiano
-          </div>
-        </div>
-      </div>
-      <div class="multi-img">
-        <svg width="310" height="338" viewBox="0 0 310 338" fill="none">
-          <rect width="310" height="338" rx="28" fill="#f0f4f8"/>
-          <circle cx="155" cy="140" r="50" fill="#152239"/>
-          <rect x="105" y="210" width="100" height="8" rx="4" fill="#152239"/>
-          <rect x="85" y="230" width="140" height="6" rx="3" fill="#beige"/>
-          <rect x="95" y="250" width="120" height="6" rx="3" fill="#beige"/>
-        </svg>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="map-container">
-      <div id="map"></div>
-    </div>
-    <div class="text-content">
-      <h2>Secteurs d'expertise privilégiés</h2>
-      <p>Une connaissance approfondie des quartiers les plus recherchés pour vous orienter vers les meilleures opportunités du marché.</p>
-      <ul>
-        <li><span class="pin">📍</span> Centre historique et quartiers patrimoniaux</li>
-        <li><span class="pin">📍</span> Zones résidentielles haut de gamme</li>
-        <li><span class="pin">📍</span> Secteurs en développement et investissement</li>
-        <li><span class="pin">📍</span> Proximité transports et commodités</li>
+<!-- Navigation Header -->
+<header class="main-header">
+  <div class="nav-container">
+    <a href="#" class="logo">Grant Vallinis</a>
+    <nav class="main-nav">
+      <ul class="nav-menu">
+        <li><a href="#approche">Approche</a></li>
+        <li><a href="#videos">Vidéos</a></li>
+        <li><a href="#photos">Photos</a></li>
+        <li><a href="#temoignages">Témoignages</a></li>
+        <li><a href="#equipe">Équipe</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
+      <button class="mobile-menu-toggle">☰</button>
+    </nav>
+  </div>
+</header>
+
+<button class="lang-switch-btn" id="langSwitch" onclick="switchLang()"><span id="langLabel">EN</span></button>
+<!-- HERO -->
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="https://ia800102.us.archive.org/10/items/7578546-uhd-3840-2160-30fps/7578546-uhd_3840_2160_30fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h1 data-fr="Obtenez votre consultation d'achat personnalisée, sans engagement, en toute confiance." data-en="Get your personalized, commitment-free home buying consultation with total confidence.">Obtenez votre consultation d'achat personnalisée, sans engagement, en toute confiance.</h1>
+    <p data-fr="Achetez sans pression, avec une stratégie sur-mesure, des réponses claires et une sécurité à chaque étape importante." data-en="Buy with zero pressure, personalized strategy, clear answers, and security at every key stage.">Achetez sans pression, avec une stratégie sur-mesure, des réponses claires et une sécurité à chaque étape importante.</p>
+    <a href="#form" class="btn cta-btn" data-fr="Je veux ma consultation" data-en="I want my consultation">Je veux ma consultation</a>
+  </div>
+</section>
+<!-- VALEURS -->
+<section class="values-section">
+  <div class="value-bulle">
+    <h3 data-fr="Accompagnement complet" data-en="Full support">Accompagnement complet</h3>
+    <p data-fr="On veille sur vos intérêts, de la recherche à la signature, sans jamais vous laisser seul dans les moments importants." data-en="We protect your interests, from search to closing, never leaving you alone at the important moments.">On veille sur vos intérêts, de la recherche à la signature, sans jamais vous laisser seul dans les moments importants.</p>
+  </div>
+  <div class="value-bulle">
+    <h3 data-fr="Négociation experte & sécurité" data-en="Expert negotiation & security">Négociation experte & sécurité</h3>
+    <p data-fr="On négocie pour votre budget, on analyse chaque détail et vous avancez toujours l'esprit tranquille." data-en="We negotiate for your budget, check every detail, and ensure your peace of mind.">On négocie pour votre budget, on analyse chaque détail et vous avancez toujours l'esprit tranquille.</p>
+  </div>
+  <div class="value-bulle">
+    <h3 data-fr="Service multilingue premium" data-en="Premium multilingual service">Service multilingue premium</h3>
+    <p data-fr="Conseils clairs, réponses rapides et service humain dans votre langue à chaque moment clé." data-en="Clear advice, quick answers, and human service in your language at every key moment.">Conseils clairs, réponses rapides et service humain dans votre langue à chaque moment clé.</p>
+  </div>
+</section>
+<!-- DEUX COLONNES -->
+<section class="two-col-section" id="form">
+  <!-- Colonne gauche -->
+  <div class="calendar-side">
+    <!-- QUIZ ACHETEUR -->
+    <div id="vkq-quiz-zone">
+      <div id="vkq-progress-bar" style="height:6px; background:#e0e0e0; border-radius:4px; overflow:hidden; margin-bottom:20px;">
+        <div id="vkq-progress" style="height:100%; width:0%; background:#152239; transition:width 0.5s ease;"></div>
+      </div>
+      <div id="vkq-quiz-card" style="text-align:center;"></div>
+    </div>
+    <!-- CALENDLY -->
+    <div style="background:var(--beige); border-radius:17px; padding:18px 10px 12px 10px; margin-bottom:15px; margin-top:0;">
+      <iframe src="https://calendly.com/grantvallinis/consultation-strategique-acheteur?embed_domain=site.com&embed_type=Inline"
+        width="100%" height="810" style="border-radius:15px; min-height:810px; display:block; background:#fff;"
+        frameborder="0" scrolling="no"></iframe>
     </div>
   </div>
-
-  <div class="two-col-section">
-    <div class="calendar-side">
-      <div id="vkq-quiz-zone">
-        <div class="vkq-form-title">Évaluation personnalisée de vos besoins</div>
-        
-        <div class="vkq-form-group">
-          <div class="vkq-form-question">Quel est votre budget approximatif ?</div>
-          <div class="vkq-form-radio-group">
-            <div class="vkq-form-radio-item">
-              <input type="radio" id="budget1" name="budget" value="300k-500k">
-              <label for="budget1">300k - 500k €</label>
-            </div>
-            <div class="vkq-form-radio-item">
-              <input type="radio" id="budget2" name="budget" value="500k-800k">
-              <label for="budget2">500k - 800k €</label>
-            </div>
-            <div class="vkq-form-radio-item">
-              <input type="radio" id="budget3" name="budget" value="800k+">
-              <label for="budget3">800k € et plus</label>
-            </div>
+  <!-- Colonne droite : bulles + formulaire -->
+  <div class="col-droite-perso">
+    <!-- Bulles services -->
+    <div class="bulle-box-form-out">
+      <div class="bulle-item-form-out" data-fr="<strong>Protection juridique complète</strong> : chaque clause et document vérifiés, rien n'est laissé au hasard." data-en="<strong>Full legal protection</strong>: every clause and document checked, nothing left to chance."><strong>Protection juridique complète</strong> : chaque clause et document vérifiés, rien n'est laissé au hasard.</div>
+      <div class="bulle-item-form-out" data-fr="<strong>Recherche personnalisée premium</strong> : accès à des propriétés exclusives, opportunités en avant-première." data-en="<strong>Premium property search</strong>: access to exclusive listings, first-look opportunities."><strong>Recherche personnalisée premium</strong> : accès à des propriétés exclusives, opportunités en avant-première.</div>
+    </div>
+    <!-- FORMULAIRE ACHAT -->
+    <section class="form-section">
+      <h2 data-fr="Consultation d'achat personnalisée" data-en="Personalized buying consultation">Consultation d'achat personnalisée</h2>
+      <form action="https://formsubmit.co/wissem.nessah@remax-quebec.com" method="POST" autocomplete="off">
+        <div class="form-group">
+          <label for="nom" data-fr="Nom complet" data-en="Full name">Nom complet</label>
+          <input type="text" id="nom" name="Nom" required placeholder="ex : Alexandre Dupuis" data-fr="ex : Alexandre Dupuis" data-en="ex: John Smith">
+        </div>
+        <div class="form-group">
+          <label for="email" data-fr="Courriel" data-en="Email">Courriel</label>
+          <input type="email" id="email" name="Email" required placeholder="ex : votre@email.com" data-fr="ex : votre@email.com" data-en="ex: your@email.com">
+        </div>
+        <div class="form-group">
+          <label for="tel" data-fr="Téléphone" data-en="Phone">Téléphone</label>
+          <input type="tel" id="tel" name="Téléphone" required placeholder="ex : 514-123-4567" data-fr="ex : 514-123-4567" data-en="ex: 514-123-4567" pattern="^[0-9\s\-\+\(\)]*$" data-number="true" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label for="adresse" data-fr="Secteur de recherche" data-en="Search area">Secteur de recherche</label>
+          <input type="text" id="adresse" name="Secteur de recherche" required placeholder="ex : Brossard, Montréal, Laval..." data-fr="ex : Brossard, Montréal, Laval..." data-en="ex: Brossard, Montreal, Laval...">
+        </div>
+        <div class="form-group">
+          <label for="type" data-fr="Type de propriété recherchée" data-en="Type of property wanted">Type de propriété recherchée</label>
+          <select id="type" name="Type de propriété" required>
+            <option value="" data-fr="Choisir…" data-en="Choose…">Choisir…</option>
+            <option value="Condo">Condo</option>
+            <option value="Maison" data-fr="Maison" data-en="House">Maison</option>
+            <option value="Plex" data-fr="Plex (duplex, triplex, etc.)" data-en="Plex (duplex, triplex, etc.)">Plex (duplex, triplex, etc.)</option>
+            <option value="Terrain" data-fr="Terrain" data-en="Land">Terrain</option>
+            <option value="Autre" data-fr="Autre" data-en="Other">Autre</option>
+          </select>
+        </div>
+        <!-- SLIDER BUDGET -->
+        <div class="form-group">
+          <label for="budget-range" data-fr="Budget approximatif" data-en="Approximate budget">Budget approximatif</label>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <input
+              type="range"
+              id="budget-range"
+              name="BudgetRange"
+              min="100000"
+              max="2000000"
+              step="25000"
+              value="600000"
+              oninput="document.getElementById('budget-value').innerText = getBudgetValue(this.value); document.getElementById('budget-hidden').value=this.value;">
+            <span id="budget-value" style="font-weight:700;min-width:110px;">600 000 $</span>
+          </div>
+          <input type="hidden" id="budget-hidden" name="Budget" value="600000">
+        </div>
+        <div class="form-group">
+          <label for="chambres" data-fr="Chambres minimales" data-en="Minimum bedrooms">Chambres minimales</label>
+          <select id="chambres" name="Chambres" required>
+            <option value="" data-fr="Choisir…" data-en="Choose…">Choisir…</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sdb" data-fr="Salles de bain minimales" data-en="Minimum bathrooms">Salles de bain minimales</label>
+          <select id="sdb" name="Salles de bain" required>
+            <option value="" data-fr="Choisir…" data-en="Choose…">Choisir…</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="infos" data-fr="Autres critères importants" data-en="Other important criteria">Autres critères importants</label>
+          <textarea id="infos" name="Autres critères" rows="2" placeholder="ex : Garage, sous-sol, transports, écoles..." data-fr="ex : Garage, sous-sol, transports, écoles..." data-en="ex: Garage, basement, transit, schools..."></textarea>
+        </div>
+        <div class="form-group">
+          <label data-fr="Langue de contact préférée" data-en="Preferred contact language">Langue de contact préférée</label>
+          <div class="radio-group">
+            <label><input type="radio" name="Langue" value="Français" checked data-fr="Français" data-en="French">Français</label>
+            <label><input type="radio" name="Langue" value="English" data-fr="English" data-en="English">English</label>
+            <label><input type="radio" name="Langue" value="Español" data-fr="Español" data-en="Spanish">Español</label>
+            <label><input type="radio" name="Langue" value="Arabe" data-fr="Arabe" data-en="Arabic">Arabe</label>
+            <label><input type="radio" name="Langue" value="Português" data-fr="Português" data-en="Portuguese">Português</label>
+            <label><input type="radio" name="Langue" value="Hindi" data-fr="Hindi" data-en="Hindi">हिन्दी</label>
           </div>
         </div>
+        <button type="submit" class="vkq-form-btn" data-fr="Envoyer ma demande" data-en="Send my request">Envoyer ma demande</button>
+        <p class="mini-reassure" data-fr="Réponse rapide, traitement confidentiel et humain. Zéro pression – seulement des conseils honnêtes." data-en="Fast response, confidential and human service. Zero pressure—only honest advice.">Réponse rapide, traitement confidentiel et humain. Zéro pression – seulement des conseils honnêtes.</p>
+      </form>
+      <div class="signature-slogan" data-fr="Réalisons !" data-en="Let's make it happen!">Réalisons !</div>
+    </section>
+  </div>
+</section>
 
-        <div class="vkq-form-group">
-          <div class="vkq-form-question">Type de bien recherché ?</div>
-          <div class="vkq-form-radio-group">
-            <div class="vkq-form-radio-item">
-              <input type="radio" id="type1" name="property_type" value="appartement">
-              <label for="type1">Appartement</label>
-            </div>
-            <div class="vkq-form-radio-item">
-              <input type="radio" id="type2" name="property_type" value="maison">
-              <label for="type2">Maison</label>
-            </div>
-            <div class="vkq-form-radio-item">
-              <input type="radio" id="type3" name="property_type" value="investissement">
-              <label for="type3">Investissement</label>
-            </div>
-          </div>
-        </div>
+<!-- 🔥 LES 3 SECTIONS EN VERTICAL (juste après la section two-col-section) -->
 
-        <div class="vkq-form-group">
-          <div class="vkq-form-question">Délai de recherche souhaité ?</div>
-          <div class="vkq-form-radio-group">
-            <div class="vkq-form-radio-item">
-              <input type="radio" id="timing1" name="timing" value="urgent">
-              <label for="timing1">Urgent (< 3 mois)</label>
-            </div>
-            <div class="vkq-form-radio-item">
-              <input type="radio" id="timing2" name="timing" value="normal">
-              <label for="timing2">Normal (3-6 mois)</label>
-            </div>
-            <div class="vkq-form-radio-item">
-              <input type="radio" id="timing3" name="timing" value="flexible">
-              <label for="timing3">Flexible (6+ mois)</label>
-            </div>
-          </div>
-        </div>
-
-        <button class="vkq-form-btn" onclick="generateRecommendation()">Obtenir mes recommandations</button>
-
-        <div id="vkq-result" class="vkq-result-section" style="display: none;">
-          <div class="vkq-result-title">Vos recommandations personnalisées</div>
-          <div class="vkq-result-content" id="vkq-result-content"></div>
-          <button class="vkq-result-btn" onclick="scrollToContact()">Planifier ma consultation</button>
-        </div>
+<!-- SECTION MULTILINGUE -->
+<div class="bandelette-blanche">
+  <div class="container">
+    <div class="multi-left">
+      <div class="multi-title">Une équipe multilingue à votre service</div>
+      <div class="multi-desc">
+        Avec mon équipe <strong>composée de 6 personnes</strong>, nous sommes capables d'accompagner vos clients dans les langues suivantes&nbsp;:
       </div>
-
-      <div class="map-wrap">
-        <div id="real-map"></div>
+      <div class="lang-list">
+        <div class="lang-item"><img src="https://flagcdn.com/fr.svg" alt="français" />Français</div>
+        <div class="lang-item"><img src="https://flagcdn.com/gb.svg" alt="anglais" />Anglais</div>
+        <div class="lang-item"><img src="https://flagcdn.com/es.svg" alt="espagnol" />Espagnol</div>
+        <div class="lang-item"><img src="https://flagcdn.com/pt.svg" alt="portugais" />Portugais</div>
+        <div class="lang-item"><img src="https://flagcdn.com/ro.svg" alt="roumain" />Roumain</div>
+        <div class="lang-item"><img src="https://flagcdn.com/sa.svg" alt="arabe" />Arabe</div>
+        <div class="lang-item"><img src="https://flagcdn.com/in.svg" alt="hindi" />Hindi</div>
       </div>
     </div>
-
-    <div class="col-droite-perso">
-      <div class="bulle-box-form-out">
-        <div class="bulle-item-form-out">
-          🎯 <strong>Analyse de marché personnalisée</strong><br>
-          Étude détaillée des tendances et opportunités dans vos secteurs de prédilection pour optimiser votre investissement.
-        </div>
-        <div class="bulle-item-form-out">
-          🔍 <strong>Recherche active et veille</strong><br>
-          Surveillance continue des nouvelles opportunités avec alertes personnalisées selon vos critères exacts.
-        </div>
-        <div class="bulle-item-form-out">
-          🤝 <strong>Accompagnement juridique</strong><br>
-          Support complet pour toutes les démarches administratives et juridiques jusqu'à la signature finale.
-        </div>
-        <div class="bulle-item-form-out">
-          💡 <strong>Conseils d'investissement</strong><br>
-          Expertise en rentabilité locative et plus-values potentielles pour maximiser votre retour sur investissement.
-        </div>
-      </div>
-
-      <div class="form-section" id="contact-form">
-        <h2>Consultation personnalisée</h2>
-        <form onsubmit="submitConsultationForm(event)">
-          <div class="form-group">
-            <label for="nom">Nom complet *</label>
-            <input type="text" id="nom" name="nom" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          <div class="form-group">
-            <label for="telephone">Téléphone</label>
-            <input type="tel" id="telephone" name="telephone">
-          </div>
-          <div class="form-group">
-            <label for="budget_max">Budget maximum</label>
-            <select id="budget_max" name="budget_max">
-              <option value="">Sélectionnez votre budget</option>
-              <option value="300000-500000">300 000 € - 500 000 €</option>
-              <option value="500000-800000">500 000 € - 800 000 €</option>
-              <option value="800000-1200000">800 000 € - 1 200 000 €</option>
-              <option value="1200000+">Plus de 1 200 000 €</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Type de bien recherché *</label>
-            <div class="radio-group">
-              <label><input type="radio" name="type_bien" value="appartement" required> Appartement</label>
-              <label><input type="radio" name="type_bien" value="maison" required> Maison</label>
-              <label><input type="radio" name="type_bien" value="investissement" required> Investissement</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="secteurs">Secteurs privilégiés</label>
-            <textarea id="secteurs" name="secteurs" rows="3" placeholder="Indiquez vos quartiers ou communes de prédilection..."></textarea>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="4" placeholder="Détaillez vos attentes et critères spécifiques..."></textarea>
-          </div>
-          <button type="submit" class="btn">Demander ma consultation</button>
-          <div class="mini-reassure">
-            🔒 Vos données sont confidentielles et utilisées uniquement pour personnaliser votre accompagnement.
-          </div>
-        </form>
-      </div>
+    <div class="multi-img">
+      <img src="https://archive.org/download/pexels-mikhail-nilov-7734590/pexels-mikhail-nilov-7734590.jpg" alt="Équipe Multilingue" />
     </div>
   </div>
+</div>
 
-  <div class="signature-slogan">L'immobilier avec une vision stratégique et humaine</div>
+<!-- SECTION CARTE LEAFLET -->
+<section class="section">
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
+  <div class="text-content">
+    <h2>Nous couvrons un large périmètre d'action</h2>
+    <p>Nous intervenons dans les régions suivantes&nbsp;:</p>
+    <ul>
+      <li><span class="pin">📍</span>Île de Montréal</li>
+      <li><span class="pin">📍</span>Laval</li>
+      <li><span class="pin">📍</span>Montérégie</li>
+    </ul>
+  </div>
+</section>
 
-  <div class="mini-faq-row">
-    <div class="faq-row">
-      <div class="faq-dropcap">1</div>
-      <div class="faq-q">Consultation initiale gratuite ?</div>
-      <div class="faq-a">Oui, le premier rendez-vous d'analyse de vos besoins est entièrement gratuit et sans engagement.</div>
+<!-- SECTION PROGRAMMES RE/MAX -->
+<section style="padding: 30px 20px; background-color: #ffffff;">
+  <h2 style="text-align: center; font-family: 'Inter', sans-serif; font-size: 16px; color: #999; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px;">
+    POURQUOI VOS CLIENTS NOUS FONT-ILS CONFIANCE ?
+  </h2>
+  <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 22px; color: #152239; margin-bottom: 25px;">
+    Notre service inclut
+  </h3>
+  <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+    <!-- Intégri-T -->
+    <div style="width: 300px; max-width: 100%; text-align: center;">
+      <div style="border-radius: 10px; overflow: hidden; margin-bottom: 10px;">
+        <a href="https://www.remax-quebec.com/en/integri-t" target="_blank">
+          <iframe width="100%" height="160" src="https://www.youtube.com/embed/E5hOwO9P15k" title="Intégri-T" frameborder="0" allowfullscreen style="border: none;"></iframe>
+        </a>
+      </div>
+      <h4 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Intégri-T : La solution clé aux vices cachés</h4>
+      <p style="font-size: 13px; line-height: 1.4; color: #444;">
+        La garantie Intégri-T sécurise acheteurs et vendeurs après une transaction,<br>réduisant le stress lié aux vices cachés et offrant une protection financière.
+        <br><a href="https://www.remax-quebec.com/en/integri-t" target="_blank" style="color: #c69a40; font-weight: 500; text-decoration: underline;">En savoir plus</a>
+      </p>
     </div>
-    <div class="faq-row">
-      <div class="faq-dropcap">2</div>
-      <div class="faq-q">Durée moyenne d'accompagnement ?</div>
-      <div class="faq-a">Entre 3 à 6 mois selon la complexité de votre recherche et les conditions du marché.</div>
+    <!-- Tranquilli-T -->
+    <div style="width: 300px; max-width: 100%; text-align: center;">
+      <div style="border-radius: 10px; overflow: hidden; margin-bottom: 10px;">
+        <a href="https://www.remax-quebec.com/en/tranquilli-t" target="_blank">
+          <iframe width="100%" height="160" src="https://www.youtube.com/embed/qP_fxusSCHc" title="Tranquilli-T" frameborder="0" allowfullscreen style="border: none;"></iframe>
+        </a>
+      </div>
+      <h4 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Tranquilli-T : La protection complète pendant la transaction</h4>
+      <p style="font-size: 13px; line-height: 1.4; color: #444;">
+        Le programme Tranquilli-T offre une protection unique, en plus de l'expertise professionnelle de votre agent.
+        <br><a href="https://www.remax-quebec.com/en/tranquilli-t" target="_blank" style="color: #c69a40; font-weight: 500; text-decoration: underline;">En savoir plus</a>
+      </p>
     </div>
-    <div class="faq-row">
-      <div class="faq-dropcap">3</div>
-      <div class="faq-q">Frais d'accompagnement ?</div>
-      <div class="faq-a">Nos honoraires sont transparents et discutés lors de la consultation. Aucun frais caché.</div>
-    </div>
-    <div class="faq-row">
-      <div class="faq-dropcap">4</div>
-      <div class="faq-q">Accès aux biens off-market ?</div>
-      <div class="faq-a">Oui, notre réseau nous permet d'accéder à des propriétés exclusives avant leur commercialisation.</div>
+    <!-- Sérénité -->
+    <div style="width: 300px; max-width: 100%; text-align: center;">
+      <div style="border-radius: 10px; overflow: hidden; margin-bottom: 10px;">
+        <a href="https://www.remax-quebec.com/en/serenite" target="_blank">
+          <iframe width="100%" height="160" src="https://www.youtube.com/embed/t4X3bvG9ESo" title="Sérénité" frameborder="0" allowfullscreen style="border: none;"></iframe>
+        </a>
+      </div>
+      <h4 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Sérénité : La protection contre les imprévus</h4>
+      <p style="font-size: 13px; line-height: 1.4; color: #444;">
+        Programme Sérénité, le seul programme au Québec qui vous protège contre les imprévus non couverts par l'inspection en bâtiment.
+        <br><a href="https://www.remax-quebec.com/en/serenite" target="_blank" style="color: #c69a40; font-weight: 500; text-decoration: underline;">En savoir plus</a>
+      </p>
     </div>
   </div>
+</section>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    // Mobile menu toggle
-    document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-      const navMenu = document.getElementById('navMenu');
-      navMenu.classList.toggle('active');
-    });
+<!-- SECTION FAQ -->
+<section class="mini-faq-row">
+  <div class="faq-row">
+    <div class="faq-dropcap">Q</div>
+    <div class="faq-q" data-fr="Comment ça marche ?" data-en="How does it work?">Comment ça marche ?</div>
+    <div class="faq-a" data-fr="1) Vous remplissez le formulaire 2) On vous appelle pour discuter de vos besoins 3) On planifie un rendez-vous personnalisé" data-en="1) Fill out the form 2) We call to discuss your needs 3) We schedule a personalized meeting">1) Vous remplissez le formulaire 2) On vous appelle pour discuter de vos besoins 3) On planifie un rendez-vous personnalisé</div>
+  </div>
+  <div class="faq-row">
+    <div class="faq-dropcap">€</div>
+    <div class="faq-q" data-fr="C'est vraiment gratuit ?" data-en="Is it really free?">C'est vraiment gratuit ?</div>
+    <div class="faq-a" data-fr="Oui, la consultation est entièrement gratuite et sans engagement. Notre rémunération provient uniquement de la vente." data-en="Yes, the consultation is completely free with no commitment. We only get paid when you buy.">Oui, la consultation est entièrement gratuite et sans engagement. Notre rémunération provient uniquement de la vente.</div>
+  </div>
+  <div class="faq-row">
+    <div class="faq-dropcap">⏱</div>
+    <div class="faq-q" data-fr="Combien de temps ça prend ?" data-en="How long does it take?">Combien de temps ça prend ?</div>
+    <div class="faq-a" data-fr="Entre 30 à 60 minutes selon vos besoins. On prend le temps qu'il faut pour bien vous conseiller." data-en="Between 30 to 60 minutes depending on your needs. We take the time needed to advise you properly.">Entre 30 à 60 minutes selon vos besoins. On prend le temps qu'il faut pour bien vous conseiller.</div>
+  </div>
+  <div class="faq-row">
+    <div class="faq-dropcap">🌍</div>
+    <div class="faq-q" data-fr="Quelles langues ?" data-en="What languages?">Quelles langues ?</div>
+    <div class="faq-a" data-fr="Français, anglais, espagnol, portugais, roumain, arabe et hindi avec notre équipe multilingue." data-en="French, English, Spanish, Portuguese, Romanian, Arabic and Hindi with our multilingual team.">Français, anglais, espagnol, portugais, roumain, arabe et hindi avec notre équipe multilingue.</div>
+  </div>
+</section>
 
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-      link.addEventListener('click', function() {
-        document.getElementById('navMenu').classList.remove('active');
-      });
-    });
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+// Mobile menu toggle
+document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+  document.querySelector('.nav-menu').classList.toggle('active');
+});
 
-    // Language switcher
-    function switchLang() {
-      // Language switch functionality can be implemented here
-      alert('Fonctionnalité de changement de langue à implémenter');
+// Close menu when clicking on a link
+document.querySelectorAll('.nav-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelector('.nav-menu').classList.remove('active');
+  });
+});
+
+// Leaflet Map
+var map = L.map('map').setView([45.5017, -73.5673], 10);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// Budget slider function
+function getBudgetValue(value) {
+  return parseInt(value).toLocaleString('fr-CA') + ' $';
+}
+
+// Language switching
+let currentLang = 'fr';
+function switchLang() {
+  currentLang = currentLang === 'fr' ? 'en' : 'fr';
+  document.getElementById('langLabel').textContent = currentLang === 'fr' ? 'EN' : 'FR';
+  
+  document.querySelectorAll('[data-fr][data-en]').forEach(el => {
+    if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'email' || el.type === 'tel')) {
+      el.placeholder = el.getAttribute('data-' + currentLang);
+    } else if (el.innerHTML.includes('<')) {
+      el.innerHTML = el.getAttribute('data-' + currentLang);
+    } else {
+      el.textContent = el.getAttribute('data-' + currentLang);
     }
+  });
+}
 
-    // Initialize maps
-    document.addEventListener('DOMContentLoaded', function() {
-      // Main map
-      if (document.getElementById('map')) {
-        const map = L.map('map').setView([43.7102, 7.2620], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-        
-        L.marker([43.7102, 7.2620]).addTo(map)
-          .bindPopup('Zone d\'expertise privilégiée')
-          .openPopup();
-      }
+// Quiz functionality (simplified)
+const quizData = [
+  {
+    fr: { question: "Quel est votre budget approximatif ?", options: ["Moins de 300k", "300k-500k", "500k-800k", "Plus de 800k"] },
+    en: { question: "What's your approximate budget?", options: ["Under 300k", "300k-500k", "500k-800k", "Over 800k"] }
+  },
+  {
+    fr: { question: "Dans quel délai souhaitez-vous acheter ?", options: ["Immédiatement", "Dans 3 mois", "Dans 6 mois", "Plus tard"] },
+    en: { question: "When do you want to buy?", options: ["Immediately", "In 3 months", "In 6 months", "Later"] }
+  },
+  {
+    fr: { question: "Avez-vous déjà une pré-qualification de prêt ?", options: ["Oui, déjà fait", "En cours", "Pas encore", "Je ne sais pas"] },
+    en: { question: "Do you have mortgage pre-qualification?", options: ["Yes, done", "In progress", "Not yet", "I don't know"] }
+  }
+];
 
-      // Secondary map
-      if (document.getElementById('real-map')) {
-        const realMap = L.map('real-map').setView([43.7102, 7.2620], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(realMap);
-        
-        // Add multiple markers for different areas
-        const locations = [
-          [43.7102, 7.2620, "Centre-ville"],
-          [43.7150, 7.2700, "Quartier résidentiel"],
-          [43.7050, 7.2550, "Zone commerciale"]
-        ];
-        
-        locations.forEach(function(location) {
-          L.marker([location[0], location[1]]).addTo(realMap)
-            .bindPopup(location[2]);
-        });
-      }
-    });
+let currentQuizIndex = 0;
+let quizAnswers = [];
 
-    // Quiz functionality
-    function generateRecommendation() {
-      const budget = document.querySelector('input[name="budget"]:checked');
-      const propertyType = document.querySelector('input[name="property_type"]:checked');
-      const timing = document.querySelector('input[name="timing"]:checked');
-      
-      if (!budget || !propertyType || !timing) {
-        alert('Veuillez répondre à toutes les questions pour obtenir vos recommandations.');
-        return;
-      }
-      
-      let recommendation = '';
-      
-      // Generate personalized recommendation based on selections
-      if (propertyType.value === 'appartement') {
-        recommendation += 'Nos recommandations pour votre recherche d\'appartement :<br><br>';
-        recommendation += '• Focus sur les quartiers centraux avec commodités<br>';
-        recommendation += '• Privilégier les étages élevés avec vue<br>';
-        recommendation += '• Vérifier l\'état de la copropriété et des charges<br>';
-      } else if (propertyType.value === 'maison') {
-        recommendation += 'Nos recommandations pour votre recherche de maison :<br><br>';
-        recommendation += '• Évaluer l\'état de la toiture et de l\'isolation<br>';
-        recommendation += '• Vérifier la qualité du jardin et des espaces extérieurs<br>';
-        recommendation += '• Analyser les possibilités d\'extension ou de rénovation<br>';
-      } else {
-        recommendation += 'Nos recommandations pour votre investissement :<br><br>';
-        recommendation += '• Analyser le rendement locatif potentiel<br>';
-        recommendation += '• Évaluer la demande locative du secteur<br>';
-        recommendation += '• Considérer les évolutions urbaines futures<br>';
-      }
-      
-      if (timing.value === 'urgent') {
-        recommendation += '<br>Vu l\'urgence de votre recherche, nous activerons notre réseau prioritaire et vous proposerons les meilleures opportunités disponibles immédiatement.';
-      }
-      
-      document.getElementById('vkq-result-content').innerHTML = recommendation;
-      document.getElementById('vkq-result').style.display = 'block';
-    }
-    
-    function scrollToContact() {
-      document.getElementById('contact-form').scrollIntoView({ 
-        behavior: 'smooth' 
-      });
-    }
-    
-    // Form submission
-    function submitConsultationForm(event) {
-      event.preventDefault();
-      
-      // Get form data
-      const formData = new FormData(event.target);
-      const data = Object.fromEntries(formData);
-      
-      // Basic validation
-      if (!data.nom || !data.email || !data.type_bien) {
-        alert('Veuillez remplir tous les champs obligatoires.');
-        return;
-      }
-      
-      // Simulate form submission
-      alert('Merci pour votre demande ! Nous vous contacterons dans les 24h pour planifier votre consultation personnalisée.');
-      
-      // Reset form
-      event.target.reset();
-    }
-    
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  </script>
+function showQuizQuestion() {
+  const quizCard = document.getElementById('vkq-quiz-card');
+  const question = quizData[currentQuizIndex][currentLang];
+  
+  quizCard.innerHTML = `
+    <h3 style="margin-bottom:20px; color:var(--marine);">${question.question}</h3>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      ${question.options.map((option, index) => 
+        `<button onclick="selectQuizAnswer(${index})" style="padding:12px; background:var(--bleu-matin); border:1px solid var(--marine); border-radius:8px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='var(--marine)'; this.style.color='white'" onmouseout="this.style.background='var(--bleu-matin)'; this.style.color='inherit'">${option}</button>`
+      ).join('')}
+    </div>
+  `;
+  
+  document.getElementById('vkq-progress').style.width = ((currentQuizIndex + 1) / quizData.length * 100) + '%';
+}
+
+function selectQuizAnswer(answerIndex) {
+  quizAnswers.push(answerIndex);
+  currentQuizIndex++;
+  
+  if (currentQuizIndex < quizData.length) {
+    showQuizQuestion();
+  } else {
+    showQuizResult();
+  }
+}
+
+function showQuizResult() {
+  const quizCard = document.getElementById('vkq-quiz-card');
+  const resultText = currentLang === 'fr' ? 
+    "Parfait ! Vos réponses nous aideront à personnaliser votre consultation." :
+    "Perfect! Your answers will help us personalize your consultation.";
+  
+  const buttonText = currentLang === 'fr' ? "Planifier ma consultation" : "Schedule my consultation";
+  
+  quizCard.innerHTML = `
+    <div style="text-align:center;">
+      <h3 style="color:var(--marine); margin-bottom:15px;">${resultText}</h3>
+      <button onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})" class="vkq-result-btn">${buttonText}</button>
+    </div>
+  `;
+}
+
+// Initialize quiz
+showQuizQuestion();
+</script>
 </body>
 </html>
