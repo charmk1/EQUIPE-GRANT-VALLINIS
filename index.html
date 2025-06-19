@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consultation personnalisée | Acheteur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    :root {
+      --marine: #152239;
+      --marine-dark: #0f1826;
+      --beige: #f4ecd8;
+      --white: #fff;
+      --bleu-matin: #eaf1fa;
+      --grey: #444443;
+      --blanc-casse: #fffefa;
+    }
+    body { margin:0; font-family:'Inter',sans-serif; color:var(--marine-dark); background:var(--white);}
+    
+    /* Navigation Header Styles */
+    .main-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 12px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--marine-dark);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 28px;
+      align-items: center;
+    }
+    
+    .nav-menu li {
+      position: relative;
+    }
+    
+    .nav-menu a {
+      text-decoration: none;
+      color: var(--marine-dark);
+      font-weight: 500;
+      font-size: 1.05rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      letter-spacing: 0.01em;
+    }
+    
+    .nav-menu a:hover {
+      background: var(--bleu-matin);
+      color: var(--marine);
+    }
+    
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--marine-dark);
+      cursor: pointer;
+      padding: 8px;
+    }
+    
+    /* Mobile Navigation */
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 65px;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .nav-menu a {
+        padding: 12px 16px;
+        width: 100%;
+        text-align: center;
+        border-radius: 8px;
+      }
+      
+      .mobile-menu-toggle {
+        display: block;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+      }
+    }
+    
+    /* Adjust hero section to account for fixed header */
+    .hero { 
+      position:relative; 
+      width:100vw; 
+      height:57vh; 
+      min-height:370px; 
+      max-height:580px; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      overflow:hidden; 
+      background:var(--marine);
+      margin-top: 65px; /* Add space for fixed header */
+    }
+    
+    .hero video {
+      position:absolute; top:0; left:0;
+      min-width:100vw; min-height:100%; width:100vw; height:100%; object-fit:cover; z-index:0;
+    }
+    .hero-content { position:relative; z-index:2; max-width:720px; margin:0 auto; text-align:center; padding:35px 6vw 18px 6vw;}
+    .hero-content h1 {
+      font-family:'Playfair Display',serif; font-size:2.5rem;
+      color:var(--white); font-weight:800; line-height:1.16; margin-bottom:18px; letter-spacing:.018em;
+      background:none; border-radius:13px; display:inline-block; padding:8px 28px;
+    }
+    .hero-content p {
+      font-size:1.19rem; color:var(--beige); margin-bottom:15px; font-weight:700;
+      background:none; display:inline-block; padding:7px 18px; border-radius:9px; letter-spacing:.01em;
+    }
+    .btn,
+    .hi-btn,
+    .vkq-form-btn,
+    .vkq-result-btn {
+      background: var(--marine);
+      color: var(--blanc-casse);
+      border: 2px solid var(--marine);
+      border-radius: 30px;
+      font-size: 1.10rem;
+      font-weight: 700;
+      padding: 13px 30px;
+      box-shadow: 0 6px 28px #f6ecdb44, 0 1px 6px #ececec22;
+      cursor: pointer;
+      letter-spacing: .06em;
+      transition: all .18s cubic-bezier(.55,.01,.48,1.12);
+      text-decoration: none;
+      margin-top: 17px;
+      display: block;
+      position: relative;
+      text-transform: uppercase;
+      filter: brightness(1.18) drop-shadow(0 4px 18px #f4ecd877);
+      margin-left: auto;
+      margin-right: auto;
+      min-width: 180px;
+      max-width: 300px;
+      text-align: center;
+    }
+    .btn:hover,
+    .btn:active,
+    .hi-btn:hover,
+    .hi-btn:active,
+    .vkq-form-btn:hover,
+    .vkq-form-btn:active,
+    .vkq-result-btn:hover,
+    .vkq-result-btn:active {
+      background: var(--blanc-casse);
+      color: var(--marine);
+      box-shadow: 0 2px 25px #f4ecd877, 0 8px 28px #ececec22;
+      filter: brightness(1.05) drop-shadow(0 2px 18px #f4ecd844);
+      transform: scale(1.045);
+    }
+    .lang-switch-btn {
+      position:fixed; top:18px; right:22px; z-index:9999;
+      background:var(--marine); color:var(--beige); border-radius:20px; padding:9px 19px;
+      font-weight:700; font-size:1.08rem; box-shadow:0 2px 12px #1d263033; border:none; cursor:pointer;
+      text-transform:uppercase; letter-spacing:0.04em;
+    }
+    .lang-switch-btn:hover { background:var(--beige); color:var(--marine);}
+    .values-section { display:flex; flex-wrap:wrap; justify-content:center; gap:32px; max-width:1100px; margin:36px auto 30px auto; position:relative; z-index:5;}
+    .value-bulle {
+      background:var(--bleu-matin); box-shadow:0 3px 16px #1d263013;
+      border-radius:22px; padding:24px 24px; min-width:220px; max-width:340px; flex:1 1 220px;
+      text-align:left; border-top:3px solid var(--marine); display:flex; flex-direction:column; align-items:flex-start; margin-bottom:8px;
+      backdrop-filter:blur(1px);
+    }
+    .value-bulle h3 { font-family:'Playfair Display',serif; font-size:1.16rem; margin:0 0 9px 0; color:var(--marine);}
+    .value-bulle p { font-size:1.07rem; color:var(--grey); margin:0;}
+    .two-col-section {
+      display: flex;
+      gap: 36px;
+      max-width: 1100px;
+      margin: 36px auto 0 auto;
+      padding: 0 2vw;
+      align-items: flex-start;
+    }
+    .calendar-side,
+    .col-droite-perso {
+      flex: 1 1 440px;
+      min-width: 340px;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+    }
+    #vkq-quiz-zone {
+      max-width:500px;
+      width:100%;
+      margin: 0 auto 25px auto;
+      background:#fff;
+      border:1px solid #d9d9d9;
+      border-radius:12px;
+      padding:34px 24px;
+      box-sizing: border-box;
+      display: block;
+    }
+    .map-wrap { background:var(--beige); border-radius:14px; padding:19px 17px 10px 17px; margin-bottom:17px; margin-top:11px; box-shadow:0 2px 16px #1d263018;}
+    #real-map { width:100%; height:155px; border-radius:10px;}
+    .bulle-box-form-out {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 16px;
+      margin-top: 0;
+    }
+    .bulle-item-form-out {
+      background: #fff;
+      color: var(--marine-dark);
+      box-shadow: 0 2px 10px #1d263011;
+      border-radius: 15px;
+      padding: 17px 23px;
+      font-size: 1.09rem;
+      border-left: 5px solid var(--marine);
+      font-weight: 500;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0 auto;
+      filter: brightness(1.04);
+      letter-spacing: 0.01em;
+      backdrop-filter: blur(1.5px);
+    }
+    .col-droite-perso > * {
+      margin-bottom: 22px;
+    }
+    .col-droite-perso > *:last-child {
+      margin-bottom: 0;
+    }
+    .form-section {
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 8px 32px #1d263012;
+      padding: 33px 34px 26px 34px;
+      border: 2px solid var(--marine-dark);
+      min-width: 340px;
+      max-width: 500px;
+      align-self: center;
+      box-sizing: border-box;
+    }
+    .form-section h2 { font-family:'Playfair Display',serif; font-size:25px; font-weight:700; margin-bottom:13px; color:var(--marine); text-align:center;}
+    .form-group { margin-bottom:15px; }
+    label { display:block; margin-bottom:7px; font-weight:600; font-size:16px; color:var(--marine); }
+    input, select, textarea { width:100%; padding:12px; font-size:15px; border:1px solid #bbb; border-radius:7px; background:#fafbfc; }
+    textarea { min-height:38px; }
+    .radio-group { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:10px;}
+    .radio-group label { font-weight:500; margin-right:10px; }
+    .mini-reassure { font-size:14px; color:var(--grey); margin-top:13px;}
+    .signature-slogan { margin:20px auto 0 auto; text-align:center; font-family:'Playfair Display',cursive,serif; font-size:2.3rem; color:var(--marine); font-weight:700; letter-spacing:0.09em; max-width:450px; background:none; border:none; padding:0; user-select:none; font-style:italic; text-shadow:0 3px 13px #f6ecdb77; display:block;}
+    .mini-faq-row {
+      width:100vw; max-width:1100px; margin:38px auto 0 auto;
+      display:flex; flex-direction:row; justify-content:center; align-items:stretch; gap:18px; flex-wrap:nowrap; box-sizing:border-box;
+    }
+    .mini-faq-row .faq-row {
+      background:var(--bleu-matin); border-radius:19px; box-shadow:0 2px 14px #1d263015;
+      padding:22px 15px 20px 15px; min-width:0; max-width:280px; flex:1 1 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; border-top:3px solid var(--marine); box-sizing:border-box; white-space:normal; word-break:break-word; position:relative; text-align:center;
+    }
+    .faq-q { font-size:1.07rem; font-weight:700; color:var(--marine); margin-bottom:7px; line-height:1.25;}
+    .faq-a { font-size:0.98rem; font-weight:400; color:var(--grey); line-height:1.36; margin-left:0;}
+    .faq-dropcap {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem; font-weight: bold; color: var(--marine);
+      line-height: 0.82; min-width: 51px; text-align: center; margin: 0 auto 10px auto; display: block;
+    }
+    /* Styles pour les 3 sections ajoutées */
+    .bandelette-blanche {
+      background: #fff;
+      padding: 0;
+      min-height: 430px;
+      border-bottom: 1.5px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      width: 100vw;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      min-height: 430px;
+    }
+    .multi-left {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 338px;
+      min-width: 350px;
+      max-width: 50%;
+      text-align: center;
+    }
+    .multi-title {
+      font-size: 2.2rem;
+      font-weight: 500;
+      margin: 0 0 18px 0;
+      color: #222a38;
+      letter-spacing: -1.2px;
+      line-height: 1.11;
+    }
+    .multi-desc {
+      margin: 0 0 22px 0;
+      color: #505963;
+      font-size: 1.13rem;
+      letter-spacing: -0.01em;
+      font-weight: 400;
+    }
+    .lang-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px 20px;
+      justify-content: center;
+      margin-top: 7px;
+    }
+    .lang-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 1.07rem;
+      background: none;
+      border: none;
+      padding: 0;
+      font-weight: 400;
+      color: #232323;
+      letter-spacing: 0;
+      line-height: 1.05;
+    }
+    .lang-item img {
+      width: 23px;
+      height: 17px;
+      border-radius: 2px;
+      box-shadow: 0 1px 2px #0001;
+      margin-right: 2px;
+      background: #f4f4f4;
+      object-fit: cover;
+      display: inline-block;
+    }
+    .multi-img {
+      flex: 1 1 0;
+      min-width: 250px;
+      max-width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .multi-img img {
+      width: 310px;
+      height: 338px;
+      object-fit: cover;
+      border-radius: 28px;
+      background: #e6e6e6;
+      box-shadow: 0 8px 30px #0001;
+      display: block;
+      aspect-ratio: 1536/1672;
+    }
+    @media (max-width: 1000px) {
+      .container { flex-direction: column; gap: 32px; min-height: 0;}
+      .multi-left, .multi-img { max-width: 100%; }
+      .multi-img img { max-width: 95vw; }
+      .multi-left { height: auto; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 3vw;}
+      .multi-title { font-size: 1.35rem;}
+      .multi-img img { width: 97vw; height: auto; }
+    }
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 48px 36px;
+      display: flex;
+      gap: 60px;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+      border-bottom: 1.5px solid #ececec;
+    }
+    /* --- MAP RESPONSIVE PREMIUM --- */
+    .map-container {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 320px;
+      max-width: 480px;
+    }
+    #map {
+      width: 100%;
+      height: 285px;
+      min-height: 210px;
+      max-width: 430px;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px #1d26301A;
+      border: 1.5px solid #eee;
+      transition: width 0.3s, height 0.3s;
+    }
+    @media (max-width:950px) {
+      .section { flex-direction: column; padding: 24px 6vw; }
+      .map-container { width: 100vw; max-width: 100vw; min-height: 180px; }
+      #map { width: 95vw; height: 220px; min-width: 145px; max-width: 99vw; }
+    }
+    @media (max-width:600px) {
+      .section { padding: 18px 1vw;}
+      .map-container { min-height: 120px; }
+      #map { width: 98vw; height: 165px; min-height: 110px; }
+    }
+    /* --- FIN MAP RESPONSIVE --- */
+    .text-content {
+      width: 50%;
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+    .text-content h2 {
+      margin: 0 0 18px 0;
+      font-weight: 600;
+      font-size: 2.1rem;
+      letter-spacing: -1.2px;
+      line-height: 1.11;
+      color: #232323;
+    }
+    .text-content p {
+      margin: 0 0 16px 0;
+      font-weight: 400;
+      font-size: 1.12rem;
+      color: #555c66;
+      letter-spacing: -0.01em;
+    }
+    .text-content ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      font-size: 1.06rem;
+      color: #232323;
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+    }
+    .text-content ul li {
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .text-content ul li .pin {
+      font-size: 1.13em;
+      color: #b99d5c;
+    }
+    @media (max-width: 900px) {
+      .text-content { width: 100%; max-width: 100%; text-align: center; }
+      .text-content h2 { font-size: 1.6rem; }
+      .text-content p { font-size: 1.05rem; }
+    }
+    .vkq-section-hider { display: none !important; }
+    .display-none { display: none !important; }
+    .vkq-form-group { margin-bottom: 18px; }
+    .vkq-form-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--marine); text-align: center; margin-bottom: 20px; }
+    .vkq-form-question { font-size: 1.1rem; font-weight: 600; color: var(--marine-dark); margin-bottom: 12px; }
+    .vkq-form-input { width: 100%; padding: 12px 16px; font-size: 1rem; border: 2px solid #ddd; border-radius: 8px; background: #fafafa; box-sizing: border-box; }
+    .vkq-form-input:focus { border-color: var(--marine); outline: none; background: #fff; }
+    .vkq-form-radio-group { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px; }
+    .vkq-form-radio-item { display: flex; align-items: center; gap: 8px; }
+    .vkq-form-radio-item input[type="radio"] { margin: 0; }
+    .vkq-form-radio-item label { margin: 0; font-weight: 500; font-size: 1rem; cursor: pointer; }
+    .vkq-form-btn { width: 100%; margin-top: 24px; }
+    .vkq-result-section { margin-top: 30px; padding: 24px; background: var(--bleu-matin); border-radius: 16px; border-left: 5px solid var(--marine); }
+    .vkq-result-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--marine); margin-bottom: 16px; text-align: center; }
+    .vkq-result-content { font-size: 1.1rem; color: var(--marine-dark); line-height: 1.6; }
+    .vkq-result-btn { margin-top: 20px; width: 100%; }
+    @media (max-width: 768px) {
+      .two-col-section { flex-direction: column; gap: 24px; }
+      .calendar-side, .col-droite-perso { max-width: 100%; }
+      .form-section { padding: 24px 20px; }
+      .values-section { flex-direction: column; align-items: center; }
+      .value-bulle { max-width: 100%; }
+      .mini-faq-row { flex-direction: column; gap: 24px; }
+      .mini-faq-row .faq-row { max-width: 100%; }
+      .hero-content h1 { font-size: 2rem; }
+      .hero-content p { font-size: 1.1rem; }
+    }
+    @media (max-width: 480px) {
+      .hero { margin-top: 60px; min-height: 300px; }
+      .hero-content { padding: 20px 4vw; }
+      .hero-content h1 { font-size: 1.8rem; }
+      .hero-content p { font-size: 1rem; }
+      .form-section { padding: 20px 16px; }
+      .signature-slogan { font-size: 1.8rem; }
+      .nav-container { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header class="main-header">
+    <div class="nav-container">
+      <a href="#" class="logo">Grant Vallinis</a>
+      <nav class="main-nav">
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#approche">Approche</a></li>
+          <li><a href="#videos">Vidéos</a></li>
+          <li><a href="#photos">Photos</a></li>
+          <li><a href="#temoignages">Témoignages</a></li>
+          <li><a href="#equipe">Équipe</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <button class="lang-switch-btn" onclick="switchLang()">FR / EN</button>
+
+  <section class="hero">
+    <video autoplay muted playsinline loop>
+      <source src="https://cdn.pixabay.com/video/2018/08/01/18060-278893302_large.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <h1>Consultation personnalisée | Acheteur</h1>
+      <p>Ensemble, trouvons la propriété de vos rêves avec une approche sur mesure et un accompagnement professionnel.</p>
+      <a href="#contact-form" class="btn">Démarrer ma consultation</a>
+    </div>
+  </section>
+
+  <div class="values-section">
+    <div class="value-bulle">
+      <h3>Écoute personnalisée</h3>
+      <p>Analyse approfondie de vos besoins, budget et critères prioritaires pour une recherche ciblée et efficace.</p>
+    </div>
+    <div class="value-bulle">
+      <h3>Veille immobilière</h3>
+      <p>Surveillance active du marché et accès privilégié aux propriétés avant leur mise sur le marché public.</p>
+    </div>
+    <div class="value-bulle">
+      <h3>Négociation experte</h3>
+      <p>Stratégies de négociation personnalisées pour optimiser votre investissement et sécuriser l'acquisition.</p>
+    </div>
+  </div>
+
+  <div class="bandelette-blanche">
+    <div class="container">
+      <div class="multi-left">
+        <h2 class="multi-title">Accompagnement multilingue personnalisé</h2>
+        <p class="multi-desc">Notre équipe vous accompagne dans votre langue préférée pour une communication fluide et une compréhension parfaite de chaque étape.</p>
+        <div class="lang-list">
+          <div class="lang-item">
+            <svg width="23" height="17" viewBox="0 0 23 17" fill="none">
+              <rect width="23" height="17" rx="2" fill="#ffffff"/>
+              <rect x="0" y="0" width="7.67" height="17" fill="#002868"/>
+              <rect x="15.33" y="0" width="7.67" height="17" fill="#BF0A30"/>
+            </svg>
+            Français
+          </div>
+          <div class="lang-item">
+            <svg width="23" height="17" viewBox="0 0 23 17" fill="none">
+              <rect width="23" height="17" rx="2" fill="#ffffff"/>
+              <rect x="0" y="0" width="23" height="8.5" fill="#BF0A30"/>
+              <rect x="0" y="8.5" width="23" height="8.5" fill="#ffffff"/>
+            </svg>
+            English
+          </div>
+          <div class="lang-item">
+            <svg width="23" height="17" viewBox="0 0 23 17" fill="none">
+              <rect width="23" height="17" rx="2" fill="#ffffff"/>
+              <rect x="0" y="0" width="23" height="5.67" fill="#000000"/>
+              <rect x="0" y="5.67" width="23" height="5.67" fill="#DD0000"/>
+              <rect x="0" y="11.33" width="23" height="5.67" fill="#FFCE00"/>
+            </svg>
+            Deutsch
+          </div>
+          <div class="lang-item">
+            <svg width="23" height="17" viewBox="0 0 23 17" fill="none">
+              <rect width="23" height="17" rx="2" fill="#ffffff"/>
+              <rect x="0" y="0" width="23" height="5.67" fill="#009246"/>
+              <rect x="0" y="5.67" width="23" height="5.67" fill="#ffffff"/>
+              <rect x="0" y="11.33" width="23" height="5.67" fill="#CE2B37"/>
+            </svg>
+            Italiano
+          </div>
+        </div>
+      </div>
+      <div class="multi-img">
+        <svg width="310" height="338" viewBox="0 0 310 338" fill="none">
+          <rect width="310" height="338" rx="28" fill="#f0f4f8"/>
+          <circle cx="155" cy="140" r="50" fill="#152239"/>
+          <rect x="105" y="210" width="100" height="8" rx="4" fill="#152239"/>
+          <rect x="85" y="230" width="140" height="6" rx="3" fill="#beige"/>
+          <rect x="95" y="250" width="120" height="6" rx="3" fill="#beige"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="map-container">
+      <div id="map"></div>
+    </div>
+    <div class="text-content">
+      <h2>Secteurs d'expertise privilégiés</h2>
+      <p>Une connaissance approfondie des quartiers les plus recherchés pour vous orienter vers les meilleures opportunités du marché.</p>
+      <ul>
+        <li><span class="pin">📍</span> Centre historique et quartiers patrimoniaux</li>
+        <li><span class="pin">📍</span> Zones résidentielles haut de gamme</li>
+        <li><span class="pin">📍</span> Secteurs en développement et investissement</li>
+        <li><span class="pin">📍</span> Proximité transports et commodités</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="two-col-section">
+    <div class="calendar-side">
+      <div id="vkq-quiz-zone">
+        <div class="vkq-form-title">Évaluation personnalisée de vos besoins</div>
+        
+        <div class="vkq-form-group">
+          <div class="vkq-form-question">Quel est votre budget approximatif ?</div>
+          <div class="vkq-form-radio-group">
+            <div class="vkq-form-radio-item">
+              <input type="radio" id="budget1" name="budget" value="300k-500k">
+              <label for="budget1">300k - 500k €</label>
+            </div>
+            <div class="vkq-form-radio-item">
+              <input type="radio" id="budget2" name="budget" value="500k-800k">
+              <label for="budget2">500k - 800k €</label>
+            </div>
+            <div class="vkq-form-radio-item">
+              <input type="radio" id="budget3" name="budget" value="800k+">
+              <label for="budget3">800k € et plus</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="vkq-form-group">
+          <div class="vkq-form-question">Type de bien recherché ?</div>
+          <div class="vkq-form-radio-group">
+            <div class="vkq-form-radio-item">
+              <input type="radio" id="type1" name="property_type" value="appartement">
+              <label for="type1">Appartement</label>
+            </div>
+            <div class="vkq-form-radio-item">
+              <input type="radio" id="type2" name="property_type" value="maison">
+              <label for="type2">Maison</label>
+            </div>
+            <div class="vkq-form-radio-item">
+              <input type="radio" id="type3" name="property_type" value="investissement">
+              <label for="type3">Investissement</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="vkq-form-group">
+          <div class="vkq-form-question">Délai de recherche souhaité ?</div>
+          <div class="vkq-form-radio-group">
+            <div class="vkq-form-radio-item">
+              <input type="radio" id="timing1" name="timing" value="urgent">
+              <label for="timing1">Urgent (< 3 mois)</label>
+            </div>
+            <div class="vkq-form-radio-item">
+              <input type="radio" id="timing2" name="timing" value="normal">
+              <label for="timing2">Normal (3-6 mois)</label>
+            </div>
+            <div class="vkq-form-radio-item">
+              <input type="radio" id="timing3" name="timing" value="flexible">
+              <label for="timing3">Flexible (6+ mois)</label>
+            </div>
+          </div>
+        </div>
+
+        <button class="vkq-form-btn" onclick="generateRecommendation()">Obtenir mes recommandations</button>
+
+        <div id="vkq-result" class="vkq-result-section" style="display: none;">
+          <div class="vkq-result-title">Vos recommandations personnalisées</div>
+          <div class="vkq-result-content" id="vkq-result-content"></div>
+          <button class="vkq-result-btn" onclick="scrollToContact()">Planifier ma consultation</button>
+        </div>
+      </div>
+
+      <div class="map-wrap">
+        <div id="real-map"></div>
+      </div>
+    </div>
+
+    <div class="col-droite-perso">
+      <div class="bulle-box-form-out">
+        <div class="bulle-item-form-out">
+          🎯 <strong>Analyse de marché personnalisée</strong><br>
+          Étude détaillée des tendances et opportunités dans vos secteurs de prédilection pour optimiser votre investissement.
+        </div>
+        <div class="bulle-item-form-out">
+          🔍 <strong>Recherche active et veille</strong><br>
+          Surveillance continue des nouvelles opportunités avec alertes personnalisées selon vos critères exacts.
+        </div>
+        <div class="bulle-item-form-out">
+          🤝 <strong>Accompagnement juridique</strong><br>
+          Support complet pour toutes les démarches administratives et juridiques jusqu'à la signature finale.
+        </div>
+        <div class="bulle-item-form-out">
+          💡 <strong>Conseils d'investissement</strong><br>
+          Expertise en rentabilité locative et plus-values potentielles pour maximiser votre retour sur investissement.
+        </div>
+      </div>
+
+      <div class="form-section" id="contact-form">
+        <h2>Consultation personnalisée</h2>
+        <form onsubmit="submitConsultationForm(event)">
+          <div class="form-group">
+            <label for="nom">Nom complet *</label>
+            <input type="text" id="nom" name="nom" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone">
+          </div>
+          <div class="form-group">
+            <label for="budget_max">Budget maximum</label>
+            <select id="budget_max" name="budget_max">
+              <option value="">Sélectionnez votre budget</option>
+              <option value="300000-500000">300 000 € - 500 000 €</option>
+              <option value="500000-800000">500 000 € - 800 000 €</option>
+              <option value="800000-1200000">800 000 € - 1 200 000 €</option>
+              <option value="1200000+">Plus de 1 200 000 €</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Type de bien recherché *</label>
+            <div class="radio-group">
+              <label><input type="radio" name="type_bien" value="appartement" required> Appartement</label>
+              <label><input type="radio" name="type_bien" value="maison" required> Maison</label>
+              <label><input type="radio" name="type_bien" value="investissement" required> Investissement</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="secteurs">Secteurs privilégiés</label>
+            <textarea id="secteurs" name="secteurs" rows="3" placeholder="Indiquez vos quartiers ou communes de prédilection..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Détaillez vos attentes et critères spécifiques..."></textarea>
+          </div>
+          <button type="submit" class="btn">Demander ma consultation</button>
+          <div class="mini-reassure">
+            🔒 Vos données sont confidentielles et utilisées uniquement pour personnaliser votre accompagnement.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="signature-slogan">L'immobilier avec une vision stratégique et humaine</div>
+
+  <div class="mini-faq-row">
+    <div class="faq-row">
+      <div class="faq-dropcap">1</div>
+      <div class="faq-q">Consultation initiale gratuite ?</div>
+      <div class="faq-a">Oui, le premier rendez-vous d'analyse de vos besoins est entièrement gratuit et sans engagement.</div>
+    </div>
+    <div class="faq-row">
+      <div class="faq-dropcap">2</div>
+      <div class="faq-q">Durée moyenne d'accompagnement ?</div>
+      <div class="faq-a">Entre 3 à 6 mois selon la complexité de votre recherche et les conditions du marché.</div>
+    </div>
+    <div class="faq-row">
+      <div class="faq-dropcap">3</div>
+      <div class="faq-q">Frais d'accompagnement ?</div>
+      <div class="faq-a">Nos honoraires sont transparents et discutés lors de la consultation. Aucun frais caché.</div>
+    </div>
+    <div class="faq-row">
+      <div class="faq-dropcap">4</div>
+      <div class="faq-q">Accès aux biens off-market ?</div>
+      <div class="faq-a">Oui, notre réseau nous permet d'accéder à des propriétés exclusives avant leur commercialisation.</div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', function() {
+        document.getElementById('navMenu').classList.remove('active');
+      });
+    });
+
+    // Language switcher
+    function switchLang() {
+      // Language switch functionality can be implemented here
+      alert('Fonctionnalité de changement de langue à implémenter');
+    }
+
+    // Initialize maps
+    document.addEventListener('DOMContentLoaded', function() {
+      // Main map
+      if (document.getElementById('map')) {
+        const map = L.map('map').setView([43.7102, 7.2620], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        
+        L.marker([43.7102, 7.2620]).addTo(map)
+          .bindPopup('Zone d\'expertise privilégiée')
+          .openPopup();
+      }
+
+      // Secondary map
+      if (document.getElementById('real-map')) {
+        const realMap = L.map('real-map').setView([43.7102, 7.2620], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(realMap);
+        
+        // Add multiple markers for different areas
+        const locations = [
+          [43.7102, 7.2620, "Centre-ville"],
+          [43.7150, 7.2700, "Quartier résidentiel"],
+          [43.7050, 7.2550, "Zone commerciale"]
+        ];
+        
+        locations.forEach(function(location) {
+          L.marker([location[0], location[1]]).addTo(realMap)
+            .bindPopup(location[2]);
+        });
+      }
+    });
+
+    // Quiz functionality
+    function generateRecommendation() {
+      const budget = document.querySelector('input[name="budget"]:checked');
+      const propertyType = document.querySelector('input[name="property_type"]:checked');
+      const timing = document.querySelector('input[name="timing"]:checked');
+      
+      if (!budget || !propertyType || !timing) {
+        alert('Veuillez répondre à toutes les questions pour obtenir vos recommandations.');
+        return;
+      }
+      
+      let recommendation = '';
+      
+      // Generate personalized recommendation based on selections
+      if (propertyType.value === 'appartement') {
+        recommendation += 'Nos recommandations pour votre recherche d\'appartement :<br><br>';
+        recommendation += '• Focus sur les quartiers centraux avec commodités<br>';
+        recommendation += '• Privilégier les étages élevés avec vue<br>';
+        recommendation += '• Vérifier l\'état de la copropriété et des charges<br>';
+      } else if (propertyType.value === 'maison') {
+        recommendation += 'Nos recommandations pour votre recherche de maison :<br><br>';
+        recommendation += '• Évaluer l\'état de la toiture et de l\'isolation<br>';
+        recommendation += '• Vérifier la qualité du jardin et des espaces extérieurs<br>';
+        recommendation += '• Analyser les possibilités d\'extension ou de rénovation<br>';
+      } else {
+        recommendation += 'Nos recommandations pour votre investissement :<br><br>';
+        recommendation += '• Analyser le rendement locatif potentiel<br>';
+        recommendation += '• Évaluer la demande locative du secteur<br>';
+        recommendation += '• Considérer les évolutions urbaines futures<br>';
+      }
+      
+      if (timing.value === 'urgent') {
+        recommendation += '<br>Vu l\'urgence de votre recherche, nous activerons notre réseau prioritaire et vous proposerons les meilleures opportunités disponibles immédiatement.';
+      }
+      
+      document.getElementById('vkq-result-content').innerHTML = recommendation;
+      document.getElementById('vkq-result').style.display = 'block';
+    }
+    
+    function scrollToContact() {
+      document.getElementById('contact-form').scrollIntoView({ 
+        behavior: 'smooth' 
+      });
+    }
+    
+    // Form submission
+    function submitConsultationForm(event) {
+      event.preventDefault();
+      
+      // Get form data
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData);
+      
+      // Basic validation
+      if (!data.nom || !data.email || !data.type_bien) {
+        alert('Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+      
+      // Simulate form submission
+      alert('Merci pour votre demande ! Nous vous contacterons dans les 24h pour planifier votre consultation personnalisée.');
+      
+      // Reset form
+      event.target.reset();
+    }
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
