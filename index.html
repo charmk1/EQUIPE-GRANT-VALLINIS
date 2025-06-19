@@ -18,41 +18,44 @@
     }
     body { margin:0; font-family:'Inter',sans-serif; color:var(--marine-dark); background:var(--white);}
     
-    /* Navigation Header - Style Grant Vallinis exact */
+    /* Navigation Header - Design Expert Professionnel */
     .main-header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 14px 0;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(21, 34, 57, 0.08);
+      padding: 18px 0;
       transition: all 0.3s ease;
+      box-shadow: 0 1px 30px rgba(21, 34, 57, 0.06);
     }
     
     .nav-container {
-      max-width: 1200px;
+      max-width: 1300px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 24px;
+      padding: 0 40px;
     }
     
     .logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.75rem;
-      font-weight: 500;
-      color: #333;
+      font-size: 2.1rem;
+      font-weight: 600;
+      color: var(--marine-dark);
       text-decoration: none;
-      letter-spacing: 0.3px;
-      transition: color 0.2s ease;
+      letter-spacing: 0.8px;
+      transition: all 0.3s ease;
+      text-shadow: 0 1px 2px rgba(21, 34, 57, 0.1);
     }
     
     .logo:hover {
-      color: #555;
+      color: var(--marine);
+      transform: translateY(-1px);
     }
     
     .main-nav {
@@ -66,7 +69,7 @@
       list-style: none;
       margin: 0;
       padding: 0;
-      gap: 40px;
+      gap: 45px;
       align-items: center;
     }
     
@@ -76,18 +79,37 @@
     
     .nav-menu a {
       text-decoration: none;
-      color: #666;
-      font-weight: 400;
-      font-size: 1.0rem;
-      padding: 8px 0;
-      transition: all 0.2s ease;
-      letter-spacing: 0.2px;
-      border-radius: 0;
+      color: #4a5568;
+      font-weight: 500;
+      font-size: 1.05rem;
+      padding: 12px 8px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.4px;
+      border-radius: 6px;
       position: relative;
+      text-transform: capitalize;
     }
     
     .nav-menu a:hover {
-      color: #333;
+      color: var(--marine-dark);
+      background: rgba(21, 34, 57, 0.04);
+      transform: translateY(-1px);
+    }
+    
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--marine);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    
+    .nav-menu a:hover::after {
+      width: 80%;
     }
     
     .mobile-menu-toggle {
@@ -158,7 +180,7 @@
       justify-content:center; 
       overflow:hidden; 
       background:var(--marine);
-      margin-top: 65px;
+      margin-top: 75px;
     }
     .hero video {
       position:absolute; top:0; left:0;
