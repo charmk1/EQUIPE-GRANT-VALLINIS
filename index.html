@@ -64,13 +64,22 @@
       color: rgba(255, 255, 255, 0.9);
       font-weight: 400;
       font-size: 1.0rem;
-      padding: 8px 0;
-      transition: all 0.2s ease;
+      padding: 8px 12px;
+      transition: all 0.3s ease;
       letter-spacing: 0.2px;
+      border-radius: 6px;
+      position: relative;
     }
     
     .nav-menu a:hover {
       color: white;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    .nav-menu a.active {
+      color: white;
+      background: rgba(255, 255, 255, 0.15);
     }
     
     .mobile-menu-toggle {
@@ -543,10 +552,10 @@
     <nav class="main-nav">
       <ul class="nav-menu">
         <li><a href="#approche">Approche</a></li>
-        <li><a href="#videos">Vidéos</a></li>
-        <li><a href="#photos">Photos</a></li>
-        <li><a href="#temoignages">Témoignages</a></li>
+        <li><a href="#services">Services</a></li>
         <li><a href="#equipe">Équipe</a></li>
+        <li><a href="#zones">Zones</a></li>
+        <li><a href="#programmes">Programmes</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <button class="mobile-menu-toggle">☰</button>
@@ -566,8 +575,8 @@
     <a href="#form" class="btn cta-btn" data-fr="Je veux ma consultation" data-en="I want my consultation">Je veux ma consultation</a>
   </div>
 </section>
-<!-- VALEURS -->
-<section class="values-section">
+<!-- APPROCHE -->
+<section id="approche" class="values-section">
   <div class="value-bulle">
     <h3 data-fr="Accompagnement complet" data-en="Full support">Accompagnement complet</h3>
     <p data-fr="On veille sur vos intérêts, de la recherche à la signature, sans jamais vous laisser seul dans les moments importants." data-en="We protect your interests, from search to closing, never leaving you alone at the important moments.">On veille sur vos intérêts, de la recherche à la signature, sans jamais vous laisser seul dans les moments importants.</p>
@@ -581,8 +590,8 @@
     <p data-fr="Conseils clairs, réponses rapides et service humain dans votre langue à chaque moment clé." data-en="Clear advice, quick answers, and human service in your language at every key moment.">Conseils clairs, réponses rapides et service humain dans votre langue à chaque moment clé.</p>
   </div>
 </section>
-<!-- DEUX COLONNES -->
-<section class="two-col-section" id="form">
+<!-- SERVICES -->
+<section id="services" class="two-col-section">
   <!-- Colonne gauche -->
   <div class="calendar-side">
     <!-- QUIZ ACHETEUR -->
@@ -701,8 +710,8 @@
 
 <!-- 🔥 LES 3 SECTIONS EN VERTICAL (juste après la section two-col-section) -->
 
-<!-- SECTION MULTILINGUE -->
-<div class="bandelette-blanche">
+<!-- ÉQUIPE MULTILINGUE -->
+<div id="equipe" class="bandelette-blanche">
   <div class="container">
     <div class="multi-left">
       <div class="multi-title">Une équipe multilingue à votre service</div>
@@ -725,8 +734,8 @@
   </div>
 </div>
 
-<!-- SECTION CARTE LEAFLET -->
-<section class="section">
+<!-- ZONES D'INTERVENTION -->
+<section id="zones" class="section">
   <div class="map-container">
     <div id="map"></div>
   </div>
@@ -741,8 +750,8 @@
   </div>
 </section>
 
-<!-- SECTION PROGRAMMES RE/MAX -->
-<section style="padding: 30px 20px; background-color: #ffffff;">
+<!-- PROGRAMMES RE/MAX -->
+<section id="programmes" style="padding: 30px 20px; background-color: #ffffff;">
   <h2 style="text-align: center; font-family: 'Inter', sans-serif; font-size: 16px; color: #999; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px;">
     POURQUOI VOS CLIENTS NOUS FONT-ILS CONFIANCE ?
   </h2>
@@ -779,8 +788,8 @@
   </div>
 </section>
 
-<!-- MINI FAQ -->
-<div class="mini-faq-row" id="mini-faq-row"></div>
+<!-- CONTACT & FAQ -->
+<div id="contact" class="mini-faq-row"></div>
 <!-- VIDEO BAS + FOOTER -->
 <section style="background:#152239;margin-top:40px;padding:0;" class="footer-section">
   <video autoplay muted loop playsinline style="width:100vw;max-width:100vw;min-height:390px;height:52vh;object-fit:cover;display:block;">
