@@ -20,16 +20,39 @@
     
     /* Navigation Header - Grant Vallinis Style */
     .main-header {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
       background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding: 14px 0;
       transition: all 0.3s ease;
+    }
+    
+    .main-header.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .main-header.scrolled .logo {
+      color: var(--marine-dark);
+    }
+    
+    .main-header.scrolled .nav-menu a {
+      color: #666;
+    }
+    
+    .main-header.scrolled .nav-menu a:hover {
+      color: var(--marine-dark);
+    }
+    
+    .main-header.scrolled .nav-menu a.active {
+      color: var(--marine);
+      background: var(--bleu-matin);
     }
     
     .nav-container {
@@ -87,8 +110,9 @@
       background: none;
       border: none;
       font-size: 1.5rem;
-      color: #333;
+      color: white;
       cursor: pointer;
+      padding: 8px;
     }
     
     @media (max-width: 768px) {
@@ -150,13 +174,17 @@
     }
     .hero-content { position:relative; z-index:2; max-width:720px; margin:0 auto; text-align:center; padding:35px 6vw 18px 6vw;}
     .hero-content h1 {
-      font-family:'Playfair Display',serif; font-size:2.5rem;
-      color:var(--white); font-weight:800; line-height:1.16; margin-bottom:18px; letter-spacing:.018em;
-      background:none; border-radius:13px; display:inline-block; padding:8px 28px;
+      font-family:'Playfair Display',serif; font-size:2.8rem;
+      color:var(--white); font-weight:800; line-height:1.16; margin-bottom:24px; letter-spacing:.018em;
+      background:rgba(0,0,0,0.3); border-radius:15px; display:inline-block; padding:16px 32px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
     }
     .hero-content p {
-      font-size:1.19rem; color:var(--beige); margin-bottom:15px; font-weight:700;
-      background:none; display:inline-block; padding:7px 18px; border-radius:9px; letter-spacing:.01em;
+      font-size:1.25rem; color:var(--white); margin-bottom:25px; font-weight:600;
+      background:rgba(0,0,0,0.2); display:inline-block; padding:12px 24px; border-radius:12px; letter-spacing:.01em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
     }
     .btn,
     .hi-btn,
@@ -200,12 +228,16 @@
       transform: scale(1.045);
     }
     .lang-switch-btn {
-      position:absolute; top:20px; right:22px; z-index:9999;
+      position:fixed; top:85px; right:22px; z-index:9999;
       background:rgba(255,255,255,0.2); color:white; border-radius:20px; padding:9px 19px;
       font-weight:700; font-size:1.08rem; box-shadow:0 2px 12px rgba(0,0,0,0.2); border:none; cursor:pointer;
-      text-transform:uppercase; letter-spacing:0.04em;
+      text-transform:uppercase; letter-spacing:0.04em; transition: all 0.3s ease;
     }
     .lang-switch-btn:hover { background:var(--beige); color:var(--marine);}
+    .header-scrolled .lang-switch-btn {
+      background: var(--marine);
+      color: white;
+    }
     .values-section { display:flex; flex-wrap:wrap; justify-content:center; gap:32px; max-width:1100px; margin:36px auto 30px auto; position:relative; z-index:5;}
     .value-bulle {
       background:var(--bleu-matin); box-shadow:0 3px 16px #1d263013;
@@ -534,8 +566,8 @@
       .form-section { padding: 15px 5vw 15px 5vw; }
       .bulle-item-form-out { padding: 11px 7vw; }
       .hero { height: 70vh; min-height: 400px; max-height: 70vh;}
-      .hero-content h1 { font-size:1.19rem; padding:7px 9px;}
-      .hero-content p { font-size:1rem; padding:6px 7px;}
+      .hero-content h1 { font-size:1.8rem; padding:12px 20px; line-height: 1.2;}
+      .hero-content p { font-size:1.1rem; padding:10px 16px;}
       .btn, .hi-btn, .vkq-form-btn, .vkq-result-btn { font-size:1rem; padding:12px 11px;}
       .values-section, .mini-faq-row { gap:10px; }
       .value-bulle { min-width: 90vw; padding: 13px 11px;}
@@ -803,16 +835,81 @@
 <!-- JS MAP + QUIZ + FAQ + SLIDER + LANG -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-// Mobile menu toggle
-document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
-  document.querySelector('.nav-menu').classList.toggle('active');
-});
+// Navigation professionnelle
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile menu toggle
+  const mobileToggle = document.querySelector('.mobile-menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', function() {
+      navMenu.classList.toggle('active');
+    });
+  }
 
-// Close menu when clicking on a link
-document.querySelectorAll('.nav-menu a').forEach(link => {
-  link.addEventListener('click', () => {
-    document.querySelector('.nav-menu').classList.remove('active');
+  // Smooth scrolling et navigation active
+  const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+  const sections = document.querySelectorAll('section[id], div[id]');
+  
+  // Smooth scroll pour les liens de navigation
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetSection = document.getElementById(targetId);
+      
+      if (targetSection) {
+        const offsetTop = targetSection.offsetTop - 80; // Compensation pour header fixe
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+      }
+      
+      // Fermer le menu mobile après clic
+      if (navMenu) {
+        navMenu.classList.remove('active');
+      }
+    });
   });
+  
+  // Mise en évidence de la section active
+  function updateActiveNav() {
+    let currentSection = '';
+    const scrollPosition = window.scrollY + 100;
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentSection) {
+        link.classList.add('active');
+      }
+    });
+  }
+  
+  // Écouteur de scroll pour section active et header
+  function handleScroll() {
+    updateActiveNav();
+    
+    // Change header appearance on scroll
+    const header = document.querySelector('.main-header');
+    if (window.scrollY > 100) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+  
+  window.addEventListener('scroll', handleScroll);
+  updateActiveNav(); // Initial call
 });
 
 
@@ -889,7 +986,10 @@ function renderFaq(lang) {
       </div>
     `;
   });
-  document.getElementById('mini-faq-row').innerHTML = html;
+  const faqContainer = document.getElementById('contact');
+  if (faqContainer) {
+    faqContainer.innerHTML = html;
+  }
 }
 renderFaq('fr');
 </script>
