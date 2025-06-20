@@ -45,6 +45,38 @@
     /* Smooth transitions for all interactive elements */
     * {
       -webkit-tap-highlight-color: transparent;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+    
+    /* Force mobile form styles */
+    @media (max-width: 768px) {
+      select, input[type="text"], input[type="email"], input[type="tel"] {
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        border-radius: 8px !important;
+        border: 2px solid #ddd !important;
+        padding: 16px 12px !important;
+        font-size: 16px !important;
+        background: white !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      
+      select {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L2 4h8z'/%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 12px center !important;
+        background-size: 12px !important;
+        padding-right: 40px !important;
+      }
+      
+      select:focus, input:focus {
+        border-color: var(--marine) !important;
+        outline: none !important;
+        box-shadow: 0 0 0 3px rgba(21, 34, 57, 0.1) !important;
+      }
     }
     
     /* Focus states for accessibility */
@@ -190,8 +222,9 @@
         top: 65px;
         left: 0;
         right: 0;
-        background: rgba(255, 255, 255, 0.98);
+        background: rgba(21, 34, 57, 0.98);
         backdrop-filter: blur(15px);
+        border-bottom: 3px solid var(--beige);
         flex-direction: column;
         padding: 24px 0;
         gap: 20px;
@@ -209,10 +242,23 @@
       }
       
       .nav-menu a {
-        padding: 12px 32px;
+        color: white !important;
+        font-size: 1.2rem;
+        font-weight: 500;
+        padding: 18px 30px;
+        text-align: left;
+        display: block;
         width: 100%;
-        text-align: center;
-        font-size: 1.1rem;
+        box-sizing: border-box;
+        border-radius: 0;
+        transition: all 0.3s ease;
+      }
+      
+      .nav-menu a:hover {
+        background: var(--beige) !important;
+        color: var(--marine) !important;
+        transform: translateX(10px);
+        padding-left: 40px;
       }
       
       .mobile-menu-toggle {
@@ -903,7 +949,7 @@
     <nav class="main-nav">
       <ul class="nav-menu">
         <li><a href="#approche">Approche</a></li>
-        <li><a href="#quiz">Quiz</a></li>
+        <li><a href="#quiz" style="color: #D4AF37 !important; font-weight: 600 !important;">Quiz</a></li>
         <li><a href="#equipe">Équipe</a></li>
         <li><a href="#zones">Zones</a></li>
         <li><a href="#programmes">Programmes</a></li>
@@ -1086,7 +1132,7 @@
 </div>
 
 <!-- ZONES D'INTERVENTION -->
-<section id="zones" class="section" style="background: linear-gradient(135deg, rgba(234, 241, 250, 0.6) 0%, rgba(245, 241, 232, 0.7) 100%); border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+<section id="zones" class="section" style="background: linear-gradient(135deg, rgba(255, 140, 0, 0.15) 0%, rgba(255, 165, 0, 0.2) 100%) !important; border: 2px solid rgba(255, 140, 0, 0.3) !important; border-radius: 15px !important; box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2) !important; margin: 20px 0 !important; padding: 30px !important;">
   <div class="map-container">
     <div id="map"></div>
   </div>
