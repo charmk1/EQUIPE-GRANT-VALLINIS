@@ -18,6 +18,45 @@
     }
     body { margin:0; font-family:'Inter',sans-serif; color:var(--marine-dark); background:var(--white);}
     
+    /* Ripple effect for buttons */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(0);
+      animation: ripple-animation 0.6s linear;
+      pointer-events: none;
+    }
+    
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    /* Pulse animation for CTA */
+    @keyframes ctaPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Smooth transitions for all interactive elements */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Focus states for accessibility */
+    .btn:focus,
+    .hi-btn:focus,
+    .vkq-form-btn:focus,
+    .vkq-result-btn:focus,
+    .nav-menu a:focus {
+      outline: 3px solid rgba(21, 34, 57, 0.3);
+      outline-offset: 2px;
+    }
+    
     /* Navigation Header - Grant Vallinis Style */
     .main-header {
       position: fixed;
@@ -333,9 +372,21 @@
       position:fixed; top:85px; right:22px; z-index:9999;
       background:rgba(255,255,255,0.2); color:white; border-radius:20px; padding:9px 19px;
       font-weight:700; font-size:1.08rem; box-shadow:0 2px 12px rgba(0,0,0,0.2); border:none; cursor:pointer;
-      text-transform:uppercase; letter-spacing:0.04em; transition: all 0.3s ease;
+      text-transform:uppercase; letter-spacing:0.04em; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: scale(1);
     }
-    .lang-switch-btn:hover { background:var(--beige); color:var(--marine);}
+    
+    .lang-switch-btn:hover { 
+      background:var(--beige); 
+      color:var(--marine);
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    
+    .lang-switch-btn:active {
+      transform: scale(0.95);
+    }
+    
     .header-scrolled .lang-switch-btn {
       background: var(--marine);
       color: white;
@@ -425,7 +476,33 @@
         transform: translateX(0);
       }
     }
-    .map-wrap { background:linear-gradient(135deg, var(--beige) 0%, #f5f1e8 100%); border-radius:14px; padding:19px 17px 10px 17px; margin-bottom:17px; margin-top:11px; box-shadow:0 2px 16px #1d263018; border: 1px solid rgba(205, 183, 141, 0.3);}
+    .map-wrap { 
+      background:linear-gradient(135deg, var(--beige) 0%, #f5f1e8 100%); 
+      border-radius:14px; padding:19px 17px 10px 17px; margin-bottom:17px; margin-top:11px; 
+      box-shadow:0 2px 16px #1d263018; border: 1px solid rgba(205, 183, 141, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(0);
+      opacity: 0;
+      animation: slideInFromRight 0.8s ease forwards;
+      animation-delay: 0.4s;
+    }
+    
+    .map-wrap:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 25px #1d263025;
+      border-color: rgba(205, 183, 141, 0.6);
+    }
+    
+    @keyframes slideInFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
     #real-map { width:100%; height:155px; border-radius:10px;}
     .bulle-box-form-out {
       width: 100%;
@@ -548,6 +625,22 @@
     .mini-faq-row .faq-row {
       background:var(--bleu-matin); border-radius:19px; box-shadow:0 2px 14px #1d263015;
       padding:22px 15px 20px 15px; min-width:0; max-width:280px; flex:1 1 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; border-top:3px solid var(--marine); box-sizing:border-box; white-space:normal; word-break:break-word; position:relative; text-align:center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(0);
+      opacity: 0;
+      animation: slideInUp 0.8s ease forwards;
+    }
+    
+    .mini-faq-row .faq-row:nth-child(1) { animation-delay: 0.2s; }
+    .mini-faq-row .faq-row:nth-child(2) { animation-delay: 0.4s; }
+    .mini-faq-row .faq-row:nth-child(3) { animation-delay: 0.6s; }
+    .mini-faq-row .faq-row:nth-child(4) { animation-delay: 0.8s; }
+    
+    .mini-faq-row .faq-row:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 8px 30px #1d263020;
+      border-top-color: var(--beige);
+      background: #f8f9ff;
     }
     .faq-q { font-size:1.07rem; font-weight:700; color:var(--marine); margin-bottom:7px; line-height:1.25;}
     .faq-a { font-size:0.98rem; font-weight:400; color:var(--grey); line-height:1.36; margin-left:0;}
@@ -1150,6 +1243,56 @@ document.addEventListener('DOMContentLoaded', function() {
   
   window.addEventListener('scroll', handleScroll);
   updateActiveNav(); // Initial call
+  
+  // Add ripple effect to buttons
+  function createRipple(event) {
+    const button = event.currentTarget;
+    const circle = document.createElement("span");
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+    circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+    circle.classList.add("ripple");
+
+    const ripple = button.getElementsByClassName("ripple")[0];
+    if (ripple) {
+      ripple.remove();
+    }
+
+    button.appendChild(circle);
+  }
+
+  // Intersection Observer for scroll animations
+  function initScrollAnimations() {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe animated elements
+    document.querySelectorAll('.value-bulle, .bulle-item-form-out, .form-section, .faq-row, .map-wrap, #vkq-quiz-zone').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  }
+
+  // Initialize micro-interactions
+  document.querySelectorAll('.btn, .hi-btn, .vkq-form-btn, .vkq-result-btn').forEach(button => {
+    button.addEventListener('click', createRipple);
+  });
+  
+  initScrollAnimations();
 });
 
 
