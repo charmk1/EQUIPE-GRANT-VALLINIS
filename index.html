@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Consultation personnalisée | Acheteur</title>
+  <title>Consultation personnalisée | Acheteur - UPDATED</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
@@ -263,6 +263,21 @@
       
       .mobile-menu-toggle {
         display: block;
+        font-size: 1.8rem;
+        padding: 10px;
+        z-index: 10000;
+        position: relative;
+      }
+      
+      /* Force mobile menu styling */
+      .nav-menu li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        margin: 0 !important;
+        width: 100% !important;
+      }
+      
+      .nav-menu li:last-child {
+        border-bottom: none !important;
       }
       
       .logo {
