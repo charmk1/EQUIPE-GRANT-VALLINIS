@@ -1466,51 +1466,116 @@ renderFaq('fr');
 </script>
 <script>
 // QUIZ FIT TO CALENDLY WIDTH
-const quizSteps = [
-  {
-    question: "Ce qui compte le plus pour toi dans ton achat...",
-    answers: {
-      "Investisseur": "💰 Trouver la meilleure opportunité pour investir",
-      "Méthodique": "📊 Être accompagné pas à pas sans stress",
-      "Émotionnel": "❤️ Avoir un coup de cœur qui te ressemble",
-      "Efficace": "⚡ Acheter rapidement, sans complications"
+const quizSteps = {
+  fr: [
+    {
+      question: "Ce qui compte le plus pour toi dans ton achat...",
+      answers: {
+        "Investisseur": "💰 Trouver la meilleure opportunité pour investir",
+        "Méthodique": "📊 Être accompagné pas à pas sans stress",
+        "Émotionnel": "❤️ Avoir un coup de cœur qui te ressemble",
+        "Efficace": "⚡ Acheter rapidement, sans complications"
+      }
+    },
+    {
+      question: "Ta plus grande crainte quand tu achètes une propriété...",
+      answers: {
+        "Investisseur": "💰 Payer trop cher ou rater un bon deal",
+        "Méthodique": "📊 Ne pas tout comprendre ou oublier un détail important",
+        "Émotionnel": "❤️ Acheter un lieu qui ne me ressemble pas",
+        "Efficace": "⚡ Perdre du temps et devoir recommencer"
+      }
+    },
+    {
+      question: "Le courtier idéal pour toi serait...",
+      answers: {
+        "Investisseur": "💰 Quelqu'un qui maîtrise le marché et les chiffres",
+        "Méthodique": "📊 Un guide rassurant qui structure chaque étape",
+        "Émotionnel": "❤️ Quelqu'un à l'écoute de mes envies profondes",
+        "Efficace": "⚡ Un pro qui me fait gagner du temps et va à l'essentiel"
+      }
+    }
+  ],
+  en: [
+    {
+      question: "What matters most to you in your purchase...",
+      answers: {
+        "Investisseur": "💰 Finding the best investment opportunity",
+        "Méthodique": "📊 Being guided step by step without stress",
+        "Émotionnel": "❤️ Having a connection that reflects you",
+        "Efficace": "⚡ Buying quickly, without complications"
+      }
+    },
+    {
+      question: "Your biggest fear when buying a property...",
+      answers: {
+        "Investisseur": "💰 Paying too much or missing a good deal",
+        "Méthodique": "📊 Not understanding everything or forgetting important details",
+        "Émotionnel": "❤️ Buying a place that doesn't reflect me",
+        "Efficace": "⚡ Wasting time and having to start over"
+      }
+    },
+    {
+      question: "The ideal broker for you would be...",
+      answers: {
+        "Investisseur": "💰 Someone who masters the market and numbers",
+        "Méthodique": "📊 A reassuring guide who structures each step",
+        "Émotionnel": "❤️ Someone who listens to my deep desires",
+        "Efficace": "⚡ A pro who saves me time and gets to the point"
+      }
+    }
+  ]
+};
+const profiles = {
+  fr: {
+    "Investisseur": {
+      title: "INVESTISSEUR",
+      desc: "Tu veux maximiser ton retour. On t'accompagne avec des comparables, des analyses, et une vraie stratégie de croissance."
+    },
+    "Méthodique": {
+      title: "MÉTHODIQUE",
+      desc: "Tu veux comprendre, planifier et éviter les surprises. On structure tout pour que tu avances en toute confiance."
+    },
+    "Émotionnel": {
+      title: "ÉMOTIONNEL",
+      desc: "Tu veux un coup de cœur qui te ressemble. On sélectionne des propriétés qui ont une âme, pas juste des murs."
+    },
+    "Efficace": {
+      title: "EFFICACE",
+      desc: "Tu veux avancer vite, avec clarté. On simplifie chaque étape pour te faire gagner du temps sans compromis."
     }
   },
-  {
-    question: "Ta plus grande crainte quand tu achètes une propriété...",
-    answers: {
-      "Investisseur": "💰 Payer trop cher ou rater un bon deal",
-      "Méthodique": "📊 Ne pas tout comprendre ou oublier un détail important",
-      "Émotionnel": "❤️ Acheter un lieu qui ne me ressemble pas",
-      "Efficace": "⚡ Perdre du temps et devoir recommencer"
-    }
-  },
-  {
-    question: "Le courtier idéal pour toi serait...",
-    answers: {
-      "Investisseur": "💰 Quelqu'un qui maîtrise le marché et les chiffres",
-      "Méthodique": "📊 Un guide rassurant qui structure chaque étape",
-      "Émotionnel": "❤️ Quelqu'un à l'écoute de mes envies profondes",
-      "Efficace": "⚡ Un pro qui me fait gagner du temps et va à l'essentiel"
+  en: {
+    "Investisseur": {
+      title: "INVESTOR",
+      desc: "You want to maximize your return. We help you with comparables, analysis, and a real growth strategy."
+    },
+    "Méthodique": {
+      title: "METHODICAL",
+      desc: "You want to understand, plan and avoid surprises. We structure everything so you move forward with confidence."
+    },
+    "Émotionnel": {
+      title: "EMOTIONAL",
+      desc: "You want a place that reflects you. We select properties with soul, not just walls."
+    },
+    "Efficace": {
+      title: "EFFICIENT",
+      desc: "You want to move fast, with clarity. We simplify each step to save you time without compromise."
     }
   }
-];
-const profiles = {
-  "Investisseur": {
-    title: "INVESTISSEUR",
-    desc: "Tu veux maximiser ton retour. On t'accompagne avec des comparables, des analyses, et une vraie stratégie de croissance."
+};
+const quizTexts = {
+  fr: {
+    title: "Quel est ton profil d'acheteur ?",
+    resultTitle: "Ton profil d'acheteur :",
+    restartBtn: "Refaire le quiz",
+    consultBtn: "Ma consultation"
   },
-  "Méthodique": {
-    title: "MÉTHODIQUE",
-    desc: "Tu veux comprendre, planifier et éviter les surprises. On structure tout pour que tu avances en toute confiance."
-  },
-  "Émotionnel": {
-    title: "ÉMOTIONNEL",
-    desc: "Tu veux un coup de cœur qui te ressemble. On sélectionne des propriétés qui ont une âme, pas juste des murs."
-  },
-  "Efficace": {
-    title: "EFFICACE",
-    desc: "Tu veux avancer vite, avec clarté. On simplifie chaque étape pour te faire gagner du temps sans compromis."
+  en: {
+    title: "What's your buyer profile?",
+    resultTitle: "Your buyer profile:",
+    restartBtn: "Restart quiz",
+    consultBtn: "My consultation"
   }
 };
 let step = 0;
