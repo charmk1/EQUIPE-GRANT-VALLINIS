@@ -207,11 +207,7 @@
       }
     }
     
-    .hero { 
-      position:relative; width:100vw; height:57vh; min-height:370px; max-height:580px; 
-      display:flex; align-items:center; justify-content:center; overflow:hidden; background:var(--marine);
-      margin-top: 0; /* pour compenser le header fixe */
-    }
+    .hero { position:relative; width:100vw; height:57vh; min-height:370px; max-height:580px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:var(--marine);}
     .hero video {
       position:absolute; top:0; left:0;
       min-width:100vw; min-height:100%; width:100vw; height:100%; object-fit:cover; z-index:0;
@@ -637,7 +633,7 @@
       <div class="bulle-item-form-out" data-fr="Protection juridique complète : chaque clause et document vérifiés, rien n’est laissé au hasard." data-en="Full legal protection: every clause and document checked, nothing left to chance."><strong>Protection juridique complète</strong> : chaque clause et document vérifiés, rien n’est laissé au hasard.</div>
       <div class="bulle-item-form-out" data-fr="Recherche personnalisée premium : accès à des acheteurs qualifiés et opportunités en avant-première." data-en="Premium buyer matchmaking: access to qualified buyers and exclusive opportunities."><strong>Recherche personnalisée premium</strong> : accès à des acheteurs qualifiés et opportunités en avant-première.</div>
     </div>
-    <section class="form-section">
+    <section class="form-section" id="consultation-de-vente-personnalisee">
       <h2 data-fr="Consultation de vente personnalisée" data-en="Personalized selling consultation">Consultation de vente personnalisée</h2>
       <form action="https://formsubmit.co/wissem.nessah@remax-quebec.com" method="POST" autocomplete="off">
         <div class="form-group">
@@ -707,7 +703,7 @@
 </section>
 
 <!-- ÉQUIPE D'EXPERTS - 6 personnes sur une ligne -->
-<section class="team-section">
+<section class="team-section" id="equipe">
   <h2 data-fr="Notre équipe d'experts" data-en="Our team of experts">Notre équipe d'experts</h2>
   <p data-fr="Une équipe passionnée et expérimentée à votre service pour vous accompagner dans tous vos projets immobiliers" data-en="A passionate and experienced team at your service to support you in all your real estate projects">Une équipe passionnée et expérimentée à votre service pour vous accompagner dans tous vos projets immobiliers</p>
   
@@ -812,17 +808,19 @@
   const menuToggle = document.querySelector('.mobile-menu-toggle');
   const navMenu = document.querySelector('.nav-menu');
 
-  menuToggle.addEventListener('click', function() {
-    navMenu.classList.toggle('active');
-  });
-
-  // Close mobile menu when clicking on a link
-  const navLinks = document.querySelectorAll('.nav-menu a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-      navMenu.classList.remove('active');
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', function() {
+      navMenu.classList.toggle('active');
     });
-  });
+
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+      });
+    });
+  }
   
   document.addEventListener('DOMContentLoaded', function() {
     if(document.getElementById('budget-range')) {
