@@ -948,27 +948,7 @@
         max-width: none;
       }
     }
-    /* Fin ajout styles 3 sections */
-    @media (max-width:950px) {
-      .two-col-section { flex-direction: column; gap: 25px;}
-      .calendar-side, .col-droite-perso { max-width: 99vw; min-width: 10px; }
-      .form-section, .bulle-item-form-out, .vkq-quiz-card { max-width: 99vw; }
-      #vkq-quiz-zone { max-width:99vw; }
-    }
-    @media (max-width:700px) {
-      .two-col-section { padding: 0 2vw; }
-      .form-section { padding: 15px 5vw 15px 5vw; }
-      .bulle-item-form-out { padding: 11px 7vw; }
-      .hero { height: 70vh; min-height: 400px; max-height: 70vh;}
-      .hero-content h1 { font-size:1.8rem; padding:12px 20px; line-height: 1.2;}
-      .hero-content p { font-size:1.1rem; padding:10px 16px;}
-      .btn, .hi-btn, .vkq-form-btn, .vkq-result-btn { font-size:1rem; padding:12px 11px;}
-      .values-section, .mini-faq-row { gap:10px; }
-      .value-bulle { min-width: 90vw; padding: 13px 11px;}
-      .signature-slogan { font-size: 1.19rem;}
-    }
-    
-    /* Styles pour la section équipe d'experts */
+    /* Section team - 6 experts sur une ligne */
     .team-section {
       padding: 60px 36px;
       margin: 40px auto;
@@ -994,23 +974,27 @@
     }
     
     .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
       margin: 0 auto;
-      max-width: 1100px;
+      max-width: 1200px;
+      flex-wrap: wrap;
     }
     
     .team-member {
       background: #fff;
-      border-radius: 20px;
-      padding: 30px 20px;
+      border-radius: 15px;
+      padding: 20px 15px;
       text-align: center;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.1);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      border-top: 4px solid var(--marine);
+      border-top: 3px solid var(--marine);
       position: relative;
       overflow: hidden;
+      flex: 1;
+      min-width: 180px;
+      max-width: 190px;
     }
     
     .team-member::before {
@@ -1025,8 +1009,8 @@
     }
     
     .team-member:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
       border-top-color: var(--beige);
     }
     
@@ -1035,12 +1019,12 @@
     }
     
     .team-member img {
-      width: 120px;
-      height: 120px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 20px;
-      border: 4px solid var(--bleu-matin);
+      margin-bottom: 15px;
+      border: 3px solid var(--bleu-matin);
       transition: all 0.3s ease;
     }
     
@@ -1051,32 +1035,45 @@
     
     .team-member h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
+      font-size: 1.1rem;
       color: var(--marine);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-weight: 600;
     }
     
     .team-member .role {
-      font-size: 1rem;
-      color: var(--beige);
+      font-size: 0.85rem;
+      color: var(--marine);
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
     }
     
     .team-member .experience {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--grey);
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
     
     .team-member .description {
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       color: var(--grey);
-      line-height: 1.5;
+      line-height: 1.4;
       opacity: 0.9;
+    }
+    
+    @media (max-width: 1000px) {
+      .team-grid {
+        justify-content: center;
+        gap: 20px;
+      }
+      
+      .team-member {
+        flex: 0 0 calc(33.333% - 14px);
+        min-width: 150px;
+        max-width: 200px;
+      }
     }
     
     @media (max-width: 768px) {
@@ -1089,18 +1086,60 @@
       }
       
       .team-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 20px;
       }
       
       .team-member {
-        padding: 25px 15px;
+        padding: 18px 12px;
+        flex: 0 0 calc(50% - 10px);
+        min-width: 140px;
       }
       
       .team-member img {
-        width: 100px;
-        height: 100px;
+        width: 70px;
+        height: 70px;
       }
+      
+      .team-member h3 {
+        font-size: 1rem;
+      }
+      
+      .team-member .description {
+        font-size: 0.75rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .team-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .team-member {
+        flex: none;
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+    /* Fin ajout styles 3 sections */
+    @media (max-width:950px) {
+      .two-col-section { flex-direction: column; gap: 25px;}
+      .calendar-side, .col-droite-perso { max-width: 99vw; min-width: 10px; }
+      .form-section, .bulle-item-form-out, .vkq-quiz-card { max-width: 99vw; }
+      #vkq-quiz-zone { max-width:99vw; }
+    }
+    @media (max-width:700px) {
+      .two-col-section { padding: 0 2vw; }
+      .form-section { padding: 15px 5vw 15px 5vw; }
+      .bulle-item-form-out { padding: 11px 7vw; }
+      .hero { height: 70vh; min-height: 400px; max-height: 70vh;}
+      .hero-content h1 { font-size:1.8rem; padding:12px 20px; line-height: 1.2;}
+      .hero-content p { font-size:1.1rem; padding:10px 16px;}
+      .btn, .hi-btn, .vkq-form-btn, .vkq-result-btn { font-size:1rem; padding:12px 11px;}
+      .values-section, .mini-faq-row { gap:10px; }
+      .value-bulle { min-width: 90vw; padding: 13px 11px;}
+      .signature-slogan { font-size: 1.19rem;}
     }
   </style>
 </head>
@@ -1271,7 +1310,7 @@
 
 <!-- 🔥 LES 3 SECTIONS EN VERTICAL (juste après la section two-col-section) -->
 
-<!-- ÉQUIPE D'EXPERTS -->
+<!-- ÉQUIPE D'EXPERTS - 6 personnes sur une ligne -->
 <section class="team-section">
   <h2 data-fr="Notre équipe d'experts" data-en="Our team of experts">Notre équipe d'experts</h2>
   <p data-fr="Une équipe passionnée et expérimentée à votre service pour vous accompagner dans tous vos projets immobiliers" data-en="A passionate and experienced team at your service to support you in all your real estate projects">Une équipe passionnée et expérimentée à votre service pour vous accompagner dans tous vos projets immobiliers</p>
@@ -1280,49 +1319,49 @@
     <div class="team-member">
       <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face" alt="Jean-Marc Dubois">
       <h3>Jean-Marc Dubois</h3>
-      <div class="role" data-fr="Courtier Immobilier Senior" data-en="Senior Real Estate Broker">Courtier Immobilier Senior</div>
-      <div class="experience" data-fr="15+ ans d'expérience" data-en="15+ years of experience">15+ ans d'expérience</div>
-      <div class="description" data-fr="Spécialiste en négociation et transactions complexes, Jean-Marc vous accompagne avec expertise et professionnalisme." data-en="Specialist in negotiation and complex transactions, Jean-Marc supports you with expertise and professionalism.">Spécialiste en négociation et transactions complexes, Jean-Marc vous accompagne avec expertise et professionnalisme.</div>
+      <div class="role" data-fr="Courtier Senior" data-en="Senior Broker">Courtier Senior</div>
+      <div class="experience" data-fr="15+ ans" data-en="15+ years">15+ ans</div>
+      <div class="description" data-fr="Spécialiste négociation et transactions complexes" data-en="Negotiation and complex transactions specialist">Spécialiste négociation et transactions complexes</div>
     </div>
     
     <div class="team-member">
       <img src="https://images.unsplash.com/photo-1494790108755-2616b332b385?w=300&h=300&fit=crop&crop=face" alt="Sophie Martineau">
       <h3>Sophie Martineau</h3>
       <div class="role" data-fr="Spécialiste Financement" data-en="Financing Specialist">Spécialiste Financement</div>
-      <div class="experience" data-fr="12+ ans d'expérience" data-en="12+ years of experience">12+ ans d'expérience</div>
-      <div class="description" data-fr="Experte en solutions de financement innovantes, Sophie optimise votre capacité d'emprunt et négocie les meilleures conditions." data-en="Expert in innovative financing solutions, Sophie optimizes your borrowing capacity and negotiates the best terms.">Experte en solutions de financement innovantes, Sophie optimise votre capacité d'emprunt et négocie les meilleures conditions.</div>
+      <div class="experience" data-fr="12+ ans" data-en="12+ years">12+ ans</div>
+      <div class="description" data-fr="Experte solutions de financement innovantes" data-en="Expert in innovative financing solutions">Experte solutions de financement innovantes</div>
     </div>
     
     <div class="team-member">
       <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face" alt="Alexandre Rousseau">
       <h3>Alexandre Rousseau</h3>
       <div class="role" data-fr="Analyste Marché" data-en="Market Analyst">Analyste Marché</div>
-      <div class="experience" data-fr="8+ ans d'expérience" data-en="8+ years of experience">8+ ans d'expérience</div>
-      <div class="description" data-fr="Spécialiste des tendances du marché immobilier, Alexandre fournit des analyses précises pour optimiser vos investissements." data-en="Real estate market trends specialist, Alexandre provides accurate analysis to optimize your investments.">Spécialiste des tendances du marché immobilier, Alexandre fournit des analyses précises pour optimiser vos investissements.</div>
+      <div class="experience" data-fr="8+ ans" data-en="8+ years">8+ ans</div>
+      <div class="description" data-fr="Analyses précises pour optimiser vos investissements" data-en="Accurate analysis to optimize your investments">Analyses précises pour optimiser vos investissements</div>
     </div>
     
     <div class="team-member">
       <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face" alt="Marie-Claude Gagnon">
       <h3>Marie-Claude Gagnon</h3>
       <div class="role" data-fr="Conseillère Juridique" data-en="Legal Advisor">Conseillère Juridique</div>
-      <div class="experience" data-fr="10+ ans d'expérience" data-en="10+ years of experience">10+ ans d'expérience</div>
-      <div class="description" data-fr="Avocate spécialisée en droit immobilier, Marie-Claude sécurise toutes vos transactions et protège vos intérêts." data-en="Lawyer specializing in real estate law, Marie-Claude secures all your transactions and protects your interests.">Avocate spécialisée en droit immobilier, Marie-Claude sécurise toutes vos transactions et protège vos intérêts.</div>
+      <div class="experience" data-fr="10+ ans" data-en="10+ years">10+ ans</div>
+      <div class="description" data-fr="Sécurise toutes vos transactions immobilières" data-en="Secures all your real estate transactions">Sécurise toutes vos transactions immobilières</div>
     </div>
     
     <div class="team-member">
       <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face" alt="David Chen">
       <h3>David Chen</h3>
       <div class="role" data-fr="Expert Évaluation" data-en="Evaluation Expert">Expert Évaluation</div>
-      <div class="experience" data-fr="14+ ans d'expérience" data-en="14+ years of experience">14+ ans d'expérience</div>
-      <div class="description" data-fr="Évaluateur agréé avec une expertise approfondie, David garantit des évaluations précises et objectives de vos biens." data-en="Certified appraiser with deep expertise, David ensures accurate and objective evaluations of your properties.">Évaluateur agréé avec une expertise approfondie, David garantit des évaluations précises et objectives de vos biens.</div>
+      <div class="experience" data-fr="14+ ans" data-en="14+ years">14+ ans</div>
+      <div class="description" data-fr="Évaluations précises et objectives de vos biens" data-en="Accurate and objective property evaluations">Évaluations précises et objectives de vos biens</div>
     </div>
     
     <div class="team-member">
       <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=300&h=300&fit=crop&crop=face" alt="Isabelle Roy">
       <h3>Isabelle Roy</h3>
       <div class="role" data-fr="Gestionnaire Clientèle" data-en="Client Manager">Gestionnaire Clientèle</div>
-      <div class="experience" data-fr="9+ ans d'expérience" data-en="9+ years of experience">9+ ans d'expérience</div>
-      <div class="description" data-fr="Responsable de l'expérience client exceptionnelle, Isabelle coordonne tous les aspects de votre parcours immobilier." data-en="Responsible for exceptional client experience, Isabelle coordinates all aspects of your real estate journey.">Responsable de l'expérience client exceptionnelle, Isabelle coordonne tous les aspects de votre parcours immobilier.</div>
+      <div class="experience" data-fr="9+ ans" data-en="9+ years">9+ ans</div>
+      <div class="description" data-fr="Coordonne tous les aspects de votre parcours" data-en="Coordinates all aspects of your journey">Coordonne tous les aspects de votre parcours</div>
     </div>
   </div>
 </section>
