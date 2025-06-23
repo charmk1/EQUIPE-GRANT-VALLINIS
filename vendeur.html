@@ -207,7 +207,11 @@
       }
     }
     
-    .hero { position:relative; width:100vw; height:57vh; min-height:370px; max-height:580px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:var(--marine);
+    .hero { 
+      position:relative; width:100vw; height:57vh; min-height:370px; max-height:580px; 
+      display:flex; align-items:center; justify-content:center; overflow:hidden; background:var(--marine);
+      margin-top: 0; /* pour compenser le header fixe */
+    }
     .hero video {
       position:absolute; top:0; left:0;
       min-width:100vw; min-height:100%; width:100vw; height:100%; object-fit:cover; z-index:0;
@@ -782,6 +786,44 @@
   function getBudgetValue(val) {
     return (Number(val).toLocaleString('fr-CA')) + ' $';
   }
+  // Navigation scroll behavior
+  let lastScrollTop = 0;
+  const header = document.querySelector('.main-header');
+  
+  window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+      header.classList.add('hide');
+    } else {
+      header.classList.remove('hide');
+    }
+    
+    if (scrollTop > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    
+    lastScrollTop = scrollTop;
+  });
+
+  // Mobile menu toggle
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+
+  menuToggle.addEventListener('click', function() {
+    navMenu.classList.toggle('active');
+  });
+
+  // Close mobile menu when clicking on a link
+  const navLinks = document.querySelectorAll('.nav-menu a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      navMenu.classList.remove('active');
+    });
+  });
+  
   document.addEventListener('DOMContentLoaded', function() {
     if(document.getElementById('budget-range')) {
       document.getElementById('budget-range').addEventListener('input', function(e){
