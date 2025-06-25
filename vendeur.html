@@ -1299,7 +1299,10 @@
             <label><input type="radio" name="Langue" value="Hindi" data-fr="Hindi" data-en="Hindi">हिन्दी</label>
           </div>
         </div>
-        <button type="submit" class="vkq-form-btn" data-fr="Envoyer ma demande" data-en="Send my request">Envoyer ma demande</button>
+        <input type="hidden" name="_subject" value="Nouvelle demande consultation vendeur">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="box">
+        <button type="submit" class="vkq-form-btn" data-fr="Obtenir ma consultation gratuite" data-en="Get my free consultation">Obtenir ma consultation gratuite</button>
         <p class="mini-reassure" data-fr="Évaluation gratuite, service confidentiel et humain. Zéro obligation – seulement des conseils honnêtes pour maximiser votre vente." data-en="Free evaluation, confidential and human service. Zero obligation—only honest advice to maximize your sale.">Évaluation gratuite, service confidentiel et humain. Zéro obligation – seulement des conseils honnêtes pour maximiser votre vente.</p>
       </form>
       <div class="signature-slogan" data-fr="Réalisons !" data-en="Let's make it happen!">Réalisons !</div>
@@ -1663,16 +1666,16 @@ document.addEventListener('DOMContentLoaded', function() {
 // MINI FAQ bilingue
 const faqs = {
   fr: [
-    {q:"Pourquoi prendre un courtier pour acheter ?", a:"Un courtier protège vos intérêts, négocie pour vous, détecte les pièges cachés et vous accompagne à chaque étape-clé."},
-    {q:"Combien coûte ce service ?", a:"Pour l'acheteur, c'est généralement gratuit (rémunéré par le vendeur). Tout est transparent dès le départ."},
-    {q:"Êtes-vous là aux moments cruciaux ?", a:"Toujours : visites, négociation, et accompagnement jusqu'à la conclusion de l'achat."},
-    {q:"Est-ce vraiment sans obligation ?", a:"Oui. La consultation est offerte sans engagement. Zéro pression, juste des conseils honnêtes pour bien acheter."}
+    {q:"Pourquoi prendre un courtier pour vendre ?", a:"Un courtier protège vos intérêts, négocie pour vous, gère les visites et évite les pièges à chaque étape-clé."},
+    {q:"Combien coûte ce service ?", a:"La commission est payée seulement si la vente se conclut, tout est transparent dès le départ."},
+    {q:"Combien de temps pour vendre ?", a:"En moyenne 30-90 jours selon le marché, mais nous optimisons chaque détail pour accélérer le processus."},
+    {q:"Comment fixez-vous le prix ?", a:"Analyse comparative détaillée + étude de marché locale pour un prix juste qui attire sans sous-évaluer."}
   ],
   en: [
-    {q:"Why use a broker to buy?", a:"A broker protects your interests, negotiates for you, detects hidden pitfalls, and supports you at every key step."},
-    {q:"How much does this service cost?", a:"For buyers, it's usually free (paid by the seller). Everything is transparent from the start."},
-    {q:"Are you present at the key moments?", a:"Always: visits, negotiation, and support all the way to the closing."},
-    {q:"Is it really with no obligation?", a:"Yes. The consultation is free, with no obligation. Zero pressure—just honest answers to help you buy right."}
+    {q:"Why use a broker to sell?", a:"A broker protects your interests, negotiates for you, manages visits and avoids pitfalls at every key step."},
+    {q:"How much does this service cost?", a:"Commission is paid only if the sale is completed, everything is transparent from the start."},
+    {q:"How long does it take to sell?", a:"On average 30-90 days depending on the market, but we optimize every detail to speed up the process."},
+    {q:"How do you set the price?", a:"Detailed comparative analysis + local market study for a fair price that attracts without undervaluing."}
   ]
 };
 function renderFaq(lang) {
@@ -1697,49 +1700,49 @@ renderFaq('fr');
 // QUIZ FIT TO CALENDLY WIDTH
 const quizSteps = [
   {
-    question: "Ce qui compte le plus pour toi dans ton achat...",
+    question: "Ce qui compte le plus pour toi dans ta vente...",
     answers: {
-      "Investisseur": "💰 Trouver la meilleure opportunité pour investir",
-      "Méthodique": "📊 Être accompagné pas à pas sans stress",
-      "Émotionnel": "❤️ Avoir un coup de cœur qui te ressemble",
-      "Efficace": "⚡ Acheter rapidement, sans complications"
+      "Rentable": "💰 Obtenir le meilleur prix possible pour ta propriété",
+      "Serein": "📊 Être accompagné sans stress tout au long du processus",
+      "Rapide": "⚡ Vendre rapidement et efficacement",
+      "Strategic": "🎯 Avoir une stratégie personnalisée et sur-mesure"
     }
   },
   {
-    question: "Ta plus grande crainte quand tu achètes une propriété...",
+    question: "Ta plus grande crainte quand tu vends une propriété...",
     answers: {
-      "Investisseur": "💰 Payer trop cher ou rater un bon deal",
-      "Méthodique": "📊 Ne pas tout comprendre ou oublier un détail important",
-      "Émotionnel": "❤️ Acheter un lieu qui ne me ressemble pas",
-      "Efficace": "⚡ Perdre du temps et devoir recommencer"
+      "Rentable": "💰 Vendre en dessous de la valeur réelle",
+      "Serein": "📊 Ne pas maîtriser les négociations ou les aspects légaux",
+      "Rapide": "⚡ Que la vente traîne en longueur",
+      "Strategic": "🎯 Choisir la mauvaise stratégie de mise en marché"
     }
   },
   {
     question: "Le courtier idéal pour toi serait...",
     answers: {
-      "Investisseur": "💰 Quelqu'un qui maîtrise le marché et les chiffres",
-      "Méthodique": "📊 Un guide rassurant qui structure chaque étape",
-      "Émotionnel": "❤️ Quelqu'un à l'écoute de mes envies profondes",
-      "Efficace": "⚡ Un pro qui me fait gagner du temps et va à l'essentiel"
+      "Rentable": "💰 Quelqu'un qui maximise ta valeur avec marketing premium",
+      "Serein": "📊 Un accompagnateur rassurant qui gère tout de A à Z",
+      "Rapide": "⚡ Un expert qui optimise les délais et va à l'essentiel",
+      "Strategic": "🎯 Un conseiller qui adapte sa stratégie à tes objectifs précis"
     }
   }
 ];
 const profiles = {
-  "Investisseur": {
-    title: "INVESTISSEUR",
-    desc: "Tu veux maximiser ton retour. On t'accompagne avec des comparables, des analyses, et une vraie stratégie de croissance."
+  "Rentable": {
+    title: "LE MAXIMISATEUR",
+    desc: "Tu veux le meilleur prix possible. Notre stratégie marketing premium et nos techniques de négociation sont faites pour toi."
   },
-  "Méthodique": {
-    title: "MÉTHODIQUE",
-    desc: "Tu veux comprendre, planifier et éviter les surprises. On structure tout pour que tu avances en toute confiance."
+  "Serein": {
+    title: "LE ZEN VENDEUR",
+    desc: "Tu veux vendre sans stress. Notre accompagnement complet et humain te libère de toutes les contraintes."
   },
-  "Émotionnel": {
-    title: "ÉMOTIONNEL",
-    desc: "Tu veux un coup de cœur qui te ressemble. On sélectionne des propriétés qui ont une âme, pas juste des murs."
+  "Rapide": {
+    title: "LE VENDEUR EXPRESS",
+    desc: "Tu veux vendre vite et bien. Notre processus optimisé et notre réseau te feront gagner du temps précieux."
   },
-  "Efficace": {
-    title: "EFFICACE",
-    desc: "Tu veux avancer vite, avec clarté. On simplifie chaque étape pour te faire gagner du temps sans compromis."
+  "Strategic": {
+    title: "LE STRATÈGE",
+    desc: "Tu veux une approche sur-mesure. Notre expertise et conseils personnalisés optimiseront ta vente selon tes objectifs précis."
   }
 };
 let step = 0;
