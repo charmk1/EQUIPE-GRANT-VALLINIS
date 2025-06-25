@@ -3,389 +3,103 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <meta name="timestamp" content="<?= time() ?>">
-  <title>Grant Vallinis - Consultation Immobilière Personnalisée - Accueil</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Grant Vallinis - Immobilier</title>
   <style>
-    :root {
-      --marine: #1d2630;
-      --marine-dark: #14202e;
-      --beige: rgba(246,236,219,0.19);
-      --beige-solid: #f6ecdb;
-      --grey: #444443;
-      --white: #fff;
-    }
-    
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      color: var(--marine-dark);
-      background: var(--white);
-      overflow-x: hidden;
-    }
-
-    /* Header Grant Vallinis */
-    .main-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(29, 38, 48, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(246, 236, 219, 0.1);
-      transition: all 0.3s ease;
-      padding: 12px 0;
-    }
-
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
+      font-family: Arial, sans-serif;
+      background: #1d2630;
+      color: white;
+      min-height: 100vh;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-    }
-
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--beige-solid);
-      text-decoration: none;
-      letter-spacing: 0.02em;
-    }
-
-    .nav-menu {
-      display: flex;
-      gap: 35px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-menu a {
-      color: var(--beige-solid);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .nav-menu a:hover {
-      color: var(--white);
-      transform: translateY(-1px);
-    }
-
-    .nav-menu a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--beige-solid);
-      transition: width 0.3s ease;
-    }
-
-    .nav-menu a:hover::after {
-      width: 100%;
-    }
-
-    .lang-switch-btn {
-      background: var(--marine);
-      color: var(--beige-solid);
-      border-radius: 20px;
-      padding: 8px 16px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      border: none;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      transition: all 0.2s ease;
-    }
-
-    .lang-switch-btn:hover {
-      background: var(--beige-solid);
-      color: var(--marine);
-    }
-
-    /* Hero Section */
-    .hero {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      overflow: hidden;
-      background: var(--marine);
+      align-items: center;
     }
-
-    .hero video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      min-width: 100vw;
-      min-height: 100%;
-      width: 100vw;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(29, 38, 48, 0.4);
-      z-index: 1;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 900px;
-      margin: 0 auto;
+    
+    .container {
       text-align: center;
-      padding: 80px 6vw 40px 6vw;
+      max-width: 800px;
+      padding: 40px 20px;
     }
-
-    .hero-content h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.2rem;
-      color: var(--white);
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 24px;
-      letter-spacing: 0.018em;
-    }
-
-    .hero-content p {
-      font-size: 1.4rem;
-      color: var(--beige-solid);
-      margin-bottom: 50px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      line-height: 1.4;
-    }
-
-    /* Choice Cards */
-    .choices-container {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    .choice-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 40px 30px;
-      min-width: 280px;
-      max-width: 320px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(246, 236, 219, 0.3);
-      transition: all 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-      color: var(--marine);
-    }
-
-    .choice-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
-      background: rgba(255, 255, 255, 1);
-    }
-
-    .choice-icon {
+    
+    h1 {
       font-size: 3rem;
       margin-bottom: 20px;
-      display: block;
+      color: #f6ecdb;
     }
-
-    .choice-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--marine);
+    
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: #f6ecdb;
     }
-
-    .choice-description {
-      font-size: 1.1rem;
-      color: var(--grey);
-      line-height: 1.5;
-      margin-bottom: 24px;
+    
+    .choices {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-
-    .choice-cta {
-      background: var(--marine);
-      color: var(--beige-solid);
-      border-radius: 25px;
-      padding: 12px 28px;
-      font-weight: 700;
-      font-size: 1rem;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      width: 100%;
+    
+    .choice {
+      background: white;
+      color: #1d2630;
+      padding: 40px 30px;
+      border-radius: 15px;
+      text-decoration: none;
+      min-width: 250px;
+      transition: transform 0.3s ease;
     }
-
-    .choice-card:hover .choice-cta {
-      background: var(--marine-dark);
+    
+    .choice:hover {
       transform: scale(1.05);
     }
-
-    /* Mobile Responsiveness */
+    
+    .choice h2 {
+      font-size: 2rem;
+      margin: 0 0 15px 0;
+    }
+    
+    .choice-desc {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    
+    .btn {
+      background: #1d2630;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
     @media (max-width: 768px) {
-      .nav-menu {
-        display: none;
-      }
-
-      .hero-content h1 {
-        font-size: 2.4rem;
-      }
-
-      .hero-content p {
-        font-size: 1.2rem;
-      }
-
-      .choices-container {
-        gap: 20px;
-        padding: 0 20px;
-      }
-
-      .choice-card {
-        min-width: 250px;
-        padding: 30px 20px;
-      }
+      h1 { font-size: 2rem; }
+      .choices { flex-direction: column; align-items: center; }
+      .choice { min-width: 200px; }
     }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .choice-card {
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .choice-card:nth-child(1) { animation-delay: 0.1s; }
-    .choice-card:nth-child(2) { animation-delay: 0.2s; }
   </style>
 </head>
 <body>
-
-<!-- Header Grant Vallinis -->
-<header class="main-header">
-  <div class="header-container">
-    <a href="#" class="logo">Grant Vallinis</a>
-    <nav>
-      <ul class="nav-menu">
-        <li><a href="#accueil" data-fr="Accueil" data-en="Home">Accueil</a></li>
-        <li><a href="#services" data-fr="Services" data-en="Services">Services</a></li>
-        <li><a href="#equipe" data-fr="Équipe" data-en="Team">Équipe</a></li>
-        <li><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
-      </ul>
-    </nav>
-    <button class="lang-switch-btn" onclick="switchLang()">
-      <span id="langLabel">EN</span>
-    </button>
-  </div>
-</header>
-
-<!-- Hero Section -->
-<section class="hero">
-  <video autoplay muted loop playsinline>
-    <source src="https://ia800102.us.archive.org/10/items/7578546-uhd-3840-2160-30fps/7578546-uhd_3840_2160_30fps.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1 data-fr="Votre projet immobilier commence ici" data-en="Your real estate project starts here">
-      Votre projet immobilier commence ici
-    </h1>
-    <p data-fr="Consultation personnalisée, accompagnement expert et service humain pour réussir votre achat ou votre vente" data-en="Personalized consultation, expert guidance and human service to succeed in your purchase or sale">
-      Consultation personnalisée, accompagnement expert et service humain pour réussir votre achat ou votre vente
-    </p>
+  <div class="container">
+    <h1>Grant Vallinis</h1>
+    <p>Votre projet immobilier commence ici</p>
     
-    <div class="choices-container">
-      <a href="acheteur.html" class="choice-card">
-        <span class="choice-icon">🏠</span>
-        <h3 class="choice-title" data-fr="Je veux acheter" data-en="I want to buy">Je veux acheter</h3>
-        <p class="choice-description" data-fr="Trouvez la propriété idéale avec notre accompagnement expert de A à Z" data-en="Find the ideal property with our expert A to Z guidance">
-          Trouvez la propriété idéale avec notre accompagnement expert de A à Z
-        </p>
-        <button class="choice-cta" data-fr="Consultation acheteur" data-en="Buyer consultation">Consultation acheteur</button>
+    <div class="choices">
+      <a href="acheteur.html" class="choice">
+        <h2>🏠 Acheteur</h2>
+        <div class="choice-desc">Trouvez la propriété idéale avec notre accompagnement expert</div>
+        <div class="btn">Consultation acheteur</div>
       </a>
-
-      <a href="vendeur.html" class="choice-card">
-        <span class="choice-icon">💰</span>
-        <h3 class="choice-title" data-fr="Je veux vendre" data-en="I want to sell">Je veux vendre</h3>
-        <p class="choice-description" data-fr="Vendez au meilleur prix avec notre stratégie marketing personnalisée" data-en="Sell at the best price with our personalized marketing strategy">
-          Vendez au meilleur prix avec notre stratégie marketing personnalisée
-        </p>
-        <button class="choice-cta" data-fr="Consultation vendeur" data-en="Seller consultation">Consultation vendeur</button>
+      
+      <a href="vendeur.html" class="choice">
+        <h2>💰 Vendeur</h2>
+        <div class="choice-desc">Vendez au meilleur prix avec notre stratégie personnalisée</div>
+        <div class="btn">Consultation vendeur</div>
       </a>
     </div>
   </div>
-</section>
-
-<script>
-// Changement de langue
-function switchLang() {
-  const currentLang = document.documentElement.lang === "fr" ? "en" : "fr";
-  document.documentElement.lang = currentLang;
-  document.getElementById('langLabel').innerText = currentLang === "fr" ? "EN" : "FR";
-  
-  document.querySelectorAll('[data-fr],[data-en]').forEach(function(el) {
-    const text = el.getAttribute(currentLang === 'fr' ? 'data-fr' : 'data-en');
-    if(text) {
-      el.innerHTML = text;
-    }
-  });
-}
-
-// Header scroll effects
-window.addEventListener('scroll', function() {
-  const header = document.querySelector('.main-header');
-  if (window.scrollY > 50) {
-    header.style.background = 'rgba(29, 38, 48, 0.98)';
-  } else {
-    header.style.background = 'rgba(29, 38, 48, 0.95)';
-  }
-});
-
-// Animation au chargement
-document.addEventListener('DOMContentLoaded', function() {
-  const cards = document.querySelectorAll('.choice-card');
-  cards.forEach((card, index) => {
-    setTimeout(() => {
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0)';
-    }, 100 * (index + 1));
-  });
-});
-</script>
-
 </body>
 </html>
