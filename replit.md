@@ -11,7 +11,8 @@ Le fichier `attached_assets/Pasted--DOCTYPE-html-html-lang-fr-head-meta-charset-
 - Contenus entièrement adaptés à la vente
 
 ## Pages complétées
-- ✅ index.html : Page acheteur de référence (design et structure de base)
+- ✅ index.html : Page d'accueil avec choix acheteur/vendeur
+- ✅ acheteur.html : Page acheteur de référence (design et structure de base)
 - ✅ vendeur.html : Page vendeur avec contenu spécialisé
 
 ## Spécifications techniques
@@ -27,6 +28,8 @@ Le fichier `attached_assets/Pasted--DOCTYPE-html-html-lang-fr-head-meta-charset-
 - Tous contenus adaptés : formulaires, quiz, FAQ, équipe
 - Design parfaitement aligné avec la référence acheteur
 - Code de référence vendeur identifié et documenté
+- Site unifié créé avec page d'accueil pour navigation acheteur/vendeur
+- Architecture : index.html (accueil) → acheteur.html / vendeur.html
 
 ## Préférences utilisateur
 - Conserver le design visuel exact entre les pages
