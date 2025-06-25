@@ -1,105 +1,27 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Grant Vallinis - Immobilier</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1d2630;
-      color: white;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .container {
-      text-align: center;
-      max-width: 800px;
-      padding: 40px 20px;
-    }
-    
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      color: #f6ecdb;
-    }
-    
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 40px;
-      color: #f6ecdb;
-    }
-    
-    .choices {
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .choice {
-      background: white;
-      color: #1d2630;
-      padding: 40px 30px;
-      border-radius: 15px;
-      text-decoration: none;
-      min-width: 250px;
-      transition: transform 0.3s ease;
-    }
-    
-    .choice:hover {
-      transform: scale(1.05);
-    }
-    
-    .choice h2 {
-      font-size: 2rem;
-      margin: 0 0 15px 0;
-    }
-    
-    .choice-desc {
-      font-size: 1rem;
-      margin-bottom: 20px;
-    }
-    
-    .btn {
-      background: #1d2630;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    
-    @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
-      .choices { flex-direction: column; align-items: center; }
-      .choice { min-width: 200px; }
-    }
-  </style>
+<title>Grant Vallinis</title>
+<style>
+body { background: navy; color: white; text-align: center; padding: 50px; }
+.card { background: white; color: black; margin: 20px; padding: 30px; display: inline-block; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Grant Vallinis</h1>
-    <p>Votre projet immobilier commence ici</p>
-    
-    <div class="choices">
-      <a href="acheteur.html" class="choice">
-        <h2>🏠 Acheteur</h2>
-        <div class="choice-desc">Trouvez la propriété idéale avec notre accompagnement expert</div>
-        <div class="btn">Consultation acheteur</div>
-      </a>
-      
-      <a href="vendeur.html" class="choice">
-        <h2>💰 Vendeur</h2>
-        <div class="choice-desc">Vendez au meilleur prix avec notre stratégie personnalisée</div>
-        <div class="btn">Consultation vendeur</div>
-      </a>
-    </div>
-  </div>
+<h1>Grant Vallinis - Immobilier</h1>
+<h2>Choisissez votre projet :</h2>
+
+<div class="card">
+<h3>ACHETEUR</h3>
+<p>Je veux acheter une propriété</p>
+<a href="acheteur.html">Consultation Acheteur</a>
+</div>
+
+<div class="card">
+<h3>VENDEUR</h3>
+<p>Je veux vendre ma propriété</p>
+<a href="vendeur.html">Consultation Vendeur</a>
+</div>
+
 </body>
 </html>
