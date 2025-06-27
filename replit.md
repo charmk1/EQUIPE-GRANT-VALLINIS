@@ -36,6 +36,7 @@ Le fichier `attached_assets/Pasted--DOCTYPE-html-html-lang-fr-head-meta-charset-
 - Slogan "Réalisons !" et animations identiques à la référence
 - Interface minimaliste avec switch de langue positionné parfaitement
 - Problème d'affichage Replit persistant - déploiement recommandé
+- Vidéo personnalisée utilisateur ajoutée pour le fond de la page d'accueil
 
 ## État final du projet
 Le site Grant Vallinis est maintenant complet avec :
