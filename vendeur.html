@@ -8,7 +8,15 @@
   <meta http-equiv="Expires" content="0" />
   <!-- Navigation mise à jour -->
   <title>Consultation personnalisée | Vendeur</title>
-  <style>/* FINAL NAV UPDATE 2025-06-27-18:26 */ .faq-link { color: white !important; }</style>
+  <style>
+  /* CACHE BUSTER 18:29 */ 
+  #navigationFaqOnly { background: rgba(0,0,0,0.01); }
+  .nav-menu-updated li:last-child a { 
+    background: rgba(255,255,255,0.1) !important; 
+    border-radius: 5px !important;
+    text-transform: uppercase !important;
+  }
+  </style>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
@@ -173,7 +181,7 @@
       text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     }
     
-    .nav-menu {
+    .nav-menu, .nav-menu-updated {
       display: flex;
       list-style: none;
       margin: 0;
@@ -1152,14 +1160,14 @@
   <div class="nav-container">
     <a href="#" class="logo">Grant Vallinis</a>
     <nav class="main-nav">
-      <!-- NAVIGATION FINALE 2025-06-27 18:26 -->
-      <ul class="nav-menu" id="mainNavMenu">
+      <!-- *** NAVIGATION SANS CONTACT - FAQ UNIQUEMENT *** -->
+      <ul class="nav-menu-updated" id="navigationFaqOnly">
         <li><a href="#approche" data-fr="Approche" data-en="Approach">Approche</a></li>
         <li><a href="#quiz" data-fr="Quiz" data-en="Quiz">Quiz</a></li>
         <li><a href="#zones" data-fr="Zones" data-en="Areas">Zones</a></li>
         <li><a href="#notre-equipe" data-fr="Équipe" data-en="Team">Équipe</a></li>
         <li><a href="#programmes" data-fr="Programmes" data-en="Programs">Programmes</a></li>
-        <li><a href="#faq" data-fr="FAQ" data-en="FAQ" class="faq-link">FAQ</a></li>
+        <li><a href="#faq" data-fr="FAQ" data-en="FAQ" style="color: white !important; font-weight: bold;">FAQ</a></li>
       </ul>
       <button class="mobile-menu-toggle">☰</button>
     </nav>
