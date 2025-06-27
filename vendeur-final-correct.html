@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grant Vallinis - Vendeur | FAQ Navigation Fixed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --marine: #152239;
+      --marine-dark: #0f1826;
+      --beige: #f4ecd8;
+      --white: #fff;
+      --bleu-matin: #eaf1fa;
+      --grey: #444443;
+      --blanc-casse: #fffefa;
+    }
+    
+    body { 
+      margin: 0; 
+      font-family: 'Inter', sans-serif; 
+      color: var(--marine-dark); 
+      background: var(--white);
+      scroll-behavior: smooth;
+    }
+    
+    /* HEADER WITH CORRECTED NAVIGATION */
+    .main-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: linear-gradient(135deg, rgba(21,34,57,0.95) 0%, rgba(21,34,57,0.85) 100%);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+      height: 80px;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      height: 100%;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+    
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      position: relative;
+    }
+    
+    .nav-menu a:hover {
+      color: #ff6b35;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* FAQ LINK STYLING - IMPOSSIBLE TO MISS */
+    .nav-faq-link {
+      background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
+      color: white !important;
+      font-weight: bold !important;
+      text-transform: uppercase !important;
+      padding: 0.7rem 1.5rem !important;
+      border-radius: 25px !important;
+      box-shadow: 0 4px 15px rgba(255,107,53,0.3) !important;
+      letter-spacing: 0.5px !important;
+    }
+    
+    .nav-faq-link:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(255,107,53,0.4) !important;
+      background: linear-gradient(135deg, #f7931e, #ff6b35) !important;
+    }
+    
+    /* HERO SECTION */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(rgba(21,34,57,0.8), rgba(21,34,57,0.6)), 
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23152239"/><stop offset="100%" style="stop-color:%230f1826"/></linearGradient></defs><rect fill="url(%23bg)" width="1200" height="800"/></svg>');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 80px 2rem 0;
+      position: relative;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, 
+        rgba(21,34,57,0.9) 0%, 
+        rgba(21,34,57,0.7) 50%, 
+        rgba(21,34,57,0.8) 100%);
+      z-index: 1;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+    
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      margin-bottom: 2.5rem;
+      opacity: 0.95;
+      line-height: 1.6;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-button {
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+      color: white;
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+    }
+    
+    /* SECTIONS */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--marine);
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+      border-radius: 2px;
+    }
+    
+    .section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #666;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    
+    /* QUIZ SECTION */
+    #quiz {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    
+    .quiz-container {
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .quiz-question {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--marine);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .quiz-options {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .quiz-option {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 15px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+    
+    .quiz-option:hover {
+      border-color: #ff6b35;
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255,107,53,0.1);
+    }
+    
+    .quiz-option.selected {
+      border-color: #ff6b35;
+      background: #fff5f0;
+    }
+    
+    /* TEAM SECTION */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .team-member {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-10px);
+    }
+    
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      background: #f0f0f0;
+    }
+    
+    .team-member h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--marine);
+      margin-bottom: 0.5rem;
+    }
+    
+    .team-member p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    /* FAQ SECTION - VERY VISIBLE */
+    .faq-section {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      color: white;
+      padding: 5rem 2rem;
+    }
+    
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .faq-section h2 {
+      color: white;
+      font-size: clamp(2rem, 4vw, 3rem);
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .faq-section h2::after {
+      background: white;
+    }
+    
+    .faq-item {
+      background: white;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .faq-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .faq-question {
+      font-weight: 600;
+      color: var(--marine);
+      font-size: 1.1rem;
+      padding: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+      margin: 0;
+    }
+    
+    .faq-answer {
+      color: #666;
+      line-height: 1.7;
+      padding: 1.5rem;
+      margin: 0;
+    }
+    
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+      }
+      
+      .nav-menu {
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .main-header {
+        height: auto;
+        position: relative;
+      }
+      
+      .hero {
+        padding-top: 2rem;
+      }
+      
+      .section {
+        padding: 3rem 1rem;
+      }
+      
+      .quiz-container {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER WITH CORRECTED NAVIGATION -->
+  <header class="main-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo">Grant Vallinis</a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#approche">Approche</a></li>
+          <li><a href="#quiz">Quiz</a></li>
+          <li><a href="#zones">Zones</a></li>
+          <li><a href="#equipe">Équipe</a></li>
+          <li><a href="#programmes">Programmes</a></li>
+          <li><a href="#faq" class="nav-faq-link">FAQ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Vendez avec Excellence</h1>
+      <p>Votre propriété mérite le maximum. Notre signature, c'est la vôtre. Un accompagnement exclusif, à chaque étape de votre vente immobilière.</p>
+      <a href="#quiz" class="cta-button">Commencer mon évaluation</a>
+    </div>
+  </section>
+
+  <!-- APPROCHE SECTION -->
+  <section id="approche" class="section">
+    <h2>Notre Approche Vendeur</h2>
+    <p>Vendre une propriété, c'est bien plus qu'afficher un panneau. C'est une stratégie complète qui maximise votre retour sur investissement tout en minimisant le temps sur le marché.</p>
+    <p>Notre approche personnalisée combine expertise du marché, marketing innovant et négociation d'excellence pour vous garantir les meilleurs résultats.</p>
+  </section>
+
+  <!-- QUIZ SECTION -->
+  <section id="quiz" class="section">
+    <h2>Découvrez votre profil de vendeur</h2>
+    <div class="quiz-container">
+      <div class="quiz-question">Ce qui compte le plus pour vous dans votre vente ?</div>
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="selectOption(this)">
+          💰 <strong>Maximiser le prix</strong> - Obtenir le meilleur prix possible pour votre propriété
+        </div>
+        <div class="quiz-option" onclick="selectOption(this)">
+          📊 <strong>Sérénité</strong> - Être accompagné sans stress tout au long du processus
+        </div>
+        <div class="quiz-option" onclick="selectOption(this)">
+          ⚡ <strong>Rapidité</strong> - Vendre rapidement et efficacement
+        </div>
+        <div class="quiz-option" onclick="selectOption(this)">
+          🎯 <strong>Stratégie</strong> - Avoir une approche personnalisée et sur-mesure
+        </div>
+      </div>
+      <button class="cta-button" onclick="showQuizResult()">Voir mon profil</button>
+    </div>
+  </section>
+
+  <!-- ZONES SECTION -->
+  <section id="zones" class="section">
+    <h2>Nos Zones d'Expertise</h2>
+    <p>Nous vendons dans l'ensemble du Grand Montréal avec une connaissance approfondie des tendances de chaque secteur. Notre expertise locale nous permet de positionner votre propriété au prix optimal pour un maximum de visibilité.</p>
+  </section>
+
+  <!-- EQUIPE SECTION -->
+  <section id="equipe" class="section">
+    <h2>Notre Équipe d'Experts</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle fill='%23e9ecef' cx='50' cy='50' r='50'/><text x='50' y='55' font-family='Arial' font-size='14' fill='%23666' text-anchor='middle'>PL</text></svg>" alt="Pierre Lalonde">
+        <h3>Pierre Lalonde</h3>
+        <p>Spécialiste Ventes Résidentielles<br>18 ans d'expérience<br>500+ propriétés vendues</p>
+      </div>
+      <div class="team-member">
+        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle fill='%23e9ecef' cx='50' cy='50' r='50'/><text x='50' y='55' font-family='Arial' font-size='14' fill='%23666' text-anchor='middle'>IR</text></svg>" alt="Isabelle Roy">
+        <h3>Isabelle Roy</h3>
+        <p>Experte Marketing Digital<br>14 ans d'expérience<br>Spécialiste home staging</p>
+      </div>
+      <div class="team-member">
+        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle fill='%23e9ecef' cx='50' cy='50' r='50'/><text x='50' y='55' font-family='Arial' font-size='14' fill='%23666' text-anchor='middle'>MG</text></svg>" alt="Marc Gagnon">
+        <h3>Marc Gagnon</h3>
+        <p>Négociateur Senior<br>16 ans d'expérience<br>Spécialiste propriétés de luxe</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMMES SECTION -->
+  <section id="programmes" class="section">
+    <h2>Programmes Vendeur Exclusifs</h2>
+    <p>Nos programmes exclusifs sont adaptés à chaque situation de vente. Du home staging au marketing digital, nous déployons tous les outils nécessaires pour maximiser la valeur de votre propriété et attirer les meilleurs acheteurs.</p>
+  </section>
+
+  <!-- FAQ SECTION - HIGHLY VISIBLE -->
+  <section id="faq" class="faq-section">
+    <div class="faq-container">
+      <h2>Questions Fréquentes</h2>
+      <div class="faq-item">
+        <div class="faq-question">Combien de temps pour vendre ma propriété ?</div>
+        <div class="faq-answer">En moyenne, nos propriétés se vendent 40% plus rapidement que la moyenne du marché grâce à notre approche stratégique et notre marketing innovant multi-canal.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Quels sont vos honoraires ?</div>
+        <div class="faq-answer">Nos honoraires sont transparents et compétitifs. Nous vous proposons plusieurs formules adaptées à votre situation et vos objectifs de vente.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Comment préparer ma propriété à la vente ?</div>
+        <div class="faq-answer">Nous vous accompagnons avec un plan personnalisé : évaluation complète, conseils d'amélioration, staging professionnel et photographie de qualité supérieure.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Quelle est votre stratégie marketing ?</div>
+        <div class="faq-answer">Marketing multi-canal incluant photographie professionnelle, visite virtuelle 3D, réseaux sociaux, MLS, sites immobiliers et notre réseau exclusif d'acheteurs qualifiés.</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Navigation smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const headerHeight = document.querySelector('.main-header').offsetHeight;
+          const targetPosition = target.offsetTop - headerHeight - 20;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Quiz functionality
+    function selectOption(option) {
+      document.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      option.classList.add('selected');
+    }
+
+    function showQuizResult() {
+      const selected = document.querySelector('.quiz-option.selected');
+      if (selected) {
+        alert('Merci pour votre réponse ! Un conseiller vous contactera bientôt pour approfondir votre profil et vous proposer une stratégie personnalisée.');
+      } else {
+        alert('Veuillez sélectionner une option avant de continuer.');
+      }
+    }
+
+    // Active navigation highlight
+    window.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+      
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.style.background = 'transparent';
+        if (link.getAttribute('href') === `#${current}`) {
+          link.style.background = 'rgba(255, 255, 255, 0.1)';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
