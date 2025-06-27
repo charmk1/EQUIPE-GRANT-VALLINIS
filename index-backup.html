@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>L'immobilier autrement | Real estate, redefined</title>
+  <title>L'immobilier autrement | Real estate, redefined - Grant Vallinis</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -42,30 +42,38 @@
       top: 30px;
       right: 38px;
       z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 25px;
+      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     .lang-btn {
-      background: var(--ivoire);
-      color: var(--marine);
-      border: 1.3px solid var(--doré);
+      background: transparent;
+      color: var(--blanc);
+      border: none;
       border-radius: 20px;
       font-family: 'Inter', Arial, sans-serif;
-      font-size: 1.06rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      padding: 6px 18px;
-      margin-left: 4px;
+      padding: 8px 16px;
       cursor: pointer;
       outline: none;
-      transition: background 0.18s, color 0.18s, border 0.18s;
-      box-shadow: 0 2px 9px #b1976b18;
+      transition: all 0.3s ease;
+      position: relative;
+      min-width: 40px;
     }
-    .lang-btn.active, .lang-btn:hover {
-      background: var(--blanc);
-      color: var(--marine);
-      border-color: var(--doré);
+    .lang-btn.active {
+      background: rgba(255, 255, 255, 0.25);
+      color: var(--blanc);
       font-weight: 700;
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .lang-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.02);
     }
 
     .container {
@@ -109,6 +117,9 @@
       margin-top: 8px;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
+      max-width: 600px;
+      width: 100%;
     }
     .profile-link {
       display: flex;
@@ -191,15 +202,16 @@
       flex-shrink: 0;
       max-width: 100%;
     }
-    @media (max-width: 1000px) {
+    @media (max-width: 600px) {
       .main-title { font-size: 1.32rem;}
       .slogan { font-size: 0.99rem;}
       .profiles { flex-direction: column; gap: 24px; }
       .container { padding-top: 44px;}
       .profile-card { min-width: 86vw; max-width: 99vw; }
     }
-    @media (max-width: 600px) {
-      .lang-switch { right: 10px; top: 16px;}
+    @media (max-width: 480px) {
+      .lang-switch { right: 15px; top: 20px; padding: 3px;}
+      .lang-btn { font-size: 0.85rem; padding: 6px 12px; min-width: 35px;}
       .container { padding-top: 24px;}
       .profile-card { min-width: 96vw; max-width: 99vw;}
       .profile-title { font-size: 1rem;}
@@ -210,9 +222,9 @@
   </style>
 </head>
 <body>
-  <!-- Vidéo de fond -->
+  <!-- Vidéo de fond (remplacez par votre vidéo) -->
   <video class="bg-video" autoplay loop muted playsinline>
-    <source src="https://ia600904.us.archive.org/3/items/7587160-uhd-3840-2160-30fps/7587160-uhd_3840_2160_30fps.mp4" type="video/mp4" />
+    <source src="votre-video-de-fond.mp4" type="video/mp4" />
   </video>
   <div class="overlay"></div>
 
@@ -231,7 +243,7 @@
     <div class="slogan" id="slogan">Réalisons !</div>
     <div class="profiles">
       <!-- Acheteur -->
-      <a class="profile-link" id="buyer-link" href="acheteur.html">
+      <a class="profile-link" id="buyer-link" href="code-source-acheteur.html">
         <div class="profile-card buyer">
           <span class="profile-icon">
             <svg viewBox="0 0 32 32" fill="none">
@@ -245,7 +257,7 @@
         </div>
       </a>
       <!-- Vendeur -->
-      <a class="profile-link" id="seller-link" href="vendeur.html">
+      <a class="profile-link" id="seller-link" href="code-source-vendeur.html">
         <div class="profile-card seller">
           <span class="profile-icon">
             <svg viewBox="0 0 32 32" fill="none">
@@ -270,12 +282,12 @@
         buyer: {
           title: 'Acheteur',
           desc: `L'expertise qui fait la différence, avant même l'achat.<br><span style="font-size:0.95em; color:#6b7280;">Trouvez la propriété qui vous ressemble.</span>`,
-          link: 'acheteur.html'
+          link: 'code-source-acheteur.html'
         },
         seller: {
           title: 'Vendeur',
           desc: `Votre propriété mérite le maximum. Notre signature, c'est la vôtre.<br><span style="font-size:0.95em;">Un accompagnement exclusif, à chaque étape.</span>`,
-          link: 'vendeur.html'
+          link: 'code-source-vendeur.html'
         }
       },
       en: {
@@ -284,12 +296,12 @@
         buyer: {
           title: 'Buyer',
           desc: `Expertise that makes all the difference, before you buy.<br><span style="font-size:0.95em; color:#6b7280;">Find the property that fits you.</span>`,
-          link: 'acheteur.html'
+          link: 'code-source-acheteur.html'
         },
         seller: {
           title: 'Seller',
           desc: `Your property deserves the very best. Our signature is your success.<br><span style="font-size:0.95em;">Exclusive support at every step.</span>`,
-          link: 'vendeur.html'
+          link: 'code-source-vendeur.html'
         }
       }
     };
