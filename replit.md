@@ -44,9 +44,11 @@ Le fichier `attached_assets/Pasted--DOCTYPE-html-html-lang-fr-head-meta-charset-
 
 ## État final du projet
 Le site Grant Vallinis est maintenant complet avec :
-- Page d'accueil élégante avec 2 choix (Acheteur/Vendeur)
+- Page d'accueil élégante avec 2 choix (Acheteur/Vendeur) et vidéo personnalisée
 - Page acheteur complète avec quiz, formulaire, équipe
 - Page vendeur complète avec contenu spécialisé
+- Navigation optimisée : Approche | Quiz | Zones | Équipe | Programmes
+- Switch de langue translucide unifié sur toutes les pages
 - Design cohérent et professionnel sur toutes les pages
 - Prêt pour déploiement
 
