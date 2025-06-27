@@ -22,6 +22,8 @@
       font-family: 'Inter', Arial, sans-serif;
       position: relative;
       background: var(--marine);
+      /* Fallback gradient si vidéo ne charge pas */
+      background: linear-gradient(135deg, #152239 0%, #1a2a42 50%, #142239 100%);
     }
     .bg-video {
       position: fixed;
@@ -212,7 +214,8 @@
 </head>
 <body>
   <!-- Vidéo de fond -->
-  <video class="bg-video" autoplay loop muted playsinline>
+  <video class="bg-video" autoplay loop muted playsinline preload="metadata">
+    <source src="https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4" type="video/mp4" />
     <source src="https://ia600904.us.archive.org/3/items/7587160-uhd-3840-2160-30fps/7587160-uhd_3840_2160_30fps.mp4" type="video/mp4" />
   </video>
   <div class="overlay"></div>
