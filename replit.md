@@ -38,6 +38,7 @@ Le fichier `attached_assets/Pasted--DOCTYPE-html-html-lang-fr-head-meta-charset-
 - Problème d'affichage Replit persistant - déploiement recommandé
 - Vidéo personnalisée utilisateur ajoutée pour le fond de la page d'accueil
 - Cartes Acheteur/Vendeur repositionnées côte à côte au centre de la page
+- Switch de langue unifié en un seul bouton comme sur les autres pages
 
 ## État final du projet
 Le site Grant Vallinis est maintenant complet avec :

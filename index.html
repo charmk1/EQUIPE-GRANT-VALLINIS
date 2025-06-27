@@ -44,28 +44,40 @@
       z-index: 20;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 2px;
     }
     .lang-btn {
-      background: var(--ivoire);
+      background: rgba(249,247,242,0.95);
       color: var(--marine);
-      border: 1.3px solid var(--doré);
-      border-radius: 20px;
+      border: none;
+      border-radius: 0;
       font-family: 'Inter', Arial, sans-serif;
-      font-size: 1.06rem;
+      font-size: 0.92rem;
       font-weight: 600;
-      padding: 6px 18px;
-      margin-left: 4px;
+      padding: 8px 12px;
       cursor: pointer;
       outline: none;
-      transition: background 0.18s, color 0.18s, border 0.18s;
-      box-shadow: 0 2px 9px #b1976b18;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      position: relative;
     }
-    .lang-btn.active, .lang-btn:hover {
-      background: var(--blanc);
-      color: var(--marine);
-      border-color: var(--doré);
+    .lang-btn:first-child {
+      border-radius: 20px 0 0 20px;
+      border-right: 1px solid rgba(177,151,107,0.3);
+    }
+    .lang-btn:last-child {
+      border-radius: 0 20px 20px 0;
+    }
+    .lang-btn.active {
+      background: var(--doré);
+      color: var(--blanc);
       font-weight: 700;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(177,151,107,0.4);
+    }
+    .lang-btn:hover:not(.active) {
+      background: rgba(255,255,255,0.9);
+      transform: translateY(-1px);
     }
 
     .container {
@@ -202,7 +214,8 @@
       .profile-card { min-width: 86vw; max-width: 99vw; }
     }
     @media (max-width: 480px) {
-      .lang-switch { right: 10px; top: 16px;}
+      .lang-switch { right: 15px; top: 20px;}
+      .lang-btn { font-size: 0.85rem; padding: 6px 10px;}
       .container { padding-top: 24px;}
       .profile-card { min-width: 96vw; max-width: 99vw;}
       .profile-title { font-size: 1rem;}
