@@ -259,7 +259,7 @@
         transition: all 0.3s ease;
       }
       
-      .nav-menu.active, .nav-menu-updated.active {
+      .nav-menu.active, .nav-menu-updated.active, .navigation-finale-faq.active {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
@@ -1161,13 +1161,13 @@
     <a href="#" class="logo">Grant Vallinis</a>
     <nav class="main-nav">
       <!-- *** NAVIGATION SANS CONTACT - FAQ UNIQUEMENT *** -->
-      <ul class="nav-menu-updated" id="navigationFaqOnly">
+      <ul class="navigation-finale-faq" id="navigationFAQFinal">
         <li><a href="#approche" data-fr="Approche" data-en="Approach">Approche</a></li>
         <li><a href="#quiz" data-fr="Quiz" data-en="Quiz">Quiz</a></li>
         <li><a href="#zones" data-fr="Zones" data-en="Areas">Zones</a></li>
         <li><a href="#notre-equipe" data-fr="Équipe" data-en="Team">Équipe</a></li>
         <li><a href="#programmes" data-fr="Programmes" data-en="Programs">Programmes</a></li>
-        <li><a href="#faq" data-fr="FAQ" data-en="FAQ" style="color: white !important; font-weight: bold;">FAQ</a></li>
+        <li><a href="#faq" data-fr="FAQ" data-en="FAQ" class="menu-faq-final">FAQ</a></li>
       </ul>
       <button class="mobile-menu-toggle">☰</button>
     </nav>
@@ -1472,9 +1472,21 @@
 <script>
 // Navigation professionnelle
 document.addEventListener('DOMContentLoaded', function() {
+  // FORCER FAQ DANS NAVIGATION - CORRECTION CACHE
+  setTimeout(function() {
+    const navItems = document.querySelectorAll('.navigation-finale-faq a');
+    navItems.forEach(link => {
+      if (link.getAttribute('href') === '#faq') {
+        link.textContent = 'FAQ';
+        link.style.fontWeight = 'bold';
+        link.style.color = '#ff6b35';
+      }
+    });
+  }, 100);
+  
   // Mobile menu toggle
   const mobileToggle = document.querySelector('.mobile-menu-toggle');
-  const navMenu = document.querySelector('.nav-menu-updated');
+  const navMenu = document.querySelector('.navigation-finale-faq');
   
   if (mobileToggle && navMenu) {
     mobileToggle.addEventListener('click', function() {
@@ -1483,7 +1495,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Smooth scrolling et navigation active
-  const navLinks = document.querySelectorAll('.nav-menu-updated a[href^="#"]');
+  const navLinks = document.querySelectorAll('.navigation-finale-faq a[href^="#"]');
   const sections = document.querySelectorAll('section[id], div[id]');
   
   // Smooth scroll pour les liens de navigation
