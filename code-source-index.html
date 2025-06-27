@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>L'immobilier autrement | Real estate, redefined - Grant Vallinis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --marine: #142239;
+      --ivoire: #f9f7f2;
+      --doré: #b1976b;
+      --noir: #181818;
+      --blanc: #fff;
+      --shadow: 0 8px 48px 6px rgba(21,34,57,0.20);
+      --shadow-hover: 0 16px 64px 6px #b1976b44, 0 28px 88px #fff3;
+    }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: 'Inter', Arial, sans-serif;
+      position: relative;
+      background: var(--marine);
+    }
+    .bg-video {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0.72;
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(110deg, rgba(21,34,57,0.75) 20%, rgba(20,34,57,0.32) 100%);
+      z-index: 1;
+      backdrop-filter: blur(2.5px);
+    }
+    .lang-switch {
+      position: fixed;
+      top: 30px;
+      right: 38px;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 25px;
+      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .lang-btn {
+      background: transparent;
+      color: var(--blanc);
+      border: none;
+      border-radius: 20px;
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease;
+      position: relative;
+      min-width: 40px;
+    }
+    .lang-btn.active {
+      background: rgba(255, 255, 255, 0.25);
+      color: var(--blanc);
+      font-weight: 700;
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .lang-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.02);
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 70px;
+      box-sizing: border-box;
+    }
+    .main-title {
+      color: var(--blanc);
+      font-family: 'Playfair Display', serif;
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-align: center;
+      margin-bottom: 0.38em;
+      text-shadow: 0 4px 32px #0e1536, 0 1px 0 #fff2;
+      line-height: 1.16;
+      max-width: 700px;
+      word-break: break-word;
+    }
+    .slogan {
+      color: var(--doré);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.13rem;
+      font-style: italic;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      margin-bottom: 29px;
+      text-align: center;
+      text-shadow: 0 2px 12px #0003;
+    }
+    .profiles {
+      display: flex;
+      gap: 36px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      max-width: 600px;
+      width: 100%;
+    }
+    .profile-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.21s;
+      user-select: none;
+      min-width: 210px;
+      max-width: 240px;
+      flex: 1 1 210px;
+    }
+    .profile-link:active { transform: scale(0.98);}
+    .profile-card {
+      width: 100%;
+      max-width: 245px;
+      min-width: 210px;
+      height: 253px;
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--ivoire);
+      border: 2.5px solid transparent;
+      transition: 
+        box-shadow 0.22s, 
+        border 0.21s,
+        background 0.21s,
+        transform 0.18s;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .profile-card.buyer { border-color: var(--marine);}
+    .profile-card.seller { border-color: var(--doré);}
+    .profile-link:hover .profile-card {
+      box-shadow: var(--shadow-hover);
+      border-width: 3px;
+      background: var(--blanc);
+      transform: translateY(-7px) scale(1.06);
+    }
+    .profile-link:hover .profile-card.buyer { border-color: var(--marine);}
+    .profile-link:hover .profile-card.seller { border-color: var(--doré);}
+    .profile-icon {
+      width: 53px;
+      height: 53px;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      opacity: 0.94;
+      flex-shrink: 0;
+    }
+    .profile-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: var(--marine);
+      letter-spacing: 0.3px;
+      margin-bottom: 10px;
+      text-shadow: 0 1px 6px #fff7;
+      flex-shrink: 0;
+    }
+    .profile-link .profile-card.seller .profile-title { color: var(--marine);}
+    .profile-link .profile-card.seller .profile-desc { color: var(--marine);}
+    .profile-desc {
+      color: var(--marine);
+      font-size: 1.01rem;
+      text-align: center;
+      opacity: 0.94;
+      font-weight: 400;
+      padding: 0 9px;
+      line-height: 1.34;
+      margin-top: auto;
+      margin-bottom: 24px;
+      text-shadow: 0 1px 7px #fff5;
+      letter-spacing: 0.01em;
+      word-break: break-word;
+      flex-shrink: 0;
+      max-width: 100%;
+    }
+    @media (max-width: 600px) {
+      .main-title { font-size: 1.32rem;}
+      .slogan { font-size: 0.99rem;}
+      .profiles { flex-direction: column; gap: 24px; }
+      .container { padding-top: 44px;}
+      .profile-card { min-width: 86vw; max-width: 99vw; }
+    }
+    @media (max-width: 480px) {
+      .lang-switch { right: 15px; top: 20px; padding: 3px;}
+      .lang-btn { font-size: 0.85rem; padding: 6px 12px; min-width: 35px;}
+      .container { padding-top: 24px;}
+      .profile-card { min-width: 96vw; max-width: 99vw;}
+      .profile-title { font-size: 1rem;}
+      .profile-desc { font-size: 0.93rem;}
+      .main-title { font-size: 1.03rem; }
+      .slogan { font-size: 0.88rem;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Vidéo de fond (remplacez par votre vidéo) -->
+  <video class="bg-video" autoplay loop muted playsinline>
+    <source src="votre-video-de-fond.mp4" type="video/mp4" />
+  </video>
+  <div class="overlay"></div>
+
+  <!-- Switch de langue -->
+  <div class="lang-switch">
+    <button class="lang-btn active" id="btn-fr">FR</button>
+    <button class="lang-btn" id="btn-en">EN</button>
+  </div>
+
+  <div class="container">
+    <!-- TITRE -->
+    <div class="main-title" id="main-title">
+      Passez à l'étape supérieure.<br>Choisissez l'expérience qui transformera votre projet immobilier.
+    </div>
+    <!-- Slogan -->
+    <div class="slogan" id="slogan">Réalisons !</div>
+    <div class="profiles">
+      <!-- Acheteur -->
+      <a class="profile-link" id="buyer-link" href="code-source-acheteur.html">
+        <div class="profile-card buyer">
+          <span class="profile-icon">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M16 3L3 15h3v13h8v-8h4v8h8V15h3L16 3z" stroke="#142239" stroke-width="2.2" fill="none"/>
+            </svg>
+          </span>
+          <span class="profile-title" id="buyer-title">Acheteur</span>
+          <div class="profile-desc" id="buyer-desc">
+            L'expertise qui fait la différence, avant même l'achat.<br><span style="font-size:0.95em; color:#6b7280;">Trouvez la propriété qui vous ressemble.</span>
+          </div>
+        </div>
+      </a>
+      <!-- Vendeur -->
+      <a class="profile-link" id="seller-link" href="code-source-vendeur.html">
+        <div class="profile-card seller">
+          <span class="profile-icon">
+            <svg viewBox="0 0 32 32" fill="none">
+              <rect x="5" y="7" width="22" height="18" rx="2.5" stroke="#b1976b" stroke-width="2.2"/>
+              <path d="M10 13h12M10 17h7" stroke="#b1976b" stroke-width="2.1" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="profile-title" id="seller-title">Vendeur</span>
+          <div class="profile-desc" id="seller-desc">
+            Votre propriété mérite le maximum. Notre signature, c'est la vôtre.<br>
+            <span style="font-size:0.95em;">Un accompagnement exclusif, à chaque étape.</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <script>
+    const translations = {
+      fr: {
+        title: `Passez à l'étape supérieure.<br>Choisissez l'expérience qui transformera votre projet immobilier.`,
+        slogan: `Réalisons !`,
+        buyer: {
+          title: 'Acheteur',
+          desc: `L'expertise qui fait la différence, avant même l'achat.<br><span style="font-size:0.95em; color:#6b7280;">Trouvez la propriété qui vous ressemble.</span>`,
+          link: 'code-source-acheteur.html'
+        },
+        seller: {
+          title: 'Vendeur',
+          desc: `Votre propriété mérite le maximum. Notre signature, c'est la vôtre.<br><span style="font-size:0.95em;">Un accompagnement exclusif, à chaque étape.</span>`,
+          link: 'code-source-vendeur.html'
+        }
+      },
+      en: {
+        title: `Take it to the next level.<br>Choose the experience that will transform your real estate journey.`,
+        slogan: `Let's make it happen!`,
+        buyer: {
+          title: 'Buyer',
+          desc: `Expertise that makes all the difference, before you buy.<br><span style="font-size:0.95em; color:#6b7280;">Find the property that fits you.</span>`,
+          link: 'code-source-acheteur.html'
+        },
+        seller: {
+          title: 'Seller',
+          desc: `Your property deserves the very best. Our signature is your success.<br><span style="font-size:0.95em;">Exclusive support at every step.</span>`,
+          link: 'code-source-vendeur.html'
+        }
+      }
+    };
+
+    function setLang(lang) {
+      document.getElementById('main-title').innerHTML = translations[lang].title;
+      document.getElementById('slogan').textContent = translations[lang].slogan;
+      document.getElementById('buyer-title').textContent = translations[lang].buyer.title;
+      document.getElementById('buyer-desc').innerHTML = translations[lang].buyer.desc;
+      document.getElementById('seller-title').textContent = translations[lang].seller.title;
+      document.getElementById('seller-desc').innerHTML = translations[lang].seller.desc;
+      document.getElementById('buyer-link').href = translations[lang].buyer.link;
+      document.getElementById('seller-link').href = translations[lang].seller.link;
+
+      document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.documentElement.lang = lang;
+    }
+    document.getElementById('btn-fr').onclick = () => setLang('fr');
+    document.getElementById('btn-en').onclick = () => setLang('en');
+  </script>
+</body>
+</html>
