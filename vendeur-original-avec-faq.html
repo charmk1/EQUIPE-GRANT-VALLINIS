@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consultation personnalisée | Vendeur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    :root {
+      --marine: #1d2630;
+      --marine-dark: #14202e;
+      --beige: rgba(246,236,219,0.19); /* ultra pâle/translucide */
+      --beige-solid: #f6ecdb;
+      --grey: #444443;
+      --white: #fff;
+    }
+    body { margin:0; font-family:'Inter',sans-serif; color:var(--marine-dark); background:var(--white);}
+    .hero { position:relative; width:100vw; height:57vh; min-height:370px; max-height:580px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:var(--marine);}
+    .hero video {
+      position:absolute; top:0; left:0;
+      min-width:100vw; min-height:100%; width:100vw; height:100%; object-fit:cover; z-index:0;
+    }
+    .hero-content { position:relative; z-index:2; max-width:720px; margin:0 auto; text-align:center; padding:35px 6vw 18px 6vw;}
+    .hero-content h1 {
+      font-family:'Playfair Display',serif; font-size:2.5rem;
+      color:var(--white); font-weight:800; line-height:1.16; margin-bottom:18px; letter-spacing:.018em;
+      background:none; border-radius:13px; display:inline-block; padding:8px 28px;
+    }
+    .hero-content p {
+      font-size:1.19rem; color:var(--beige-solid); margin-bottom:15px; font-weight:700;
+      background:none; display:inline-block; padding:7px 18px; border-radius:9px; letter-spacing:.01em;
+    }
+    .hero-content .btn {
+      background:var(--marine);
+      color:var(--beige-solid);
+      border-radius:30px; font-size:1.12rem; font-weight:700; padding:15px 40px; border:none;
+      box-shadow:0 6px 20px #1d263022,0 1px 6px #1d263011;
+      cursor:pointer; letter-spacing:.06em; transition:all .16s;
+      text-decoration:none; margin-top:12px; display:inline-block; position:relative;
+      text-transform:uppercase;
+      filter:brightness(1.09);
+    }
+    .hero-content .btn:hover {
+      background:var(--beige-solid); color:var(--marine); box-shadow:0 0 0 3px #44444333,0 8px 34px #f6ecdb99;
+    }
+    .lang-switch-btn {
+      position:fixed; top:18px; right:22px; z-index:9999;
+      background:var(--marine); color:var(--beige-solid); border-radius:20px; padding:9px 19px;
+      font-weight:700; font-size:1.08rem; box-shadow:0 2px 12px #1d263033; border:none; cursor:pointer;
+      text-transform:uppercase; letter-spacing:0.04em;
+    }
+    .lang-switch-btn:hover { background:var(--beige-solid); color:var(--marine);}
+    .values-section { display:flex; flex-wrap:wrap; justify-content:center; gap:32px; max-width:1100px; margin:36px auto 30px auto; position:relative; z-index:5;}
+    .value-bulle {
+      background:var(--beige); box-shadow:0 3px 16px #1d263013;
+      border-radius:22px; padding:24px 24px; min-width:220px; max-width:340px; flex:1 1 220px;
+      text-align:left; border-top:3px solid var(--marine); display:flex; flex-direction:column; align-items:flex-start; margin-bottom:8px;
+      backdrop-filter:blur(1px);
+    }
+    .value-bulle h3 { font-family:'Playfair Display',serif; font-size:1.16rem; margin:0 0 9px 0; color:var(--marine);}
+    .value-bulle p { font-size:1.07rem; color:var(--grey); margin:0;}
+
+    /* --- ESPACEMENT DES COLONNES --- */
+    .two-col-section {
+      display: flex;
+      gap: 36px;
+      max-width: 1100px;
+      margin: 36px auto 0 auto;
+      padding: 0 2vw;
+      align-items: flex-start;
+    }
+    .calendar-side,
+    .col-droite-perso {
+      flex: 1 1 440px;
+      min-width: 340px;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+    }
+    /* Quiz Zone */
+    #vkq-quiz-zone {
+      width: 100%;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: center;
+    }
+    /* Bulles hors formulaire */
+    .bulle-box-form-out {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 16px;
+      margin-top: 0;
+    }
+    .bulle-item-form-out {
+      background: #fff;
+      color: var(--marine-dark);
+      box-shadow: 0 2px 10px #1d263011;
+      border-radius: 15px;
+      padding: 17px 23px;
+      font-size: 1.09rem;
+      border-left: 5px solid var(--marine);
+      font-weight: 500;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0 auto;
+      filter: brightness(1.04);
+      letter-spacing: 0.01em;
+      backdrop-filter: blur(1.5px);
+    }
+    /* Largeur et espacements colonne droite */
+    .col-droite-perso > * {
+      margin-bottom: 22px;
+    }
+    .col-droite-perso > *:last-child {
+      margin-bottom: 0;
+    }
+    /* Harmonisation du formulaire */
+    .form-section {
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 8px 32px #1d263012;
+      padding: 33px 34px 26px 34px;
+      border: 2px solid var(--marine-dark);
+      min-width: 340px;
+      max-width: 500px;
+      align-self: center;
+      box-sizing: border-box;
+    }
+    .form-section h2 { font-family:'Playfair Display',serif; font-size:25px; font-weight:700; margin-bottom:13px; color:var(--marine); text-align:center;}
+    .form-group { margin-bottom:15px; }
+    label { display:block; margin-bottom:7px; font-weight:600; font-size:16px; color:var(--marine); }
+    input, select, textarea { width:100%; padding:12px; font-size:15px; border:1px solid #bbb; border-radius:7px; background:#fafbfc; }
+    textarea { min-height:38px; }
+    .radio-group { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:10px;}
+    .radio-group label { font-weight:500; margin-right:10px; }
+    .hi-btn, .vkq-btn.cta, .vkq-form-btn {
+      background:var(--marine);
+      color:var(--beige-solid);
+      font-weight:700; font-family:'Inter',sans-serif; font-size:1.12rem; border:none;
+      border-radius:19px; box-shadow:0 4px 18px #1d263012,0 1px 7px #1d263011;
+      padding:14px 39px; margin-top:12px; cursor:pointer; letter-spacing:0.03em; outline:none; display:block; width:100%; max-width:355px; margin-left:auto; margin-right:auto;
+      text-transform:uppercase; position:relative;
+      filter:brightness(1.07);
+    }
+    .hi-btn:hover, .vkq-btn.cta:hover, .vkq-form-btn:hover { background:var(--beige-solid); color:var(--marine); box-shadow:0 0 0 3px #44444344,0 8px 33px #f6ecdb77; transform:scale(1.04);}
+    .mini-reassure { font-size:14px; color:var(--grey); margin-top:13px;}
+    .signature-slogan { margin:20px auto 0 auto; text-align:center; font-family:'Playfair Display',cursive,serif; font-size:2.3rem; color:var(--marine); font-weight:700; letter-spacing:0.09em; max-width:450px; background:none; border:none; padding:0; user-select:none; font-style:italic; text-shadow:0 3px 13px #f6ecdb77; display:block;}
+    .mini-faq-row {
+      width:100vw; max-width:1100px; margin:38px auto 0 auto;
+      display:flex; flex-direction:row; justify-content:center; align-items:stretch; gap:18px; flex-wrap:nowrap; box-sizing:border-box;
+    }
+    .mini-faq-row .faq-row {
+      background:var(--beige); border-radius:19px; box-shadow:0 2px 14px #1d263015;
+      padding:22px 15px 20px 15px; min-width:0; max-width:280px; flex:1 1 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; border-top:3px solid var(--marine); box-sizing:border-box; white-space:normal; word-break:break-word; position:relative; text-align:center;
+    }
+    .faq-q { font-size:1.07rem; font-weight:700; color:var(--marine); margin-bottom:7px; line-height:1.25;}
+    .faq-a { font-size:0.98rem; font-weight:400; color:var(--grey); line-height:1.36; margin-left:0;}
+    .map-wrap { background:var(--beige); border-radius:14px; padding:19px 17px 10px 17px; margin-bottom:17px; margin-top:11px; box-shadow:0 2px 16px #1d263018;}
+    #real-map { width:100%; height:155px; border-radius:10px;}
+    @media (max-width:950px) {
+      .two-col-section { flex-direction: column; gap: 25px;}
+      .calendar-side, .col-droite-perso { max-width: 99vw; min-width: 10px; }
+      .form-section, .bulle-item-form-out, .vkq-quiz-card { max-width: 99vw; }
+    }
+    @media (max-width:700px) {
+      .two-col-section { padding: 0 2vw; }
+      .form-section { padding: 15px 5vw 15px 5vw; }
+      .bulle-item-form-out { padding: 11px 7vw; }
+    }
+  </style>
+</head>
+<body>
+<button class="lang-switch-btn" id="langSwitch" onclick="switchLang()"><span id="langLabel">EN</span></button>
+<!-- VIDEO TOP -->
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="https://archive.org/download/4770380-hd-1920-1080-30fps/4770380-hd_1920_1080_30fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h1 data-fr="Obtenez votre consultation personnalisée pour la vente, sans engagement." data-en="Get your personalized, commitment-free selling consultation.">Obtenez votre consultation personnalisée pour la vente, sans engagement.</h1>
+    <p data-fr="Vendez avec stratégie, zéro pression, réponses claires et accompagnement humain à chaque étape." data-en="Sell with strategy, zero pressure, clear answers and human support every step.">Vendez avec stratégie, zéro pression, réponses claires et accompagnement humain à chaque étape.</p>
+    <a href="#form" class="btn" data-fr="Je veux ma consultation gratuite" data-en="I want my free consultation">Je veux ma consultation gratuite</a>
+  </div>
+</section>
+<!-- 3 Bulles Valeurs -->
+<section class="values-section">
+  <div class="value-bulle">
+    <h3 data-fr="Stratégie de mise en marché" data-en="Marketing Strategy">Stratégie de mise en marché</h3>
+    <p data-fr="Votre propriété mise en valeur avec les meilleures stratégies, pour attirer les bons acheteurs et obtenir le meilleur prix." data-en="Your property showcased with top strategies to attract the right buyers and get the best price.">Votre propriété mise en valeur avec les meilleures stratégies, pour attirer les bons acheteurs et obtenir le meilleur prix.</p>
+  </div>
+  <div class="value-bulle">
+    <h3 data-fr="Négociation experte" data-en="Expert negotiation">Négociation experte</h3>
+    <p data-fr="Chaque offre est négociée dans votre intérêt, pour maximiser votre valeur nette et votre sécurité." data-en="Every offer is negotiated in your best interest to maximize your net value and security.">Chaque offre est négociée dans votre intérêt, pour maximiser votre valeur nette et votre sécurité.</p>
+  </div>
+  <div class="value-bulle">
+    <h3 data-fr="Service multilingue premium" data-en="Premium multilingual service">Service multilingue premium</h3>
+    <p data-fr="Un service humain, rapide et dans votre langue à chaque étape clé de la transaction." data-en="Human, quick service in your language at every key transaction stage.">Un service humain, rapide et dans votre langue à chaque étape clé de la transaction.</p>
+  </div>
+</section>
+<!-- DEUX COLONNES -->
+<section class="two-col-section" id="form">
+  <!-- Colonne gauche -->
+  <div class="calendar-side">
+    <!-- QUIZ VENDEUR -->
+    <div id="vkq-quiz-zone"></div>
+    <!-- CALENDLY -->
+    <div style="background:var(--beige); border-radius:17px; padding:18px 10px 12px 10px; margin-bottom:15px; margin-top:0;">
+      <iframe src="https://calendly.com/grantvallinis/evaluation-grand-montreal?preview_source=et_card&month=2025-05"
+        width="100%" height="810" style="border-radius:15px; min-height:810px; display:block; background:#fff;"
+        frameborder="0" scrolling="no"></iframe>
+    </div>
+    <!-- MAP -->
+    <div class="map-wrap">
+      <div id="real-map"></div>
+      <p data-fr="Zones desservies : Montréal, Rive-Sud, Brossard, Laval & alentours" data-en="Areas served: Montreal, South Shore, Brossard, Laval & area">
+        Zones desservies : Montréal, Rive-Sud, Brossard, Laval & alentours
+      </p>
+    </div>
+  </div>
+  <!-- Colonne droite : bulles + formulaire -->
+  <div class="col-droite-perso">
+    <div class="bulle-box-form-out">
+      <div class="bulle-item-form-out" data-fr="Protection juridique complète : chaque clause et document vérifiés, rien n’est laissé au hasard." data-en="Full legal protection: every clause and document checked, nothing left to chance."><strong>Protection juridique complète</strong> : chaque clause et document vérifiés, rien n’est laissé au hasard.</div>
+      <div class="bulle-item-form-out" data-fr="Recherche personnalisée premium : accès à des acheteurs qualifiés et opportunités en avant-première." data-en="Premium buyer matchmaking: access to qualified buyers and exclusive opportunities."><strong>Recherche personnalisée premium</strong> : accès à des acheteurs qualifiés et opportunités en avant-première.</div>
+    </div>
+    <section class="form-section">
+      <h2 data-fr="Consultation de vente personnalisée" data-en="Personalized selling consultation">Consultation de vente personnalisée</h2>
+      <form action="https://formsubmit.co/wissem.nessah@remax-quebec.com" method="POST" autocomplete="off">
+        <div class="form-group">
+          <label for="nom" data-fr="Nom complet" data-en="Full name">Nom complet</label>
+          <input type="text" id="nom" name="Nom" required placeholder="ex : Alexandre Dupuis" data-fr="ex : Alexandre Dupuis" data-en="ex: John Smith">
+        </div>
+        <div class="form-group">
+          <label for="email" data-fr="Courriel" data-en="Email">Courriel</label>
+          <input type="email" id="email" name="Email" required placeholder="ex : votre@email.com" data-fr="ex : votre@email.com" data-en="ex: your@email.com">
+        </div>
+        <div class="form-group">
+          <label for="tel" data-fr="Téléphone" data-en="Phone">Téléphone</label>
+          <input type="tel" id="tel" name="Téléphone" required placeholder="ex : 514-123-4567" data-fr="ex : 514-123-4567" data-en="ex: 514-123-4567" pattern="^[0-9\s\-\+\(\)]*$" data-number="true" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label for="adresse" data-fr="Adresse de la propriété" data-en="Property address">Adresse de la propriété</label>
+          <input type="text" id="adresse" name="Adresse de la propriété" required placeholder="ex : 123 Rue des Ventes, Brossard" data-fr="ex : 123 Rue des Ventes, Brossard" data-en="ex: 123 Sales St, Brossard">
+        </div>
+        <div class="form-group">
+          <label for="type" data-fr="Type de propriété" data-en="Type of property">Type de propriété</label>
+          <select id="type" name="Type de propriété" required>
+            <option value="" data-fr="Choisir…" data-en="Choose…">Choisir…</option>
+            <option value="Condo">Condo</option>
+            <option value="Maison" data-fr="Maison" data-en="House">Maison</option>
+            <option value="Plex" data-fr="Plex (duplex, triplex, etc.)" data-en="Plex (duplex, triplex, etc.)">Plex (duplex, triplex, etc.)</option>
+            <option value="Terrain" data-fr="Terrain" data-en="Land">Terrain</option>
+            <option value="Autre" data-fr="Autre" data-en="Other">Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="budget-range" data-fr="Prix souhaité" data-en="Desired price">Prix souhaité</label>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <input
+              type="range"
+              id="budget-range"
+              name="PrixSouhaite"
+              min="100000"
+              max="5000000"
+              step="25000"
+              value="600000"
+              oninput="document.getElementById('budget-value').innerText = getBudgetValue(this.value); document.getElementById('budget-hidden').value=this.value;">
+            <span id="budget-value" style="font-weight:700;min-width:110px;">600 000 $</span>
+          </div>
+          <input type="hidden" id="budget-hidden" name="Prix" value="600000">
+        </div>
+        <div class="form-group">
+          <label for="infos" data-fr="Autres infos importantes" data-en="Other important info">Autres infos importantes</label>
+          <textarea id="infos" name="Autres infos" rows="2" placeholder="ex : Garage double, rénovations récentes, etc." data-fr="ex : Garage double, rénovations récentes, etc." data-en="ex: Double garage, recent renovations, etc."></textarea>
+        </div>
+        <div class="form-group">
+          <label data-fr="Langue de FAQ préférée" data-en="Preferred FAQ language">Langue de FAQ préférée</label>
+          <div class="radio-group">
+            <label><input type="radio" name="Langue" value="Français" checked data-fr="Français" data-en="French">Français</label>
+            <label><input type="radio" name="Langue" value="English" data-fr="English" data-en="English">English</label>
+            <label><input type="radio" name="Langue" value="Español" data-fr="Español" data-en="Spanish">Español</label>
+            <label><input type="radio" name="Langue" value="Arabe" data-fr="Arabe" data-en="Arabic">Arabe</label>
+            <label><input type="radio" name="Langue" value="Português" data-fr="Português" data-en="Portuguese">Português</label>
+            <label><input type="radio" name="Langue" value="Hindi" data-fr="Hindi" data-en="Hindi">हिन्दी</label>
+          </div>
+        </div>
+        <button type="submit" class="hi-btn" data-fr="Envoyer ma demande" data-en="Send my request">Envoyer ma demande</button>
+        <p class="mini-reassure" data-fr="Réponse rapide, traitement confidentiel et humain. Zéro pression – seulement des conseils honnêtes." data-en="Fast response, confidential and human service. Zero pressure – only honest advice.">Réponse rapide, traitement confidentiel et humain. Zéro pression – seulement des conseils honnêtes.</p>
+      </form>
+      <div class="signature-slogan" data-fr="Réalisons !" data-en="Let's make it happen!">Réalisons !</div>
+    </section>
+  </div>
+</section>
+<!-- MINI FAQ (identique à acheteur, info vendeur) -->
+<div class="mini-faq-row" id="mini-faq-row"></div>
+<!-- VIDEO BAS + FOOTER -->
+<section style="background:#1d2630;margin-top:40px;padding:0;" class="footer-section">
+  <video autoplay muted loop playsinline style="width:100vw;max-width:100vw;min-height:390px;height:52vh;object-fit:cover;display:block;">
+    <source src="https://ia800100.us.archive.org/9/items/4770380-hd-1920-1080-30fps/3wjyia.mp4" type="video/mp4">
+  </video>
+  <footer style="color:#f6ecdb;font-size:13px;padding:24px 0 30px 0;text-align:center;">
+    Montréal • Rive-Sud • Laval – © 2025
+  </footer>
+</section>
+<!-- JS MAP + QUIZ + BUDGET SLIDER + FAQ + LANG -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // MAP
+  var map = L.map('real-map').setView([45.5, -73.55], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+  // Budget Range
+  function getBudgetValue(val) {
+    return (Number(val).toLocaleString('fr-CA')) + ' $';
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    if(document.getElementById('budget-range')) {
+      document.getElementById('budget-range').addEventListener('input', function(e){
+        document.getElementById('budget-value').innerText = getBudgetValue(e.target.value);
+        document.getElementById('budget-hidden').value = e.target.value;
+      });
+    }
+    // Numéric only fields (phone)
+    document.querySelectorAll('input[type="tel"][data-number="true"]').forEach(input => {
+      input.addEventListener('input', function(e){
+        this.value = this.value.replace(/[^\d\+\-\(\)\s]/g, '');
+      });
+    });
+  });
+</script>
+<script>
+// MINI FAQ vendeur bilingue
+const faqs = {
+  fr: [
+    {q:"Pourquoi prendre un courtier pour vendre ?", a:"Un courtier protège vos intérêts, négocie pour vous, gère les visites et évite les pièges à chaque étape-clé."},
+    {q:"Combien coûte ce service ?", a:"La commission est payée seulement si la vente se conclut, tout est transparent dès le départ."},
+    {q:"Serez-vous présent dans tout le processus ?", a:"Toujours : de l’évaluation à la signature, vous êtes accompagné et protégé."},
+    {q:"Est-ce vraiment sans obligation ?", a:"Oui. L’évaluation et la consultation sont gratuites et sans engagement. Zéro pression, juste des conseils honnêtes pour bien vendre."}
+  ],
+  en: [
+    {q:"Why use a broker to sell?", a:"A broker protects your interests, negotiates for you, manages visits, and avoids pitfalls at every key step."},
+    {q:"How much does this service cost?", a:"The commission is only paid if the sale closes, and everything is transparent from the start."},
+    {q:"Are you present throughout the process?", a:"Always: from evaluation to closing, you are supported and protected."},
+    {q:"Is it really with no obligation?", a:"Yes. Evaluation and consultation are free and with no obligation. Zero pressure—just honest advice to help you sell right."}
+  ]
+};
+function renderFaq(lang) {
+  let html = '';
+  (faqs[lang] || []).forEach((faq) => {
+    html += `
+      <div class="faq-row">
+        <div class="faq-q">${faq.q}</div>
+        <div class="faq-a">${faq.a}</div>
+      </div>
+    `;
+  });
+  document.getElementById('mini-faq-row').innerHTML = html;
+}
+renderFaq('fr');
+</script>
+<script>
+// QUIZ VENDEUR bilingue, 4 questions, 4 profils, même logique que l'acheteur
+(function() {
+  const quizTexts = {
+    fr: {
+      titre: "Quel est ton profil de vendeur ?",
+      questions: [
+        {q: "Ton plus grand objectif pour la vente...", options: [
+          { text: "Obtenir le prix maximum", color: "vkq-black", profil: "Maximisateur" },
+          { text: "Vendre rapidement, sans stress", color: "vkq-white", profil: "Zen" },
+          { text: "Comprendre chaque étape, zéro surprise", color: "vkq-white", profil: "Analytique" },
+          { text: "Trouver l’acheteur idéal", color: "vkq-black", profil: "Sélectif" }
+        ]},
+        {q: "Ta plus grande crainte en vendant...", options: [
+          { text: "Vendre trop bas, perdre de l’argent", color: "vkq-black", profil: "Maximisateur" },
+          { text: "Que la vente traîne, visites inutiles", color: "vkq-white", profil: "Zen" },
+          { text: "Ne pas tout comprendre, être mal conseillé", color: "vkq-white", profil: "Analytique" },
+          { text: "Ne pas trouver un acheteur sérieux", color: "vkq-black", profil: "Sélectif" }
+        ]},
+        {q: "Le plus important dans ta relation avec ton courtier...", options: [
+          { text: "Qu’il négocie le meilleur prix et protège mes intérêts", color: "vkq-black", profil: "Maximisateur" },
+          { text: "Qu’il gère tout, explique et soit présent", color: "vkq-white", profil: "Zen" },
+          { text: "Qu’il vulgarise, explique chaque détail", color: "vkq-white", profil: "Analytique" },
+          { text: "Qu’il cible l’acheteur parfait pour ma propriété", color: "vkq-black", profil: "Sélectif" }
+        ]},
+        {q: "Ton rapport idéal avec le processus de vente...", options: [
+          { text: "Maximiser la valeur, zéro compromis", color: "vkq-black", profil: "Maximisateur" },
+          { text: "Vendre à mon rythme, zéro pression", color: "vkq-white", profil: "Zen" },
+          { text: "Tout comprendre, comparer chaque option", color: "vkq-white", profil: "Analytique" },
+          { text: "Choisir l’acheteur qui saura apprécier ma propriété", color: "vkq-black", profil: "Sélectif" }
+        ]}
+      ],
+      profils: {
+        "Maximisateur": {
+          titre: "MAXIMISATEUR",
+          desc: "Tu veux vendre au meilleur prix, avec une stratégie et une négociation pointue. Pour toi, la valeur est primordiale."
+        },
+        "Zen": {
+          titre: "ZEN",
+          desc: "Tu veux un processus humain, sans stress, où chaque détail est pris en charge pour toi. Le confort compte autant que le résultat !"
+        },
+        "Analytique": {
+          titre: "ANALYTIQUE",
+          desc: "Tu veux comprendre chaque étape, comparer, avancer avec des infos claires, concrètes et vérifiées."
+        },
+        "Sélectif": {
+          titre: "SÉLECTIF",
+          desc: "Pour toi, la vente, c’est trouver l’acheteur idéal, quelqu’un qui va apprécier ta propriété à sa juste valeur."
+        }
+      },
+      resultTitre: "TON PROFIL :",
+      autresProfils: "Autres profils :",
+      cta: "Recevoir mon guide du vendeur",
+      form: {
+        nom: "Nom complet",
+        email: "Courriel",
+        tel: "Téléphone",
+        btn: "Recevoir mon guide du vendeur",
+        mini: "Toutes vos informations restent strictement confidentielles.",
+        merci: "<strong>Merci&nbsp;!</strong> Votre demande a été reçue.<br>Vous recevrez sous peu votre guide du vendeur par courriel.<br><span style='color:#a6a6a6;font-size:13px;display:block;margin-top:8px;'>Besoin d’une réponse rapide ? Écrivez-nous directement par courriel ou WhatsApp.</span>"
+      }
+    },
+    en: {
+      titre: "What’s your seller profile?",
+      questions: [
+        {q: "Your main goal when selling is...", options: [
+          { text: "Get the maximum price", color: "vkq-black", profil: "Maximizer" },
+          { text: "Sell quickly, stress-free", color: "vkq-white", profil: "Zen" },
+          { text: "Understand every step, no surprises", color: "vkq-white", profil: "Analytical" },
+          { text: "Find the ideal buyer", color: "vkq-black", profil: "Selective" }
+        ]},
+        {q: "Your biggest fear when selling...", options: [
+          { text: "Selling too low, losing money", color: "vkq-black", profil: "Maximizer" },
+          { text: "It drags on, useless visits", color: "vkq-white", profil: "Zen" },
+          { text: "Not understanding everything, poor advice", color: "vkq-white", profil: "Analytical" },
+          { text: "Not finding a serious buyer", color: "vkq-black", profil: "Selective" }
+        ]},
+        {q: "Most important in your relationship with your broker...", options: [
+          { text: "Negotiate best price and protect my interests", color: "vkq-black", profil: "Maximizer" },
+          { text: "Manage everything, be present, explain", color: "vkq-white", profil: "Zen" },
+          { text: "Break down every detail, clarity", color: "vkq-white", profil: "Analytical" },
+          { text: "Find the perfect buyer for my property", color: "vkq-black", profil: "Selective" }
+        ]},
+        {q: "Your ideal approach to selling...", options: [
+          { text: "Maximize value, zero compromise", color: "vkq-black", profil: "Maximizer" },
+          { text: "Sell at my pace, no pressure", color: "vkq-white", profil: "Zen" },
+          { text: "Understand everything, compare every option", color: "vkq-white", profil: "Analytical" },
+          { text: "Choose the buyer who will appreciate my property", color: "vkq-black", profil: "Selective" }
+        ]}
+      ],
+      profils: {
+        "Maximizer": {
+          titre: "MAXIMIZER",
+          desc: "You want to sell at the best price, with sharp strategy and negotiation. Value comes first for you."
+        },
+        "Zen": {
+          titre: "ZEN",
+          desc: "You want a human, stress-free process, where every detail is handled for you. Comfort matters as much as the result!"
+        },
+        "Analytical": {
+          titre: "ANALYTICAL",
+          desc: "You want to understand each step, compare, and move forward with clear, concrete, verified information."
+        },
+        "Selective": {
+          titre: "SELECTIVE",
+          desc: "For you, selling means finding the ideal buyer, someone who’ll truly appreciate your property."
+        }
+      },
+      resultTitre: "YOUR PROFILE:",
+      autresProfils: "Other profiles:",
+      cta: "Get my seller’s guide",
+      form: {
+        nom: "Full name",
+        email: "Email",
+        tel: "Phone",
+        btn: "Get my seller’s guide",
+        mini: "All your information stays strictly confidential.",
+        merci: "<strong>Thank you!</strong> Your request was received.<br>You’ll receive your seller’s guide soon by email.<br><span style='color:#a6a6a6;font-size:13px;display:block;margin-top:8px;'>Need a quick reply? Write to us directly by email or WhatsApp.</span>"
+      }
+    }
+  };
+  let quizLang = 'fr';
+  function getQIndex(step) { return step-1; }
+  let quizAnswers = [];
+  function renderQuiz(step=1) {
+    const q = quizTexts[quizLang];
+    let html = `<div class="vkq-quiz-card vkq-quiz-magazine" style="background:#fff;box-shadow:0 4px 20px #1d263014;border-radius:22px;padding:30px 22px 30px 22px;max-width:500px;width:100%;">`;
+    html += `<div class="vkq-quiz-titre" style="font-family:'Playfair Display',serif;font-size:1.21rem;font-weight:700;color:var(--marine);margin-bottom:10px;letter-spacing:.02em;">${q.titre}</div>`;
+    if (step<=q.questions.length) {
+      html += `<div class="vkq-quiz-step" style="font-size:1.02rem;color:var(--marine-dark);font-weight:600;margin-bottom:13px;">${step} / ${q.questions.length}</div>`;
+      html += `<div class="vkq-quiz-question" style="font-size:1.11rem;color:var(--marine);margin-bottom:20px;font-weight:700;">${q.questions[getQIndex(step)].q}</div>`;
+      html += `<div class="vkq-btns" style="display:grid;grid-template-columns:1fr 1fr;gap:13px 16px;width:100%;margin:0 auto 12px auto;">`;
+      q.questions[getQIndex(step)].options.forEach((opt, i) => {
+        html += `<button class="vkq-btn" style="background:var(--marine);color:var(--beige-solid);border-radius:13px;padding:15px 12px;font-size:1.06rem;font-weight:600;border:none;transition:all .13s;cursor:pointer;" data-opt="${opt.profil}" onclick="window.quizAnswer(${step},'${opt.profil}')">${opt.text}</button>`;
+      });
+      html += `</div>`;
+    } else {
+      // Résultat profil
+      const score = {};
+      quizAnswers.forEach((p)=>{ score[p]=1+(score[p]||0); });
+      let best = Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
+      if(!q.profils[best]) best=Object.keys(q.profils)[0];
+      html += `<div class="vkq-quiz-result-titre" style="font-size:1.17rem;color:var(--marine);font-family:'Playfair Display',serif;font-weight:900;margin:7px 0 14px 0;letter-spacing:0.07em;">${q.resultTitre}</div>
+        <div class="vkq-quiz-personnage" style="padding:19px 8px 12px 8px;background:var(--marine);color:var(--white);border-radius:10px;margin-bottom:14px;border:2.5px solid var(--marine);font-family:'Playfair Display',serif;">
+          <div class="name" style="font-size:1.14rem;letter-spacing:0.11em;margin-bottom:7px;font-weight:900;color:var(--beige);">${q.profils[best].titre}</div>
+          <div class="desc" style="font-size:0.96rem;color:var(--beige);font-family:'Inter',sans-serif;font-weight:400;">${q.profils[best].desc}</div>
+        </div>
+        <div class="vkq-autres-profils" style="margin-top:13px;opacity:0.76;font-size:0.97rem;color:var(--marine);">${q.autresProfils} ${Object.keys(q.profils).filter(x=>x!=best).join(', ')}</div>
+        <form class="vkq-form" style="margin-top:20px;">
+          <input type="text" name="nom" required placeholder="${q.form.nom}" style="margin-bottom:10px;padding:12px;font-size:15px;border:1px solid #bbb;border-radius:7px;background:#fafbfc;width:100%;">
+          <input type="email" name="email" required placeholder="${q.form.email}" style="margin-bottom:10px;padding:12px;font-size:15px;border:1px solid #bbb;border-radius:7px;background:#fafbfc;width:100%;">
+          <input type="tel" name="tel" required placeholder="${q.form.tel}" style="margin-bottom:13px;padding:12px;font-size:15px;border:1px solid #bbb;border-radius:7px;background:#fafbfc;width:100%;">
+          <button type="submit" class="vkq-form-btn cta" style="background:var(--marine);color:var(--beige-solid);font-weight:700;font-family:'Inter',sans-serif;font-size:1.12rem;border:none;border-radius:19px;box-shadow:0 4px 18px #1d263012,0 1px 7px #1d263011;padding:14px 39px;margin-top:12px;cursor:pointer;letter-spacing:0.03em;outline:none;display:block;width:100%;max-width:355px;margin-left:auto;margin-right:auto;text-transform:uppercase;position:relative;filter:brightness(1.07);">${q.form.btn}</button>
+          <div style="font-size:12.3px;color:#8d7a54;margin-top:7px;">${q.form.mini}</div>
+        </form>
+        <div id="vkq-quiz-thankyou" style="display:none; margin-top:10px;">${q.form.merci}</div>
+      `;
+    }
+    html += `</div>`;
+    document.getElementById('vkq-quiz-zone').innerHTML = html;
+    // Attach form handler
+    setTimeout(function() {
+      var f = document.querySelector('.vkq-form');
+      if(f) f.onsubmit = function(e){
+        e.preventDefault(); f.style.display='none';
+        document.getElementById('vkq-quiz-thankyou').style.display='block';
+        return false;
+      };
+    }, 60);
+  }
+  window.quizAnswer = function(step,profil) {
+    quizAnswers[step-1] = profil;
+    renderQuiz(step+1);
+  };
+  window.setQuizLang = function(l) {
+    quizLang = l; quizAnswers=[]; renderQuiz(1);
+  }
+  renderQuiz(1);
+  // EN/FR sync
+  window.switchLang = function() {
+    let l=(quizLang=='fr')?'en':'fr';
+    // Switch hero, sections, btns
+    document.querySelectorAll('[data-fr][data-en]').forEach(el=>{
+      el.innerHTML = el.getAttribute('data-'+l) || el.innerHTML;
+      if(el.placeholder) el.placeholder=el.getAttribute('data-'+l);
+    });
+    document.getElementById('langLabel').innerText = (l=='fr'?'EN':'FR');
+    // Mini FAQ
+    renderFaq(l);
+    // Quiz
+    setQuizLang(l);
+    quizLang = l;
+  };
+})();
+</script>
+</body>
+</html>

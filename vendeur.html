@@ -6,7 +6,17 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
+  <!-- Navigation mise à jour -->
   <title>Consultation personnalisée | Vendeur</title>
+  <style>
+  /* CACHE BUSTER 18:29 */ 
+  #navigationFaqOnly { background: rgba(0,0,0,0.01); }
+  .nav-menu-updated li:last-child a { 
+    background: rgba(255,255,255,0.1) !important; 
+    border-radius: 5px !important;
+    text-transform: uppercase !important;
+  }
+  </style>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
@@ -21,17 +31,129 @@
     }
     body { margin:0; font-family:'Inter',sans-serif; color:var(--marine-dark); background:var(--white);}
     
-    /* MAIN HEADER */
+    /* Ripple effect for buttons */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(0);
+      animation: ripple-animation 0.6s linear;
+      pointer-events: none;
+    }
+    
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    /* Pulse animation for CTA */
+    @keyframes ctaPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Smooth transitions for all interactive elements */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+    
+    /* Force section styling visibility */
+    #zones.section {
+      background: #f5f5f5 !important;
+      border: 2px solid #ddd !important;
+      border-radius: 10px !important;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+      margin: 25px auto !important;
+      padding: 35px !important;
+      max-width: 95% !important;
+    }
+    
+    /* Force mobile form styles */
+    @media (max-width: 768px) {
+      select, input[type="text"], input[type="email"], input[type="tel"] {
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        border-radius: 8px !important;
+        border: 2px solid #ddd !important;
+        padding: 16px 12px !important;
+        font-size: 16px !important;
+        background: white !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      
+      select {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L2 4h8z'/%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 12px center !important;
+        background-size: 12px !important;
+        padding-right: 40px !important;
+      }
+      
+      select:focus, input:focus {
+        border-color: var(--marine) !important;
+        outline: none !important;
+        box-shadow: 0 0 0 3px rgba(21, 34, 57, 0.1) !important;
+      }
+    }
+    
+    /* Focus states for accessibility */
+    .btn:focus,
+    .hi-btn:focus,
+    .vkq-form-btn:focus,
+    .vkq-result-btn:focus,
+    .nav-menu a:focus {
+      outline: 3px solid rgba(21, 34, 57, 0.3);
+      outline-offset: 2px;
+    }
+    
+    /* Navigation Header - Grant Vallinis Style */
     .main-header {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
+      right: 0;
       z-index: 1000;
-      background: linear-gradient(135deg, rgba(21,34,57,0.95) 0%, rgba(21,34,57,0.85) 100%);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 14px 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(0);
+    }
+    
+    .main-header.hide {
+      transform: translateY(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .main-header.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .main-header.scrolled .logo {
+      color: var(--marine-dark);
+    }
+    
+    .main-header.scrolled .nav-menu a {
+      color: #666;
+    }
+    
+    .main-header.scrolled .nav-menu a:hover {
+      color: var(--marine-dark);
+    }
+    
+    .main-header.scrolled .nav-menu a.active {
+      color: var(--marine);
+      background: var(--bleu-matin);
     }
     
     .nav-container {
@@ -51,466 +173,1731 @@
       text-decoration: none;
       letter-spacing: 0.3px;
       transition: all 0.3s ease;
+      position: relative;
     }
     
-    .nav-menu {
+    .logo:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    
+    .nav-menu, .nav-menu-updated {
       display: flex;
-      gap: 2rem;
       list-style: none;
       margin: 0;
       padding: 0;
+      gap: 40px;
+      align-items: center;
     }
     
     .nav-menu a {
-      color: white;
       text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 400;
+      font-size: 1.0rem;
+      padding: 8px 12px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      letter-spacing: 0.2px;
+      border-radius: 6px;
       position: relative;
-      padding: 1rem 0;
+      overflow: hidden;
+    }
+    
+    .nav-menu a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s ease;
     }
     
     .nav-menu a:hover {
-      color: #ff6b35;
-    }
-    
-    /* HERO VIDEO */
-    .hero-video {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .hero-video video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
-    }
-    
-    .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(21,34,57,0.8) 0%, rgba(21,34,57,0.4) 100%);
-      z-index: -1;
-    }
-    
-    .hero-content {
-      text-align: center;
       color: white;
-      z-index: 1;
-      max-width: 800px;
-      padding: 0 2rem;
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
     }
     
+    .nav-menu a:hover::before {
+      left: 100%;
+    }
+    
+    .nav-menu a.active {
+      color: white;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      padding: 8px;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-menu, .nav-menu-updated {
+        position: fixed;
+        top: 65px;
+        left: 0;
+        right: 0;
+        background: rgba(21, 34, 57, 0.98);
+        backdrop-filter: blur(15px);
+        border-bottom: 3px solid var(--beige);
+        flex-direction: column;
+        padding: 24px 0;
+        gap: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .nav-menu.active, .nav-menu-updated.active, .navigation-finale-faq.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .nav-menu a {
+        color: white !important;
+        font-size: 1.2rem;
+        font-weight: 500;
+        padding: 18px 30px;
+        text-align: left;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+        transition: all 0.3s ease;
+      }
+      
+      .nav-menu a:hover {
+        background: var(--beige) !important;
+        color: var(--marine) !important;
+        transform: translateX(10px);
+        padding-left: 40px;
+      }
+      
+      .mobile-menu-toggle {
+        display: block;
+        font-size: 1.8rem;
+        padding: 10px;
+        z-index: 10000;
+        position: relative;
+      }
+      
+      /* Force mobile menu styling */
+      .nav-menu li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        margin: 0 !important;
+        width: 100% !important;
+      }
+      
+      .nav-menu li:last-child {
+        border-bottom: none !important;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+      }
+    }
+    
+    .hero { 
+      position:relative; 
+      width:100vw; 
+      height:100vh; 
+      min-height:100vh; 
+      max-height:100vh; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      overflow:hidden; 
+      background:var(--marine);
+      margin-top: 0;
+    }
+    .hero video {
+      position:absolute; top:0; left:0;
+      min-width:100vw; min-height:100%; width:100vw; height:100%; object-fit:cover; z-index:0;
+    }
+    .hero-content { position:relative; z-index:2; max-width:720px; margin:0 auto; text-align:center; padding:35px 6vw 18px 6vw;}
     .hero-content h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      font-family:'Playfair Display',serif; font-size:2.8rem;
+      color:var(--white); font-weight:800; line-height:1.16; margin-bottom:24px; letter-spacing:.018em;
+      background:rgba(0,0,0,0.3); border-radius:15px; display:inline-block; padding:16px 32px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      animation: heroSlideIn 1.2s ease forwards;
+      animation-delay: 0.3s;
+      transition: all 0.4s ease;
+    }
+    
+    .hero-content h1:hover {
+      transform: translateY(-2px);
+      background: rgba(0,0,0,0.4);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     }
     
     .hero-content p {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-      line-height: 1.6;
+      font-size:1.25rem; color:var(--white); margin-bottom:25px; font-weight:600;
+      background:rgba(0,0,0,0.2); display:inline-block; padding:12px 24px; border-radius:12px; letter-spacing:.01em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      animation: heroSlideIn 1.2s ease forwards;
+      animation-delay: 0.6s;
+      transition: all 0.4s ease;
     }
     
-    .cta-button {
-      background: linear-gradient(135deg, #ff6b35, #f7931e);
-      color: white;
-      padding: 1rem 2.5rem;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 600;
+    .hero-content p:hover {
+      transform: translateY(-2px);
+      background: rgba(0,0,0,0.3);
+    }
+    
+    @keyframes heroSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .btn,
+    .hi-btn,
+    .vkq-form-btn,
+    .vkq-result-btn {
+      background: var(--marine);
+      color: var(--blanc-casse);
+      border: 2px solid var(--marine);
+      border-radius: 30px;
+      font-size: 1.10rem;
+      font-weight: 700;
+      padding: 13px 30px;
+      box-shadow: 0 6px 28px #f6ecdb44, 0 1px 6px #ececec22;
       cursor: pointer;
-      transition: all 0.3s ease;
+      letter-spacing: .06em;
+      transition: all .4s cubic-bezier(.4, 0, .2, 1);
       text-decoration: none;
-      display: inline-block;
-      box-shadow: 0 4px 15px rgba(255,107,53,0.3);
-    }
-    
-    .cta-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(255,107,53,0.4);
-    }
-    
-    /* SECTIONS */
-    .section {
-      padding: 5rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.8rem;
-      color: var(--marine);
+      margin-top: 17px;
+      display: block;
+      position: relative;
+      text-transform: uppercase;
+      filter: brightness(1.18) drop-shadow(0 4px 18px #f4ecd877);
+      margin-left: auto;
+      margin-right: auto;
+      min-width: 180px;
+      max-width: 300px;
       text-align: center;
-      margin-bottom: 3rem;
+      overflow: hidden;
+    }
+    
+    .btn::before,
+    .hi-btn::before,
+    .vkq-form-btn::before,
+    .vkq-result-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+      z-index: 0;
+    }
+    
+    .btn > *,
+    .hi-btn > *,
+    .vkq-form-btn > *,
+    .vkq-result-btn > * {
+      position: relative;
+      z-index: 1;
+    }
+    .btn:hover,
+    .btn:active,
+    .hi-btn:hover,
+    .hi-btn:active,
+    .vkq-form-btn:hover,
+    .vkq-form-btn:active,
+    .vkq-result-btn:hover,
+    .vkq-result-btn:active {
+      background: var(--blanc-casse);
+      color: var(--marine);
+      box-shadow: 0 8px 35px #f4ecd877, 0 12px 40px #ececec22;
+      filter: brightness(1.08) drop-shadow(0 4px 25px #f4ecd844);
+      transform: translateY(-4px) scale(1.05);
+    }
+    
+    .btn:hover::before,
+    .hi-btn:hover::before,
+    .vkq-form-btn:hover::before,
+    .vkq-result-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .btn:active,
+    .hi-btn:active,
+    .vkq-form-btn:active,
+    .vkq-result-btn:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+    .lang-switch-btn {
+      position:fixed; top:85px; right:22px; z-index:9999;
+      background:rgba(255,255,255,0.2); color:white; border-radius:20px; padding:9px 19px;
+      font-weight:700; font-size:1.08rem; box-shadow:0 2px 12px rgba(0,0,0,0.2); border:none; cursor:pointer;
+      text-transform:uppercase; letter-spacing:0.04em; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: scale(1);
+    }
+    
+    .lang-switch-btn:hover { 
+      background:var(--beige); 
+      color:var(--marine);
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    
+    .lang-switch-btn:active {
+      transform: scale(0.95);
+    }
+    
+    .header-scrolled .lang-switch-btn {
+      background: var(--marine);
+      color: white;
+    }
+    .values-section { display:flex; flex-wrap:wrap; justify-content:center; gap:32px; max-width:1100px; margin:36px auto 30px auto; position:relative; z-index:5;}
+    .value-bulle {
+      background:var(--bleu-matin); box-shadow:0 3px 16px #1d263013;
+      border-radius:22px; padding:24px 24px; min-width:220px; max-width:340px; flex:1 1 220px;
+      text-align:left; border-top:3px solid var(--marine); display:flex; flex-direction:column; align-items:flex-start; margin-bottom:8px;
+      backdrop-filter:blur(1px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(0);
+      opacity: 0;
+      animation: slideInUp 0.8s ease forwards;
+    }
+    
+    .value-bulle:nth-child(1) { animation-delay: 0.2s; }
+    .value-bulle:nth-child(2) { animation-delay: 0.4s; }
+    .value-bulle:nth-child(3) { animation-delay: 0.6s; }
+    
+    .value-bulle:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 8px 30px #1d263020;
+      border-top-color: var(--beige);
+    }
+    
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .value-bulle h3 { font-family:'Playfair Display',serif; font-size:1.16rem; margin:0 0 9px 0; color:var(--marine);}
+    .value-bulle p { font-size:1.07rem; color:var(--grey); margin:0;}
+    .two-col-section {
+      display: flex;
+      gap: 36px;
+      max-width: 1100px;
+      margin: 36px auto 0 auto;
+      padding: 0 2vw;
+      align-items: flex-start;
+    }
+    .calendar-side,
+    .col-droite-perso {
+      flex: 1 1 440px;
+      min-width: 340px;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+    }
+    #vkq-quiz-zone {
+      max-width:500px;
+      width:100%;
+      margin: 0 auto 25px auto;
+      background:#fff;
+      border:1px solid #d9d9d9;
+      border-radius:12px;
+      padding:34px 24px;
+      box-sizing: border-box;
+      display: block;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(0);
+      opacity: 0;
+      animation: slideInFromLeft 0.8s ease forwards;
+      animation-delay: 0.2s;
+    }
+    
+    #vkq-quiz-zone:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-color: var(--marine);
+    }
+    
+    @keyframes slideInFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    .map-wrap { 
+      background:linear-gradient(135deg, var(--beige) 0%, #f5f1e8 100%); 
+      border-radius:14px; padding:19px 17px 10px 17px; margin-bottom:17px; margin-top:11px; 
+      box-shadow:0 2px 16px #1d263018; border: 1px solid rgba(205, 183, 141, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(0);
+      opacity: 0;
+      animation: slideInFromRight 0.8s ease forwards;
+      animation-delay: 0.4s;
+    }
+    
+    .map-wrap:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 25px #1d263025;
+      border-color: rgba(205, 183, 141, 0.6);
+    }
+    
+    @keyframes slideInFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    #real-map { width:100%; height:155px; border-radius:10px;}
+    .bulle-box-form-out {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 16px;
+      margin-top: 0;
+    }
+    .bulle-item-form-out {
+      background: #fff;
+      color: var(--marine-dark);
+      box-shadow: 0 2px 10px #1d263011;
+      border-radius: 15px;
+      padding: 17px 23px;
+      font-size: 1.09rem;
+      border-left: 5px solid var(--marine);
+      font-weight: 500;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0 auto;
+      filter: brightness(1.04);
+      letter-spacing: 0.01em;
+      backdrop-filter: blur(1.5px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(0);
+      opacity: 0;
+      animation: slideInLeft 0.8s ease forwards;
+    }
+    
+    .bulle-item-form-out:nth-child(1) { animation-delay: 0.3s; }
+    .bulle-item-form-out:nth-child(2) { animation-delay: 0.5s; }
+    
+    .bulle-item-form-out:hover {
+      transform: translateX(8px) scale(1.02);
+      box-shadow: 0 8px 25px #1d263018;
+      border-left-color: var(--beige);
+      background: #fefefe;
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    .col-droite-perso > * {
+      margin-bottom: 22px;
+    }
+    .col-droite-perso > *:last-child {
+      margin-bottom: 0;
+    }
+    .form-section {
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 8px 32px #1d263012;
+      padding: 33px 34px 26px 34px;
+      border: 2px solid var(--marine-dark);
+      min-width: 340px;
+      max-width: 500px;
+      align-self: center;
+      box-sizing: border-box;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(0);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.7s;
+    }
+    
+    .form-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px #1d263018;
+      border-color: var(--beige);
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .form-section h2 { font-family:'Playfair Display',serif; font-size:25px; font-weight:700; margin-bottom:13px; color:var(--marine); text-align:center;}
+    .form-group { margin-bottom:15px; }
+    label { display:block; margin-bottom:7px; font-weight:600; font-size:16px; color:var(--marine); }
+    input, select, textarea { 
+      width:100%; padding:12px; font-size:15px; border:1px solid #bbb; border-radius:7px; background:#fafbfc; 
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--marine);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(21, 34, 57, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    input:hover, select:hover, textarea:hover {
+      border-color: var(--beige);
+      background: #fff;
+    }
+    textarea { min-height:38px; }
+    .radio-group { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:10px;}
+    .radio-group label { font-weight:500; margin-right:10px; }
+    .mini-reassure { font-size:14px; color:var(--grey); margin-top:13px;}
+    .signature-slogan { margin:20px auto 0 auto; text-align:center; font-family:'Playfair Display',cursive,serif; font-size:2.3rem; color:var(--marine); font-weight:700; letter-spacing:0.09em; max-width:450px; background:none; border:none; padding:0; user-select:none; font-style:italic; text-shadow:0 3px 13px #f6ecdb77; display:block;}
+    .mini-faq-row {
+      width:100vw; max-width:1100px; margin:38px auto 0 auto;
+      display:flex; flex-direction:row; justify-content:center; align-items:stretch; gap:18px; flex-wrap:nowrap; box-sizing:border-box;
+    }
+    .mini-faq-row .faq-row {
+      background:var(--bleu-matin); border-radius:19px; box-shadow:0 2px 14px #1d263015;
+      padding:22px 15px 20px 15px; min-width:0; max-width:280px; flex:1 1 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; border-top:3px solid var(--marine); box-sizing:border-box; white-space:normal; word-break:break-word; position:relative; text-align:center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(0);
+      opacity: 0;
+      animation: slideInUp 0.8s ease forwards;
+    }
+    
+    .mini-faq-row .faq-row:nth-child(1) { animation-delay: 0.2s; }
+    .mini-faq-row .faq-row:nth-child(2) { animation-delay: 0.4s; }
+    .mini-faq-row .faq-row:nth-child(3) { animation-delay: 0.6s; }
+    .mini-faq-row .faq-row:nth-child(4) { animation-delay: 0.8s; }
+    
+    .mini-faq-row .faq-row:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 8px 30px #1d263020;
+      border-top-color: var(--beige);
+      background: #f8f9ff;
+    }
+    .faq-q { font-size:1.07rem; font-weight:700; color:var(--marine); margin-bottom:7px; line-height:1.25;}
+    .faq-a { font-size:0.98rem; font-weight:400; color:var(--grey); line-height:1.36; margin-left:0;}
+    .faq-dropcap {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem; font-weight: bold; color: var(--marine);
+      line-height: 0.82; min-width: 51px; text-align: center; margin: 0 auto 10px auto; display: block;
+    }
+    /* Styles pour les 3 sections ajoutées */
+    .bandelette-blanche {
+      background: #fff;
+      padding: 0;
+      min-height: 430px;
+      border-bottom: 1.5px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      width: 100vw;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      min-height: 430px;
+    }
+    .multi-left {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 338px;
+      min-width: 350px;
+      max-width: 50%;
+      text-align: center;
+    }
+    .multi-title {
+      font-size: 2.2rem;
+      font-weight: 500;
+      margin: 0 0 18px 0;
+      color: #222a38;
+      letter-spacing: -1.2px;
+      line-height: 1.11;
+    }
+    .multi-desc {
+      margin: 0 0 22px 0;
+      color: #505963;
+      font-size: 1.13rem;
+      letter-spacing: -0.01em;
+      font-weight: 400;
+    }
+    .lang-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px 20px;
+      justify-content: center;
+      margin-top: 7px;
+    }
+    .lang-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 1.07rem;
+      background: none;
+      border: none;
+      padding: 0;
+      font-weight: 400;
+      color: #232323;
+      letter-spacing: 0;
+      line-height: 1.05;
+    }
+    .lang-item img {
+      width: 23px;
+      height: 17px;
+      border-radius: 2px;
+      box-shadow: 0 1px 2px #0001;
+      margin-right: 2px;
+      background: #f4f4f4;
+      object-fit: cover;
+      display: inline-block;
+    }
+    .multi-img {
+      flex: 1 1 0;
+      min-width: 250px;
+      max-width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .multi-img img {
+      width: 310px;
+      height: 338px;
+      object-fit: cover;
+      border-radius: 28px;
+      background: #e6e6e6;
+      box-shadow: 0 8px 30px #0001;
+      display: block;
+      aspect-ratio: 1536/1672;
+    }
+    @media (max-width: 1000px) {
+      .container { flex-direction: column; gap: 32px; min-height: 0;}
+      .multi-left, .multi-img { max-width: 100%; }
+      .multi-img img { max-width: 95vw; }
+      .multi-left { height: auto; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 3vw;}
+      .multi-title { font-size: 1.35rem;}
+      .multi-img img { width: 97vw; height: auto; }
+    }
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 48px 36px;
+      display: flex;
+      gap: 60px;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+      border-bottom: 1.5px solid #ececec;
+      background: linear-gradient(135deg, rgba(234, 241, 250, 0.3) 0%, rgba(245, 241, 232, 0.4) 100%);
       position: relative;
     }
     
-    .section h2::after {
+    .section::before {
       content: '';
       position: absolute;
-      bottom: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(135deg, #ff6b35, #f7931e);
-      border-radius: 2px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 70%, rgba(205, 183, 141, 0.1) 0%, transparent 50%);
+      pointer-events: none;
     }
-    
-    .section p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #666;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto 2rem;
+    /* --- MAP RESPONSIVE PREMIUM --- */
+    .map-container {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 320px;
+      max-width: 480px;
     }
-    
-    /* QUIZ SECTION */
-    .quiz-container {
-      background: white;
-      border-radius: 20px;
-      padding: 3rem;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      max-width: 700px;
-      margin: 0 auto;
+    #map {
+      width: 100%;
+      height: 285px;
+      min-height: 210px;
+      max-width: 430px;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px #1d26301A;
+      border: 1.5px solid #eee;
+      transition: width 0.3s, height 0.3s;
     }
-    
-    .quiz-question {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--marine);
-      margin-bottom: 2rem;
-      text-align: center;
+    @media (max-width:950px) {
+      .section { flex-direction: column; padding: 24px 6vw; }
+      .map-container { width: 100vw; max-width: 100vw; min-height: 180px; }
+      #map { width: 95vw; height: 220px; min-width: 145px; max-width: 99vw; }
     }
-    
-    .quiz-options {
-      display: grid;
-      gap: 1rem;
-      margin-bottom: 2rem;
+    @media (max-width:600px) {
+      .section { padding: 18px 1vw;}
+      .map-container { min-height: 120px; }
+      #map { width: 98vw; height: 165px; min-height: 110px; }
     }
-    
-    .quiz-option {
-      background: #f8f9fa;
-      border: 2px solid #e9ecef;
-      border-radius: 15px;
-      padding: 1.5rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    /* --- FIN MAP RESPONSIVE --- */
+    .text-content {
+      width: 50%;
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       text-align: left;
     }
-    
-    .quiz-option:hover {
-      border-color: #ff6b35;
-      background: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(255,107,53,0.1);
+    .text-content h2 {
+      margin: 0 0 18px 0;
+      font-weight: 600;
+      font-size: 2.1rem;
+      letter-spacing: -1.2px;
+      line-height: 1.11;
+      color: #232323;
+    }
+    .text-content p {
+      margin: 0 0 16px 0;
+      font-weight: 400;
+      font-size: 1.12rem;
+      color: #555c66;
+      letter-spacing: -0.01em;
+    }
+    .text-content ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      font-size: 1.06rem;
+      color: #232323;
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+    }
+    .text-content ul li {
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .text-content ul li .pin {
+      font-size: 1.13em;
+      color: #b99d5c;
+    }
+    @media (max-width: 900px) {
+      .text-content { width: 100%; max-width: 100%; text-align: center; }
+      .text-content h2 { font-size: 1.6rem; }
+      .text-content p { font-size: 1.05rem; }
+      .section {
+        flex-direction: column;
+        padding: 36px 24px;
+      }
+      .map-container,
+      .text-content {
+        width: 100%;
+        max-width: none;
+        text-align: center;
+      }
+      #map {
+        width: 95vw;
+        height: 220px;
+        max-width: none;
+      }
+    }
+    /* Section team - 6 experts sur une ligne */
+    .team-section {
+      padding: 60px 36px;
+      margin: 40px auto;
+      max-width: 1200px;
+      text-align: center;
     }
     
-    /* EQUIPE SECTION */
+    .team-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--marine);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    
+    .team-section p {
+      font-size: 1.2rem;
+      color: var(--grey);
+      margin-bottom: 50px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
     .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 0 auto;
+      max-width: 1200px;
+      flex-wrap: wrap;
     }
     
     .team-member {
-      background: white;
-      border-radius: 20px;
-      padding: 2rem;
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px 15px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-top: 3px solid var(--marine);
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      min-width: 180px;
+      max-width: 190px;
+    }
+    
+    .team-member::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s ease;
     }
     
     .team-member:hover {
-      transform: translateY(-10px);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      border-top-color: var(--beige);
+    }
+    
+    .team-member:hover::before {
+      left: 100%;
     }
     
     .team-member img {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      margin-bottom: 1rem;
       object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid var(--bleu-matin);
+      transition: all 0.3s ease;
+    }
+    
+    .team-member:hover img {
+      border-color: var(--beige);
+      transform: scale(1.05);
     }
     
     .team-member h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      color: var(--marine);
-      margin-bottom: 0.5rem;
-    }
-    
-    .team-member p {
-      color: #666;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-    
-    /* FAQ SECTION */
-    .faq-section {
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      padding: 5rem 2rem;
-    }
-    
-    .faq-container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    
-    .faq-item {
-      background: white;
-      border-radius: 15px;
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      transition: all 0.3s ease;
-    }
-    
-    .faq-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    }
-    
-    .faq-question {
-      font-weight: 600;
-      color: var(--marine);
       font-size: 1.1rem;
-      padding: 1.5rem;
-      border-bottom: 1px solid #f0f0f0;
-      margin: 0;
-    }
-    
-    .faq-answer {
-      color: #666;
-      line-height: 1.7;
-      padding: 1.5rem;
-      margin: 0;
-    }
-    
-    /* SWITCH LANGUE */
-    .lang-switch {
-      position: fixed;
-      top: 30px;
-      right: 30px;
-      z-index: 1001;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
-      border-radius: 25px;
-      padding: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .lang-btn {
-      background: transparent;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      font-size: 0.9rem;
+      color: var(--marine);
+      margin-bottom: 6px;
       font-weight: 600;
-      padding: 8px 16px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 40px;
     }
     
-    .lang-btn.active {
-      background: rgba(255, 255, 255, 0.25);
-      font-weight: 700;
+    .team-member .role {
+      font-size: 0.85rem;
+      color: var(--marine);
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
     
-    /* MOBILE RESPONSIVE */
+    .team-member .experience {
+      font-size: 0.8rem;
+      color: var(--grey);
+      margin-bottom: 10px;
+    }
+    
+    .team-member .description {
+      font-size: 0.8rem;
+      color: var(--grey);
+      line-height: 1.4;
+      opacity: 0.9;
+    }
+    
+    @media (max-width: 1000px) {
+      .team-grid {
+        justify-content: center;
+        gap: 20px;
+      }
+      
+      .team-member {
+        flex: 0 0 calc(33.333% - 14px);
+        min-width: 150px;
+        max-width: 200px;
+      }
+    }
+    
     @media (max-width: 768px) {
-      .hero-content h1 {
-        font-size: 2.5rem;
+      .team-section {
+        padding: 40px 20px;
       }
       
-      .section {
-        padding: 3rem 1rem;
+      .team-section h2 {
+        font-size: 2rem;
       }
       
-      .nav-container {
+      .team-grid {
+        gap: 20px;
+      }
+      
+      .team-member {
+        padding: 18px 12px;
+        flex: 0 0 calc(50% - 10px);
+        min-width: 140px;
+      }
+      
+      .team-member img {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .team-member h3 {
+        font-size: 1rem;
+      }
+      
+      .team-member .description {
+        font-size: 0.75rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .team-grid {
         flex-direction: column;
-        padding: 1rem;
+        align-items: center;
+        gap: 20px;
       }
       
-      .nav-menu {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
+      .team-member {
+        flex: none;
+        width: 100%;
+        max-width: 300px;
       }
-      
-      .quiz-container {
-        padding: 2rem 1.5rem;
-      }
+    }
+    /* Fin ajout styles 3 sections */
+    @media (max-width:950px) {
+      .two-col-section { flex-direction: column; gap: 25px;}
+      .calendar-side, .col-droite-perso { max-width: 99vw; min-width: 10px; }
+      .form-section, .bulle-item-form-out, .vkq-quiz-card { max-width: 99vw; }
+      #vkq-quiz-zone { max-width:99vw; }
+    }
+    @media (max-width:700px) {
+      .two-col-section { padding: 0 2vw; }
+      .form-section { padding: 15px 5vw 15px 5vw; }
+      .bulle-item-form-out { padding: 11px 7vw; }
+      .hero { height: 70vh; min-height: 400px; max-height: 70vh;}
+      .hero-content h1 { font-size:1.8rem; padding:12px 20px; line-height: 1.2;}
+      .hero-content p { font-size:1.1rem; padding:10px 16px;}
+      .btn, .hi-btn, .vkq-form-btn, .vkq-result-btn { font-size:1rem; padding:12px 11px;}
+      .values-section, .mini-faq-row { gap:10px; }
+      .value-bulle { min-width: 90vw; padding: 13px 11px;}
+      .signature-slogan { font-size: 1.19rem;}
     }
   </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="main-header">
-    <div class="nav-container">
-      <a href="index.html" class="logo">Grant Vallinis</a>
-      <nav class="main-nav">
-        <ul class="nav-menu">
-          <li><a href="#approche">Approche</a></li>
-          <li><a href="#quiz">Quiz</a></li>
-          <li><a href="#zones">Zones</a></li>
-          <li><a href="#equipe">Équipe</a></li>
-          <li><a href="#programmes">Programmes</a></li>
-          <li><a href="#faq" style="color: #ff6b35; font-weight: bold; text-transform: uppercase;">FAQ</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
 
-  <!-- SWITCH LANGUE -->
-  <div class="lang-switch">
-    <button class="lang-btn active">FR</button>
-    <button class="lang-btn">EN</button>
+<!-- Navigation Header -->
+<header class="main-header">
+  <div class="nav-container">
+    <a href="#" class="logo">Grant Vallinis</a>
+    <nav class="main-nav">
+      <!-- *** NAVIGATION SANS CONTACT - FAQ UNIQUEMENT *** -->
+      <ul class="navigation-finale-faq" id="navigationFAQFinal">
+        <li><a href="#approche" data-fr="Approche" data-en="Approach">Approche</a></li>
+        <li><a href="#quiz" data-fr="Quiz" data-en="Quiz">Quiz</a></li>
+        <li><a href="#zones" data-fr="Zones" data-en="Areas">Zones</a></li>
+        <li><a href="#notre-equipe" data-fr="Équipe" data-en="Team">Équipe</a></li>
+        <li><a href="#programmes" data-fr="Programmes" data-en="Programs">Programmes</a></li>
+        <li><a href="#faq" data-fr="FAQ" data-en="FAQ" class="menu-faq-final">FAQ</a></li>
+      </ul>
+      <button class="mobile-menu-toggle">☰</button>
+    </nav>
   </div>
+</header>
 
-  <!-- HERO VIDEO -->
-  <section class="hero-video">
-    <video autoplay muted loop>
-      <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-    </video>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1>Vendez avec Excellence</h1>
-      <p>Votre propriété mérite le maximum. Notre signature, c'est la vôtre. Un accompagnement exclusif, à chaque étape de votre vente immobilière.</p>
-      <a href="#quiz" class="cta-button">Commencer mon évaluation</a>
+<button class="lang-switch-btn" id="langSwitch" onclick="switchLang()"><span id="langLabel">EN</span></button>
+<!-- HERO -->
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="https://archive.org/download/4770380-hd-1920-1080-30fps/4770380-hd_1920_1080_30fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h1 data-fr="Obtenez votre consultation personnalisée pour la vente, sans engagement." data-en="Get your personalized, commitment-free selling consultation.">Obtenez votre consultation personnalisée pour la vente, sans engagement.</h1>
+    <p data-fr="Vendez avec stratégie, zéro pression, réponses claires et accompagnement humain à chaque étape." data-en="Sell with strategy, zero pressure, clear answers and human support every step.">Vendez avec stratégie, zéro pression, réponses claires et accompagnement humain à chaque étape.</p>
+    <a href="#consultation-de-vente-personnalisee" class="btn cta-btn" data-fr="Je veux ma consultation" data-en="I want my consultation">Je veux ma consultation</a>
+  </div>
+</section>
+<!-- APPROCHE -->
+<section id="approche" class="values-section">
+  <div class="value-bulle">
+    <h3 data-fr="Stratégie de mise en marché" data-en="Marketing Strategy">Stratégie de mise en marché</h3>
+    <p data-fr="Votre propriété mise en valeur avec les meilleures stratégies, pour attirer les bons acheteurs et obtenir le meilleur prix." data-en="Your property showcased with top strategies to attract the right buyers and get the best price.">Votre propriété mise en valeur avec les meilleures stratégies, pour attirer les bons acheteurs et obtenir le meilleur prix.</p>
+  </div>
+  <div class="value-bulle">
+    <h3 data-fr="Négociation experte" data-en="Expert negotiation">Négociation experte</h3>
+    <p data-fr="Chaque offre est négociée dans votre intérêt, pour maximiser votre valeur nette et votre sécurité." data-en="Every offer is negotiated in your best interest to maximize your net value and security.">Chaque offre est négociée dans votre intérêt, pour maximiser votre valeur nette et votre sécurité.</p>
+  </div>
+  <div class="value-bulle">
+    <h3 data-fr="Service multilingue premium" data-en="Premium multilingual service">Service multilingue premium</h3>
+    <p data-fr="Un service humain, rapide et dans votre langue à chaque étape clé de la transaction." data-en="Human, quick service in your language at every key transaction stage.">Un service humain, rapide et dans votre langue à chaque étape clé de la transaction.</p>
+  </div>
+</section>
+<!-- QUIZ -->
+<section id="quiz" class="two-col-section">
+  <!-- Colonne gauche -->
+  <div class="calendar-side">
+    <!-- QUIZ ACHETEUR -->
+    <div id="vkq-quiz-zone">
+      <div id="vkq-progress-bar" style="height:6px; background:#e0e0e0; border-radius:4px; overflow:hidden; margin-bottom:20px;">
+        <div id="vkq-progress" style="height:100%; width:0%; background:#152239; transition:width 0.5s ease;"></div>
+      </div>
+      <div id="vkq-quiz-card" style="text-align:center;"></div>
     </div>
-  </section>
-
-  <!-- APPROCHE -->
-  <section id="approche" class="section">
-    <h2>Notre Approche Vendeur</h2>
-    <p>Vendre une propriété, c'est bien plus qu'afficher un panneau. C'est une stratégie complète qui maximise votre retour sur investissement tout en minimisant le temps sur le marché.</p>
-    <p>Notre approche personnalisée combine expertise du marché, marketing innovant et négociation d'excellence pour vous garantir les meilleurs résultats.</p>
-  </section>
-
-  <!-- QUIZ -->
-  <section id="quiz" class="section">
-    <h2>Découvrez votre profil de vendeur</h2>
-    <div class="quiz-container">
-      <div class="quiz-question">Ce qui compte le most pour vous dans votre vente ?</div>
-      <div class="quiz-options">
-        <div class="quiz-option">
-          💰 <strong>Maximiser le prix</strong> - Obtenir le meilleur prix possible pour votre propriété
-        </div>
-        <div class="quiz-option">
-          📊 <strong>Sérénité</strong> - Être accompagné sans stress tout au long du processus
-        </div>
-        <div class="quiz-option">
-          ⚡ <strong>Rapidité</strong> - Vendre rapidement et efficacement
-        </div>
-        <div class="quiz-option">
-          🎯 <strong>Stratégie</strong> - Avoir une approche personnalisée et sur-mesure
-        </div>
-      </div>
-      <button class="cta-button">Voir mon profil</button>
+    <!-- CALENDLY -->
+    <div style="background:var(--beige); border-radius:17px; padding:18px 10px 12px 10px; margin-bottom:15px; margin-top:0;">
+      <iframe src="https://calendly.com/grantvallinis/evaluation-grand-montreal?preview_source=et_card&month=2025-05"
+        width="100%" height="810" style="border-radius:15px; min-height:810px; display:block; background:#fff;"
+        frameborder="0" scrolling="no"></iframe>
     </div>
-  </section>
 
-  <!-- ZONES -->
-  <section id="zones" class="section">
-    <h2>Nos Zones d'Expertise</h2>
-    <p>Nous vendons dans l'ensemble du Grand Montréal avec une connaissance approfondie des tendances de chaque secteur. Notre expertise locale nous permet de positionner votre propriété au prix optimal.</p>
-  </section>
+  </div>
+  <!-- Colonne droite : bulles + formulaire -->
+  <div class="col-droite-perso">
+    <!-- Bulles services -->
+    <div class="bulle-box-form-out">
+      <div class="bulle-item-form-out" data-fr="<strong>Protection juridique complète</strong> : chaque clause et document vérifiés, rien n'est laissé au hasard." data-en="<strong>Full legal protection</strong>: every clause and document checked, nothing left to chance."><strong>Protection juridique complète</strong> : chaque clause et document vérifiés, rien n'est laissé au hasard.</div>
+      <div class="bulle-item-form-out" data-fr="<strong>Marketing premium ciblé</strong> : votre propriété mise en valeur auprès des bons acheteurs qualifiés." data-en="<strong>Premium targeted marketing</strong>: your property showcased to the right qualified buyers."><strong>Marketing premium ciblé</strong> : votre propriété mise en valeur auprès des bons acheteurs qualifiés.</div>
+    </div>
+    <!-- FORMULAIRE VENTE -->
+    <section id="consultation-de-vente-personnalisee" class="form-section">
+      <h2 data-fr="Consultation de vente personnalisée" data-en="Personalized selling consultation">Consultation de vente personnalisée</h2>
+      <form action="https://formsubmit.co/wissem.nessah@remax-quebec.com" method="POST" autocomplete="off">
+        <div class="form-group">
+          <label for="nom" data-fr="Nom complet" data-en="Full name">Nom complet</label>
+          <input type="text" id="nom" name="Nom" required placeholder="ex : Alexandre Dupuis" data-fr="ex : Alexandre Dupuis" data-en="ex: John Smith">
+        </div>
+        <div class="form-group">
+          <label for="email" data-fr="Courriel" data-en="Email">Courriel</label>
+          <input type="email" id="email" name="Email" required placeholder="ex : votre@email.com" data-fr="ex : votre@email.com" data-en="ex: your@email.com">
+        </div>
+        <div class="form-group">
+          <label for="tel" data-fr="Téléphone" data-en="Phone">Téléphone</label>
+          <input type="tel" id="tel" name="Téléphone" required placeholder="ex : 514-123-4567" data-fr="ex : 514-123-4567" data-en="ex: 514-123-4567" pattern="^[0-9\s\-\+\(\)]*$" data-number="true" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label for="adresse" data-fr="Adresse de la propriété à vendre" data-en="Property address to sell">Adresse de la propriété à vendre</label>
+          <input type="text" id="adresse" name="Adresse de la propriété" required placeholder="ex : 123 Rue des Ventes, Brossard" data-fr="ex : 123 Rue des Ventes, Brossard" data-en="ex: 123 Sales St, Brossard">
+        </div>
+        <div class="form-group">
+          <label for="type" data-fr="Type de propriété" data-en="Type of property">Type de propriété</label>
+          <select id="type" name="Type de propriété" required>
+            <option value="" data-fr="Choisir…" data-en="Choose…">Choisir…</option>
+            <option value="Condo">Condo</option>
+            <option value="Maison" data-fr="Maison" data-en="House">Maison</option>
+            <option value="Plex" data-fr="Plex (duplex, triplex, etc.)" data-en="Plex (duplex, triplex, etc.)">Plex (duplex, triplex, etc.)</option>
+            <option value="Terrain" data-fr="Terrain" data-en="Land">Terrain</option>
+            <option value="Autre" data-fr="Autre" data-en="Other">Autre</option>
+          </select>
+        </div>
+        <!-- SLIDER PRIX VENTE -->
+        <div class="form-group">
+          <label for="budget-range" data-fr="Prix de vente estimé" data-en="Estimated selling price">Prix de vente estimé</label>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <input
+              type="range"
+              id="budget-range"
+              name="PrixVente"
+              min="100000"
+              max="5000000"
+              step="25000"
+              value="600000"
+              oninput="document.getElementById('budget-value').innerText = getBudgetValue(this.value); document.getElementById('budget-hidden').value=this.value;">
+            <span id="budget-value" style="font-weight:700;min-width:110px;">600 000 $</span>
+          </div>
+          <input type="hidden" id="budget-hidden" name="Prix estimé" value="600000">
+        </div>
+        <div class="form-group">
+          <label for="delai" data-fr="Délai de vente souhaité" data-en="Desired selling timeframe">Délai de vente souhaité</label>
+          <select id="delai" name="Délai" required>
+            <option value="" data-fr="Choisir…" data-en="Choose…">Choisir…</option>
+            <option value="Immédiatement" data-fr="Immédiatement" data-en="Immediately">Immédiatement</option>
+            <option value="1-3 mois" data-fr="1-3 mois" data-en="1-3 months">1-3 mois</option>
+            <option value="3-6 mois" data-fr="3-6 mois" data-en="3-6 months">3-6 mois</option>
+            <option value="6+ mois" data-fr="6+ mois" data-en="6+ months">6+ mois</option>
+            <option value="Pas pressé" data-fr="Pas pressé" data-en="Not in a hurry">Pas pressé</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="situation" data-fr="Situation actuelle" data-en="Current situation">Situation actuelle</label>
+          <div class="radio-group">
+            <label><input type="radio" name="Situation" value="Première vente" required data-fr="Première vente" data-en="First sale"> <span data-fr="Première vente" data-en="First sale">Première vente</span></label>
+            <label><input type="radio" name="Situation" value="Changement de maison" data-fr="Changement de maison" data-en="House change"> <span data-fr="Changement de maison" data-en="House change">Changement de maison</span></label>
+            <label><input type="radio" name="Situation" value="Investissement" data-fr="Investissement" data-en="Investment"> <span data-fr="Investissement" data-en="Investment">Investissement</span></label>
+            <label><input type="radio" name="Situation" value="Autre" data-fr="Autre" data-en="Other"> <span data-fr="Autre" data-en="Other">Autre</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="infos" data-fr="Détails supplémentaires sur votre propriété" data-en="Additional details about your property">Détails supplémentaires sur votre propriété</label>
+          <textarea id="infos" name="Détails propriété" rows="2" placeholder="ex : Rénovations récentes, propriété héritée, situation particulière..." data-fr="ex : Rénovations récentes, propriété héritée, situation particulière..." data-en="ex: Recent renovations, inherited property, special situation..."></textarea>
+        </div>
+        <div class="form-group">
+          <label data-fr="Langue de contact préférée" data-en="Preferred contact language">Langue de contact préférée</label>
+          <div class="radio-group">
+            <label><input type="radio" name="Langue" value="Français" checked data-fr="Français" data-en="French">Français</label>
+            <label><input type="radio" name="Langue" value="English" data-fr="English" data-en="English">English</label>
+            <label><input type="radio" name="Langue" value="Español" data-fr="Español" data-en="Spanish">Español</label>
+            <label><input type="radio" name="Langue" value="Arabe" data-fr="Arabe" data-en="Arabic">Arabe</label>
+            <label><input type="radio" name="Langue" value="Português" data-fr="Português" data-en="Portuguese">Português</label>
+            <label><input type="radio" name="Langue" value="Hindi" data-fr="Hindi" data-en="Hindi">हिन्दी</label>
+          </div>
+        </div>
+        <input type="hidden" name="_subject" value="Nouvelle demande consultation vendeur">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="box">
+        <button type="submit" class="vkq-form-btn" data-fr="Obtenir ma consultation gratuite" data-en="Get my free consultation">Obtenir ma consultation gratuite</button>
+        <p class="mini-reassure" data-fr="Évaluation gratuite, service confidentiel et humain. Zéro obligation – seulement des conseils honnêtes pour maximiser votre vente." data-en="Free evaluation, confidential and human service. Zero obligation—only honest advice to maximize your sale.">Évaluation gratuite, service confidentiel et humain. Zéro obligation – seulement des conseils honnêtes pour maximiser votre vente.</p>
+      </form>
+      <div class="signature-slogan" data-fr="Réalisons !" data-en="Let's make it happen!">Réalisons !</div>
+    </section>
+  </div>
+</section>
 
-  <!-- EQUIPE -->
-  <section id="equipe" class="section">
-    <h2>Notre Équipe d'Experts</h2>
-    <div class="team-grid">
-      <div class="team-member">
-        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle fill='%23f0f0f0' cx='50' cy='50' r='50'/></svg>" alt="Expert 1">
-        <h3>Pierre Lalonde</h3>
-        <p>Spécialiste Ventes Résidentielles<br>18 ans d'expérience<br>500+ propriétés vendues</p>
+<!-- 🔥 LES 3 SECTIONS EN VERTICAL (juste après la section two-col-section) -->
+
+<!-- ÉQUIPE D'EXPERTS - 6 personnes sur une ligne -->
+<section id="notre-equipe" class="team-section">
+  <h2 data-fr="Notre équipe d'experts" data-en="Our team of experts">Notre équipe d'experts</h2>
+  <p data-fr="Une équipe passionnée et expérimentée à votre service pour vous accompagner dans tous vos projets immobiliers" data-en="A passionate and experienced team at your service to support you in all your real estate projects">Une équipe passionnée et expérimentée à votre service pour vous accompagner dans tous vos projets immobiliers</p>
+  
+  <div class="team-grid">
+    <div class="team-member">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face" alt="Jean-Marc Dubois">
+      <h3>Jean-Marc Dubois</h3>
+      <div class="role" data-fr="Courtier Senior" data-en="Senior Broker">Courtier Senior</div>
+      <div class="experience" data-fr="15+ ans" data-en="15+ years">15+ ans</div>
+      <div class="description" data-fr="Spécialiste négociation et transactions complexes" data-en="Negotiation and complex transactions specialist">Spécialiste négociation et transactions complexes</div>
+    </div>
+    
+    <div class="team-member">
+      <img src="https://images.unsplash.com/photo-1494790108755-2616b332b385?w=300&h=300&fit=crop&crop=face" alt="Sophie Martineau">
+      <h3>Sophie Martineau</h3>
+      <div class="role" data-fr="Spécialiste Marketing" data-en="Marketing Specialist">Spécialiste Marketing</div>
+      <div class="experience" data-fr="12+ ans" data-en="12+ years">12+ ans</div>
+      <div class="description" data-fr="Experte en stratégies de mise en marché et visibilité" data-en="Expert in marketing strategies and visibility">Experte en stratégies de mise en marché et visibilité</div>
+    </div>
+    
+    <div class="team-member">
+      <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face" alt="Alexandre Rousseau">
+      <h3>Alexandre Rousseau</h3>
+      <div class="role" data-fr="Analyste Marché" data-en="Market Analyst">Analyste Marché</div>
+      <div class="experience" data-fr="8+ ans" data-en="8+ years">8+ ans</div>
+      <div class="description" data-fr="Évaluations précises et études de marché approfondies" data-en="Accurate evaluations and in-depth market studies">Évaluations précises et études de marché approfondies</div>
+    </div>
+    
+    <div class="team-member">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face" alt="Marie-Claude Gagnon">
+      <h3>Marie-Claude Gagnon</h3>
+      <div class="role" data-fr="Conseillère Juridique" data-en="Legal Advisor">Conseillère Juridique</div>
+      <div class="experience" data-fr="10+ ans" data-en="10+ years">10+ ans</div>
+      <div class="description" data-fr="Protection complète et sécurisation des transactions" data-en="Complete protection and transaction security">Protection complète et sécurisation des transactions</div>
+    </div>
+    
+    <div class="team-member">
+      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face" alt="David Chen">
+      <h3>David Chen</h3>
+      <div class="role" data-fr="Expert Évaluation" data-en="Evaluation Expert">Expert Évaluation</div>
+      <div class="experience" data-fr="14+ ans" data-en="14+ years">14+ ans</div>
+      <div class="description" data-fr="Évaluations précises et objectives de vos biens" data-en="Accurate and objective property evaluations">Évaluations précises et objectives de vos biens</div>
+    </div>
+    
+    <div class="team-member">
+      <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=300&h=300&fit=crop&crop=face" alt="Isabelle Roy">
+      <h3>Isabelle Roy</h3>
+      <div class="role" data-fr="Gestionnaire Clientèle" data-en="Client Manager">Gestionnaire Clientèle</div>
+      <div class="experience" data-fr="9+ ans" data-en="9+ years">9+ ans</div>
+      <div class="description" data-fr="Coordonne tous les aspects de votre parcours" data-en="Coordinates all aspects of your journey">Coordonne tous les aspects de votre parcours</div>
+    </div>
+  </div>
+</section>
+
+<!-- ÉQUIPE MULTILINGUE -->
+<div id="equipe" class="bandelette-blanche">
+  <div class="container">
+    <div class="multi-left">
+      <div class="multi-title">Une équipe multilingue à votre service</div>
+      <div class="multi-desc">
+        Avec mon équipe <strong>composée de 6 personnes</strong>, nous sommes capables d'accompagner vos clients dans les langues suivantes&nbsp;:
       </div>
-      <div class="team-member">
-        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle fill='%23f0f0f0' cx='50' cy='50' r='50'/></svg>" alt="Expert 2">
-        <h3>Isabelle Roy</h3>
-        <p>Experte Marketing Digital<br>14 ans d'expérience<br>Spécialiste home staging</p>
-      </div>
-      <div class="team-member">
-        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle fill='%23f0f0f0' cx='50' cy='50' r='50'/></svg>" alt="Expert 3">
-        <h3>Marc Gagnon</h3>
-        <p>Négociateur Senior<br>16 ans d'expérience<br>Spécialiste propriétés de luxe</p>
+      <div class="lang-list">
+        <div class="lang-item"><img src="https://flagcdn.com/fr.svg" alt="français" />Français</div>
+        <div class="lang-item"><img src="https://flagcdn.com/gb.svg" alt="anglais" />Anglais</div>
+        <div class="lang-item"><img src="https://flagcdn.com/es.svg" alt="espagnol" />Espagnol</div>
+        <div class="lang-item"><img src="https://flagcdn.com/pt.svg" alt="portugais" />Portugais</div>
+        <div class="lang-item"><img src="https://flagcdn.com/ro.svg" alt="roumain" />Roumain</div>
+        <div class="lang-item"><img src="https://flagcdn.com/sa.svg" alt="arabe" />Arabe</div>
+        <div class="lang-item"><img src="https://flagcdn.com/in.svg" alt="hindi" />Hindi</div>
       </div>
     </div>
-  </section>
-
-  <!-- PROGRAMMES -->
-  <section id="programmes" class="section">
-    <h2>Programmes Vendeur</h2>
-    <p>Nos programmes exclusifs sont adaptés à chaque situation de vente. Du home staging au marketing digital, nous déployons tous les outils nécessaires pour maximiser la valeur de votre propriété.</p>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="faq-section">
-    <div class="faq-container">
-      <h2 style="color: var(--marine); text-align: center; margin-bottom: 3rem;">Questions Fréquentes</h2>
-      <div class="faq-item">
-        <div class="faq-question">Combien de temps pour vendre ma propriété ?</div>
-        <div class="faq-answer">En moyenne, nos propriétés se vendent 40% plus rapidement que la moyenne du marché grâce à notre approche stratégique et notre marketing innovant.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Quels sont vos honoraires ?</div>
-        <div class="faq-answer">Nos honoraires sont transparents et compétitifs. Nous vous proposons plusieurs formules adaptées à votre situation et vos objectifs de vente.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Comment préparer ma propriété à la vente ?</div>
-        <div class="faq-answer">Nous vous accompagnons avec un plan personnalisé : évaluation, conseils d'amélioration, staging professionnel et photographie de qualité supérieure.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Quelle est votre stratégie marketing ?</div>
-        <div class="faq-answer">Marketing multi-canal incluant photographie professionnelle, visite virtuelle 3D, réseaux sociaux, MLS, sites immobiliers et notre réseau exclusif d'acheteurs qualifiés.</div>
-      </div>
+    <div class="multi-img">
+      <img src="https://archive.org/download/pexels-mikhail-nilov-7734590/pexels-mikhail-nilov-7734590.jpg" alt="Équipe Multilingue" />
     </div>
-  </section>
+  </div>
+</div>
 
-  <script>
-    // Navigation smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+<!-- ZONES D'INTERVENTION -->
+<section id="zones" class="section" style="background: #f5f5f5 !important; border: 2px solid #ddd !important; border-radius: 10px !important; box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important; margin: 25px auto !important; padding: 35px !important; max-width: 95% !important; transform: translateZ(0) !important;">
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
+  <div class="text-content">
+    <h2>Nous couvrons un large périmètre d'action</h2>
+    <p>Nous intervenons dans les régions suivantes&nbsp;:</p>
+    <ul>
+      <li><span class="pin">📍</span>Île de Montréal</li>
+      <li><span class="pin">📍</span>Laval</li>
+      <li><span class="pin">📍</span>Montérégie</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROGRAMMES RE/MAX -->
+<section id="programmes" style="padding: 30px 20px; background-color: #ffffff;">
+  <h2 style="text-align: center; font-family: 'Inter', sans-serif; font-size: 16px; color: #999; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px;">
+    POURQUOI VOS CLIENTS NOUS FONT-ILS CONFIANCE ?
+  </h2>
+  <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 22px; color: #152239; margin-bottom: 25px;">
+    Notre service inclut
+  </h3>
+  <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+    <!-- Intégri-T -->
+    <div style="width: 300px; max-width: 100%; text-align: center;">
+      <div style="border-radius: 10px; overflow: hidden; margin-bottom: 10px;">
+        <a href="https://www.remax-quebec.com/en/integri-t" target="_blank">
+          <iframe width="100%" height="160" src="https://www.youtube.com/embed/E5hOwO9P15k" title="Intégri-T" frameborder="0" allowfullscreen style="border: none;"></iframe>
+        </a>
+      </div>
+      <h4 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Intégri-T : Protection complète pour les vendeurs</h4>
+      <p style="font-size: 13px; line-height: 1.4; color: #444;">
+        La garantie Intégri-T protège les vendeurs contre les réclamations de vices cachés,<br>offrant une tranquillité d'esprit et une protection financière après la vente.
+        <br><a href="https://www.remax-quebec.com/en/integri-t" target="_blank" style="color: #c69a40; font-weight: 500; text-decoration: underline;">En savoir plus</a>
+      </p>
+    </div>
+    <!-- Tranquilli-T -->
+    <div style="width: 300px; max-width: 100%; text-align: center;">
+      <div style="border-radius: 10px; overflow: hidden; margin-bottom: 10px;">
+        <a href="https://www.remax-quebec.com/en/tranquilli-t" target="_blank">
+          <iframe width="100%" height="160" src="https://www.youtube.com/embed/qP_fxusSCHc" title="Tranquilli-T" frameborder="0" allowfullscreen style="border: none;"></iframe>
+        </a>
+      </div>
+      <h4 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Tranquilli-T : Sécurisez votre vente immobilière</h4>
+      <p style="font-size: 13px; line-height: 1.4; color: #444;">
+        Le programme Tranquilli-T protège les vendeurs avec<br>une compensation financière et une assistance juridique complète.
+        <br><a href="https://www.remax-quebec.com/en/tranquilli-t" target="_blank" style="color: #c69a40; font-weight: 500; text-decoration: underline;">En savoir plus</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div id="faq" class="mini-faq-row"></div>
+<!-- VIDEO BAS + FOOTER -->
+<section style="background:#152239;margin-top:40px;padding:0;" class="footer-section">
+  <video autoplay muted loop playsinline style="width:100vw;max-width:100vw;min-height:390px;height:52vh;object-fit:cover;display:block;">
+    <source src="https://ia800100.us.archive.org/9/items/4770380-hd-1920-1080-30fps/3wjyia.mp4" type="video/mp4">
+  </video>
+  <footer style="color:#f4ecd8;font-size:13px;padding:24px 0 30px 0;text-align:center;">
+    Montréal • Rive-Sud • Laval – © 2025
+  </footer>
+</section>
+</section>
+
+<!-- JS MAP + QUIZ + FAQ + SLIDER + LANG -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+// Navigation professionnelle
+document.addEventListener('DOMContentLoaded', function() {
+  // NAVIGATION FINALE ANTI-CACHE
+  const timestamp = Date.now();
+  const navContainer = document.querySelector('.main-nav');
+  if (navContainer) {
+    navContainer.setAttribute('data-version', timestamp);
+    navContainer.innerHTML = `
+      <ul class="nav-faq-${timestamp}" style="display: flex; list-style: none; margin: 0; padding: 0; gap: 2rem;">
+        <li><a href="#approche" style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">Approche</a></li>
+        <li><a href="#quiz" style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">Quiz</a></li>
+        <li><a href="#zones" style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">Zones</a></li>
+        <li><a href="#notre-equipe" style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">Équipe</a></li>
+        <li><a href="#programmes" style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">Programmes</a></li>
+        <li><a href="#faq" style="color: #ff6b35; text-decoration: none; font-weight: bold; transition: color 0.3s; text-transform: uppercase;">FAQ</a></li>
+      </ul>
+    `;
+  }
+  
+  // FORCER CHANGEMENT BRUTAL - SUPPRIMER CACHE
+  setTimeout(function() {
+    document.querySelectorAll('a[href="#faq"]').forEach(link => {
+      link.setAttribute('href', '#faq');
+      link.textContent = 'FAQ';
+      link.style.color = '#ff6b35 !important';
+      link.style.fontWeight = 'bold !important';
+    });
+  }, 200);
+  
+  // Mobile menu toggle
+  const mobileToggle = document.querySelector('.mobile-menu-toggle');
+  const navMenu = document.querySelector('.navigation-finale-faq');
+  
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', function() {
+      navMenu.classList.toggle('active');
+    });
+  }
+
+  // Smooth scrolling et navigation active
+  const navLinks = document.querySelectorAll('.navigation-finale-faq a[href^="#"]');
+  const sections = document.querySelectorAll('section[id], div[id]');
+  
+  // Smooth scroll pour les liens de navigation
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetSection = document.getElementById(targetId);
+      
+      if (targetSection) {
+        const offsetTop = targetSection.offsetTop - 120; // Compensation pour header fixe
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+      }
+      
+      // Fermer le menu mobile après clic
+      if (navMenu) {
+        navMenu.classList.remove('active');
+      }
+    });
+  });
+  
+  // Mise en évidence de la section active
+  function updateActiveNav() {
+    let currentSection = '';
+    const scrollPosition = window.scrollY + 150;
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentSection) {
+        link.classList.add('active');
+      }
+    });
+  }
+  
+  // Smart header hide/show on scroll
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  
+  function updateHeader() {
+    const header = document.querySelector('.main-header');
+    const currentScrollY = window.scrollY;
+    
+    if (currentScrollY > 100) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    
+    // Hide header when scrolling down, show when scrolling up
+    if (currentScrollY > 200) {
+      if (currentScrollY > lastScrollY && currentScrollY > 300) {
+        header.classList.add('hide');
+      } else if (currentScrollY < lastScrollY) {
+        header.classList.remove('hide');
+      }
+    }
+    
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+  
+  function requestTick() {
+    if (!ticking) {
+      requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }
+  
+  // Écouteur de scroll pour section active et header
+  function handleScroll() {
+    updateActiveNav();
+    requestTick();
+  }
+  
+  window.addEventListener('scroll', handleScroll);
+  updateActiveNav(); // Initial call
+  
+  // Add ripple effect to buttons
+  function createRipple(event) {
+    const button = event.currentTarget;
+    const circle = document.createElement("span");
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+    circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+    circle.classList.add("ripple");
+
+    const ripple = button.getElementsByClassName("ripple")[0];
+    if (ripple) {
+      ripple.remove();
+    }
+
+    button.appendChild(circle);
+  }
+
+  // Intersection Observer for scroll animations
+  function initScrollAnimations() {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
         }
       });
-    });
+    }, observerOptions);
 
-    // Quiz interactif
-    document.querySelectorAll('.quiz-option').forEach(option => {
-      option.addEventListener('click', function() {
-        document.querySelectorAll('.quiz-option').forEach(opt => opt.style.background = '#f8f9fa');
-        this.style.background = '#fff5f0';
-        this.style.borderColor = '#ff6b35';
+    // Observe animated elements
+    document.querySelectorAll('.value-bulle, .bulle-item-form-out, .form-section, .faq-row, .map-wrap, #vkq-quiz-zone').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  }
+
+  // Initialize micro-interactions
+  document.querySelectorAll('.btn, .hi-btn, .vkq-form-btn, .vkq-result-btn').forEach(button => {
+    button.addEventListener('click', createRipple);
+  });
+  
+  initScrollAnimations();
+});
+
+
+  // MAP section ajoutée - responsive
+  if(window.mapSection) {
+    window.mapSection.remove();
+    window.mapSection = undefined;
+  }
+  if(document.getElementById('map')) {
+    window.mapSection = L.map('map', {
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      dragging: true,
+      zoomControl: true,
+      attributionControl: false,
+      tap: false
+    }).setView([45.56, -73.65], 11);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      minZoom: 10,
+      maxZoom: 16,
+    }).addTo(window.mapSection);
+
+    L.marker([45.5017, -73.5673]).addTo(window.mapSection)
+      .bindPopup("<b>Île de Montréal</b><br>Centre urbain & vie culturelle");
+    L.marker([45.6095, -73.7124]).addTo(window.mapSection)
+      .bindPopup("<b>Laval</b><br>Banlieue moderne, familles, innovation");
+    L.marker([45.4657, -73.4371]).addTo(window.mapSection)
+      .bindPopup("<b>Brossard / Montérégie</b><br>Quartiers dynamiques, diversité, écoles");
+  }
+  // Budget Range
+  function getBudgetValue(val) {
+    return (Number(val).toLocaleString('fr-CA')) + ' $';
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    if(document.getElementById('budget-range')) {
+      document.getElementById('budget-range').addEventListener('input', function(e){
+        document.getElementById('budget-value').innerText = getBudgetValue(e.target.value);
+        document.getElementById('budget-hidden').value = e.target.value;
+      });
+    }
+    // Numéric only fields (phone)
+    document.querySelectorAll('input[type="tel"][data-number="true"]').forEach(input => {
+      input.addEventListener('input', function(e){
+        this.value = this.value.replace(/[^\d\+\-\(\)\s]/g, '');
       });
     });
-  </script>
+  });
+</script>
+<script>
+// MINI FAQ bilingue
+const faqs = {
+  fr: [
+    {q:"Pourquoi prendre un courtier pour vendre ?", a:"Un courtier protège vos intérêts, négocie pour vous, gère les visites et évite les pièges à chaque étape-clé."},
+    {q:"Combien coûte ce service ?", a:"La commission est payée seulement si la vente se conclut, tout est transparent dès le départ."},
+    {q:"Combien de temps pour vendre ?", a:"En moyenne 30-90 jours selon le marché, mais nous optimisons chaque détail pour accélérer le processus."},
+    {q:"Comment fixez-vous le prix ?", a:"Analyse comparative détaillée + étude de marché locale pour un prix juste qui attire sans sous-évaluer."}
+  ],
+  en: [
+    {q:"Why use a broker to sell?", a:"A broker protects your interests, negotiates for you, manages visits and avoids pitfalls at every key step."},
+    {q:"How much does this service cost?", a:"Commission is paid only if the sale is completed, everything is transparent from the start."},
+    {q:"How long does it take to sell?", a:"On average 30-90 days depending on the market, but we optimize every detail to speed up the process."},
+    {q:"How do you set the price?", a:"Detailed comparative analysis + local market study for a fair price that attracts without undervaluing."}
+  ]
+};
+function renderFaq(lang) {
+  let html = '';
+  (faqs[lang] || []).forEach((faq,i) => {
+    html += `
+      <div class="faq-row">
+        <span class="faq-dropcap">${i+1}</span>
+        <div class="faq-q">${faq.q}</div>
+        <div class="faq-a">${faq.a}</div>
+      </div>
+    `;
+  });
+  const faqContainer = document.getElementById('faq');
+  if (faqContainer) {
+    faqContainer.innerHTML = html;
+  }
+}
+renderFaq('fr');
+</script>
+<script>
+// QUIZ FIT TO CALENDLY WIDTH
+const quizSteps = [
+  {
+    question: "Ce qui compte le plus pour toi dans ta vente...",
+    answers: {
+      "Rentable": "💰 Obtenir le meilleur prix possible pour ta propriété",
+      "Serein": "📊 Être accompagné sans stress tout au long du processus",
+      "Rapide": "⚡ Vendre rapidement et efficacement",
+      "Strategic": "🎯 Avoir une stratégie personnalisée et sur-mesure"
+    }
+  },
+  {
+    question: "Ta plus grande crainte quand tu vends une propriété...",
+    answers: {
+      "Rentable": "💰 Vendre en dessous de la valeur réelle",
+      "Serein": "📊 Ne pas maîtriser les négociations ou les aspects légaux",
+      "Rapide": "⚡ Que la vente traîne en longueur",
+      "Strategic": "🎯 Choisir la mauvaise stratégie de mise en marché"
+    }
+  },
+  {
+    question: "Le courtier idéal pour toi serait...",
+    answers: {
+      "Rentable": "💰 Quelqu'un qui maximise ta valeur avec marketing premium",
+      "Serein": "📊 Un accompagnateur rassurant qui gère tout de A à Z",
+      "Rapide": "⚡ Un expert qui optimise les délais et va à l'essentiel",
+      "Strategic": "🎯 Un conseiller qui adapte sa stratégie à tes objectifs précis"
+    }
+  }
+];
+const profiles = {
+  "Rentable": {
+    title: "LE MAXIMISATEUR",
+    desc: "Tu veux le meilleur prix possible. Notre stratégie marketing premium et nos techniques de négociation sont faites pour toi."
+  },
+  "Serein": {
+    title: "LE ZEN VENDEUR",
+    desc: "Tu veux vendre sans stress. Notre accompagnement complet et humain te libère de toutes les contraintes."
+  },
+  "Rapide": {
+    title: "LE VENDEUR EXPRESS",
+    desc: "Tu veux vendre vite et bien. Notre processus optimisé et notre réseau te feront gagner du temps précieux."
+  },
+  "Strategic": {
+    title: "LE STRATÈGE",
+    desc: "Tu veux une approche sur-mesure. Notre expertise et conseils personnalisés optimiseront ta vente selon tes objectifs précis."
+  }
+};
+let step = 0;
+let responses = [];
+const colors = ["#ffffff", "#152239", "#152239", "#ffffff"];
+const textColors = ["#152239", "#ffffff", "#ffffff", "#152239"];
+function updateProgressBar() {
+  const progress = document.getElementById("vkq-progress");
+  const percent = ((step) / quizSteps.length) * 100;
+  progress.style.width = percent + "%";
+}
+function renderStep() {
+  const container = document.getElementById("vkq-quiz-card");
+  const current = quizSteps[step];
+  updateProgressBar();
+  container.style.opacity = 0;
+  setTimeout(() => {
+    container.innerHTML = `
+      <div style="font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: #152239; margin-bottom: 6px;">Quel est ton profil de vendeur ?</div>
+      <div style="font-size: 0.95rem; font-weight: 500; color: #999; margin-bottom: 24px;">${step + 1} / ${quizSteps.length}</div>
+      <div style="font-size: 1.05rem; font-weight: 600; color: #444; margin-bottom: 24px;">${current.question}</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        ${Object.entries(current.answers).map(([key, value], i) => {
+          const colorIndex = i;
+          return `<button onclick="vkqChoose(this, '${key}')" class="vkq-btn" data-index="${colorIndex}" style="background: ${colors[colorIndex]}; color: ${textColors[colorIndex]}; padding: 20px 14px; height: 88px; border-radius: 12px; border: 2px solid #152239; font-weight: 600; cursor: pointer; font-size: 0.96rem; text-align: center; transition: all 0.4s ease-in-out; box-shadow: 0 3px 11px rgba(0,0,0,0.07); display: flex; align-items: center; justify-content: center;">
+            ${value}
+          </button>`;
+        }).join('')}
+      </div>
+      <style>
+        .vkq-btn {
+          transition: all 0.4s ease-in-out;
+        }
+        .vkq-btn:hover {
+          background-color: #1d2f50 !important;
+          color: white !important;
+          transform: scale(1.02);
+          box-shadow: 0 6px 14px rgba(0, 0, 0, 0.13);
+        }
+        .vkq-btn.active {
+          background-color: #ffffff !important;
+          color: #152239 !important;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+          transform: scale(1.05);
+        }
+      </style>
+    `;
+    container.style.opacity = 1;
+  }, 200);
+}
+function vkqChoose(button, choice) {
+  const buttons = document.querySelectorAll(".vkq-btn");
+  buttons.forEach(btn => btn.classList.remove("active"));
+  button.classList.add("active");
+  setTimeout(() => {
+    responses.push(choice);
+    step++;
+    if (step < quizSteps.length) {
+      renderStep();
+    } else {
+      showResult();
+    }
+  }, 550);
+}
+function showResult() {
+  const container = document.getElementById("vkq-quiz-card");
+  const count = responses.reduce((acc, v) => { acc[v] = (acc[v] || 0) + 1; return acc; }, {});
+  const dominant = Object.entries(count).sort((a, b) => b[1] - a[1])[0][0];
+  const p = profiles[dominant];
+  container.innerHTML = `
+    <div style="font-family: 'Playfair Display', serif; font-size: 1.32rem; font-weight: 700; color: #152239; margin-bottom: 6px;">Quel est ton profil de vendeur ?</div>
+    <div style="font-size: 0.96rem; font-weight: 500; color: #999; margin-bottom: 16px;">TON PROFIL :</div>
+    <div style="background: #152239; color: #fff; padding: 22px 16px; border-radius: 8px; font-size: 1rem; font-weight: 500; margin-bottom: 16px;">
+      <div style="font-size: 1.17rem; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">${p.title}</div>
+      ${p.desc}
+    </div>
+    <div style="font-size: 0.86rem; color: #152239; margin-bottom: 18px;">Autres profils : ${Object.values(profiles).filter(e => e.title !== p.title).map(e => e.title).join(', ')}</div>
+    <form action="https://formsubmit.co/wissem.nessah@remax-quebec.com" method="POST" autocomplete="off" style="display: flex; flex-direction: column; gap: 11px; text-align: left;">
+      <input type="hidden" name="Profil vendeur" value="${p.title}">
+      <input type="text" name="Nom" required placeholder="Nom complet" style="padding: 10px 6px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem;">
+      <input type="email" name="Email" required placeholder="Courriel" style="padding: 10px 6px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem;">
+      <input type="tel" name="Téléphone" required placeholder="Téléphone" pattern="^[0-9\\s\\-\\+\\(\\)]*$" style="padding: 10px 6px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem;">
+      <button type="submit" class="vkq-result-btn">RECEVOIR MON GUIDE DU VENDEUR</button>
+      <div style="font-size: 0.82rem; color: #888; text-align: center; margin-top: 4px;">Toutes vos informations restent strictement confidentielles.</div>
+    </form>
+  `;
+}
+renderStep();
+window.vkqChoose = vkqChoose;
+</script>
+<script>
+// SWITCH LANG
+function switchLang() {
+  var lang = document.documentElement.lang === "fr" ? "en" : "fr";
+  document.documentElement.lang = lang;
+  document.getElementById('langLabel').innerText = lang === "fr" ? "EN" : "FR";
+  document.querySelectorAll('[data-fr],[data-en]').forEach(function(el) {
+    var txt = el.getAttribute(lang === 'fr' ? 'data-fr' : 'data-en');
+    if(txt) {
+      if(el.placeholder !== undefined) el.placeholder = txt;
+      else el.innerHTML = txt;
+    }
+  });
+  document.querySelectorAll('select option').forEach(function(opt) {
+    if(opt.getAttribute('data-fr') && opt.getAttribute('data-en')) {
+      opt.textContent = lang === 'fr' ? opt.getAttribute('data-fr') : opt.getAttribute('data-en');
+    }
+  });
+  document.querySelectorAll('.radio-group label').forEach(function(lbl) {
+    var inpt = lbl.querySelector('input');
+    if(inpt && inpt.getAttribute('data-fr') && inpt.getAttribute('data-en')) {
+      lbl.lastChild.nodeValue = lang === 'fr' ? inpt.getAttribute('data-fr') : inpt.getAttribute('data-en');
+    }
+  });
+  renderFaq(lang);
+}
+</script>
 </body>
 </html>
