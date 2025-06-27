@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>L'immobilier autrement | Real estate, redefined</title>
+  <title>L’immobilier autrement | Real estate, redefined</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -147,6 +147,7 @@
     }
     .profile-card.buyer { border-color: var(--marine);}
     .profile-card.seller { border-color: var(--doré);}
+    .profile-card.investor { border-color: var(--noir);}
     .profile-link:hover .profile-card {
       box-shadow: var(--shadow-hover);
       border-width: 3px;
@@ -155,6 +156,7 @@
     }
     .profile-link:hover .profile-card.buyer { border-color: var(--marine);}
     .profile-link:hover .profile-card.seller { border-color: var(--doré);}
+    .profile-link:hover .profile-card.investor { border-color: var(--noir);}
     .profile-icon {
       width: 53px;
       height: 53px;
@@ -175,6 +177,8 @@
     }
     .profile-link .profile-card.seller .profile-title { color: var(--marine);}
     .profile-link .profile-card.seller .profile-desc { color: var(--marine);}
+    .profile-link .profile-card.investor .profile-title { color: var(--noir);}
+    .profile-link .profile-card.investor .profile-desc { color: var(--noir);}
     .profile-desc {
       color: var(--marine);
       font-size: 1.01rem;
@@ -225,10 +229,10 @@
   <div class="container">
     <!-- TITRE -->
     <div class="main-title" id="main-title">
-      Passez à l'étape supérieure.<br>Choisissez l'expérience qui transformera votre projet immobilier.
+      Passez à l’étape supérieure.<br>Choisissez l’expérience qui transformera votre projet immobilier.
     </div>
     <!-- Slogan -->
-    <div class="slogan" id="slogan">Réalisons !</div>
+    <div class="slogan" id="slogan">Réalisons !</div>
     <div class="profiles">
       <!-- Acheteur -->
       <a class="profile-link" id="buyer-link" href="acheteur.html">
@@ -240,7 +244,7 @@
           </span>
           <span class="profile-title" id="buyer-title">Acheteur</span>
           <div class="profile-desc" id="buyer-desc">
-            L'expertise qui fait la différence, avant même l'achat.<br><span style="font-size:0.95em; color:#6b7280;">Trouvez la propriété qui vous ressemble.</span>
+            L’expertise qui fait la différence, avant même l’achat.<br><span style="font-size:0.95em; color:#6b7280;">Trouvez la propriété qui vous ressemble.</span>
           </div>
         </div>
       </a>
@@ -255,8 +259,25 @@
           </span>
           <span class="profile-title" id="seller-title">Vendeur</span>
           <div class="profile-desc" id="seller-desc">
-            Votre propriété mérite le maximum. Notre signature, c'est la vôtre.<br>
+            Votre propriété mérite le maximum. Notre signature, c’est la vôtre.<br>
             <span style="font-size:0.95em;">Un accompagnement exclusif, à chaque étape.</span>
+          </div>
+        </div>
+      </a>
+      <!-- Investisseur -->
+      <a class="profile-link" id="investor-link" href="investisseur.html">
+        <div class="profile-card investor">
+          <span class="profile-icon">
+            <svg viewBox="0 0 32 32" fill="none">
+              <rect x="5" y="23" width="4" height="4" rx="1" fill="#181818"/>
+              <rect x="13" y="19" width="4" height="8" rx="1" fill="#181818"/>
+              <rect x="21" y="13" width="4" height="14" rx="1" fill="#181818"/>
+              <path d="M6 19L14 13l8 4 4-8" stroke="#b1976b" stroke-width="2.2" fill="none"/>
+            </svg>
+          </span>
+          <span class="profile-title" id="investor-title">Investisseur</span>
+          <div class="profile-desc" id="investor-desc">
+            Voir plus loin. Saisir ce que les autres ne voient pas.<br><span style="font-size:0.95em; color:#181818;">Développez votre patrimoine stratégique.</span>
           </div>
         </div>
       </a>
@@ -265,31 +286,41 @@
   <script>
     const translations = {
       fr: {
-        title: `Passez à l'étape supérieure.<br>Choisissez l'expérience qui transformera votre projet immobilier.`,
-        slogan: `Réalisons !`,
+        title: `Passez à l’étape supérieure.<br>Choisissez l’expérience qui transformera votre projet immobilier.`,
+        slogan: `Réalisons !`,
         buyer: {
           title: 'Acheteur',
-          desc: `L'expertise qui fait la différence, avant même l'achat.<br><span style="font-size:0.95em; color:#6b7280;">Trouvez la propriété qui vous ressemble.</span>`,
+          desc: `L’expertise qui fait la différence, avant même l’achat.<br><span style="font-size:0.95em; color:#6b7280;">Trouvez la propriété qui vous ressemble.</span>`,
           link: 'acheteur.html'
         },
         seller: {
           title: 'Vendeur',
-          desc: `Votre propriété mérite le maximum. Notre signature, c'est la vôtre.<br><span style="font-size:0.95em;">Un accompagnement exclusif, à chaque étape.</span>`,
+          desc: `Votre propriété mérite le maximum. Notre signature, c’est la vôtre.<br><span style="font-size:0.95em;">Un accompagnement exclusif, à chaque étape.</span>`,
           link: 'vendeur.html'
+        },
+        investor: {
+          title: 'Investisseur',
+          desc: `Voir plus loin. Saisir ce que les autres ne voient pas.<br><span style="font-size:0.95em; color:#181818;">Développez votre patrimoine stratégique.</span>`,
+          link: 'investisseur.html'
         }
       },
       en: {
         title: `Take it to the next level.<br>Choose the experience that will transform your real estate journey.`,
-        slogan: `Let's make it happen!`,
+        slogan: `Let’s make it happen!`,
         buyer: {
           title: 'Buyer',
           desc: `Expertise that makes all the difference, before you buy.<br><span style="font-size:0.95em; color:#6b7280;">Find the property that fits you.</span>`,
-          link: 'acheteur.html'
+          link: 'buyer.html'
         },
         seller: {
           title: 'Seller',
           desc: `Your property deserves the very best. Our signature is your success.<br><span style="font-size:0.95em;">Exclusive support at every step.</span>`,
-          link: 'vendeur.html'
+          link: 'seller.html'
+        },
+        investor: {
+          title: 'Investor',
+          desc: `See further. Spot what others miss.<br><span style="font-size:0.95em; color:#181818;">Grow your strategic portfolio.</span>`,
+          link: 'investor.html'
         }
       }
     };
@@ -301,8 +332,11 @@
       document.getElementById('buyer-desc').innerHTML = translations[lang].buyer.desc;
       document.getElementById('seller-title').textContent = translations[lang].seller.title;
       document.getElementById('seller-desc').innerHTML = translations[lang].seller.desc;
+      document.getElementById('investor-title').textContent = translations[lang].investor.title;
+      document.getElementById('investor-desc').innerHTML = translations[lang].investor.desc;
       document.getElementById('buyer-link').href = translations[lang].buyer.link;
       document.getElementById('seller-link').href = translations[lang].seller.link;
+      document.getElementById('investor-link').href = translations[lang].investor.link;
 
       document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
@@ -310,6 +344,7 @@
     }
     document.getElementById('btn-fr').onclick = () => setLang('fr');
     document.getElementById('btn-en').onclick = () => setLang('en');
+    setLang('fr');
   </script>
 </body>
 </html>
