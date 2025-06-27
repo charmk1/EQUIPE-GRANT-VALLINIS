@@ -46,15 +46,18 @@ Le fichier `attached_assets/Pasted--DOCTYPE-html-html-lang-fr-head-meta-charset-
 
 ## État final du projet
 Le site Grant Vallinis est maintenant complet avec :
-- **SITE UNIFIÉ EN 1 SEUL FICHIER** : index.html contient les 3 pages intégrées
-- Page d'accueil élégante avec 2 choix (Acheteur/Vendeur) et vidéo personnalisée
-- Page acheteur complète avec quiz, formulaire, équipe
-- Page vendeur complète avec contenu spécialisé
-- Navigation optimisée : Approche | Quiz | Zones | Équipe | Programmes | FAQ
-- Navigation JavaScript entre les pages sans rechargement
-- Switch de langue translucide unifié sur toutes les pages
-- Design cohérent et professionnel sur toutes les pages
-- Bouton retour à l'accueil en bas à droite
+- **SITE COMPLET EN 1 SEUL FICHIER** : index.html contient les 3 pages intégrées
+- Page d'accueil avec vidéo de fond et 2 choix (Acheteur/Vendeur)
+- Page acheteur complète avec design original préservé
+- Page vendeur complète avec design original préservé
+- Navigation corrigée : Approche | Quiz | Zones | Équipe | Programmes | FAQ
+- Navigation JavaScript fluide entre les pages sans rechargement
+- Switch de langue bilingue français/anglais
+- Design cohérent basé sur le code source original
+- Bouton retour à l'accueil accessible depuis toutes les pages
+- Vidéos spécifiques par page (acheteur/vendeur)
+- Calendly intégré pour chaque type de client
+- Cartes interactives Leaflet
 - Prêt pour déploiement
 
 ## Préférences utilisateur
