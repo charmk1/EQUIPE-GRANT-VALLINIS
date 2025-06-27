@@ -40,14 +40,16 @@ Le fichier `attached_assets/Pasted--DOCTYPE-html-html-lang-fr-head-meta-charset-
 - Cartes Acheteur/Vendeur repositionnées côte à côte au centre de la page
 - Switch de langue unifié en un seul bouton comme sur les autres pages
 - Navigation mise à jour : liens Quiz, Zones, Équipe pointent vers leurs sections respectives
-- Section Contact supprimée du menu de navigation
+- Section Contact complètement supprimée du menu de navigation et du code
+- Sections ID "contact" renommées en "faq" pour éviter toute confusion
+- Cache navigateur forcé à se rafraîchir pour afficher les changements
 
 ## État final du projet
 Le site Grant Vallinis est maintenant complet avec :
 - Page d'accueil élégante avec 2 choix (Acheteur/Vendeur) et vidéo personnalisée
 - Page acheteur complète avec quiz, formulaire, équipe
 - Page vendeur complète avec contenu spécialisé
-- Navigation optimisée : Approche | Quiz | Zones | Équipe | Programmes
+- Navigation optimisée : Approche | Quiz | Zones | Équipe | Programmes | FAQ
 - Switch de langue translucide unifié sur toutes les pages
 - Design cohérent et professionnel sur toutes les pages
 - Prêt pour déploiement
