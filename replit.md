@@ -30,11 +30,12 @@ Le fichier `attached_assets/Pasted--DOCTYPE-html-html-lang-fr-head-meta-charset-
 - Code de référence vendeur identifié et documenté
 - Site unifié créé avec page d'accueil pour navigation acheteur/vendeur
 - Architecture : index.html (accueil) → acheteur.html / vendeur.html
-- Page d'accueil recréée avec style Grant Vallinis premium identique aux autres pages
-- Header transparent avec logo Grant Vallinis et navigation
-- Même palette de couleurs, typographie, et effets visuels
-- Vidéo de fond avec overlay sophistiqué
-- Cartes avec animations hover et effets de profondeur identiques
+- Page d'accueil style épuré exact du code de référence utilisateur
+- Seulement 2 cartes (Acheteur/Vendeur) sans header comme demandé
+- Vidéo de fond optimisée avec sources alternatives et fallback gradient
+- Slogan "Réalisons !" et animations identiques à la référence
+- Interface minimaliste avec switch de langue positionné parfaitement
+- Problème d'affichage Replit persistant - déploiement recommandé
 
 ## État final du projet
 Le site Grant Vallinis est maintenant complet avec :
