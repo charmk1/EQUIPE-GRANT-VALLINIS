@@ -109,6 +109,9 @@
       margin-top: 8px;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
+      max-width: 600px;
+      width: 100%;
     }
     .profile-link {
       display: flex;
@@ -191,14 +194,14 @@
       flex-shrink: 0;
       max-width: 100%;
     }
-    @media (max-width: 1000px) {
+    @media (max-width: 600px) {
       .main-title { font-size: 1.32rem;}
       .slogan { font-size: 0.99rem;}
       .profiles { flex-direction: column; gap: 24px; }
       .container { padding-top: 44px;}
       .profile-card { min-width: 86vw; max-width: 99vw; }
     }
-    @media (max-width: 600px) {
+    @media (max-width: 480px) {
       .lang-switch { right: 10px; top: 16px;}
       .container { padding-top: 24px;}
       .profile-card { min-width: 96vw; max-width: 99vw;}
