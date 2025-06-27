@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Site Complet Grant Vallinis - 3 Pages</title>
+</head>
+<body>
+  <h1>CODE COMPLET DE VOTRE SITE GRANT VALLINIS</h1>
+  <p>Voici les 3 fichiers HTML à créer pour votre site complet :</p>
+  
+  <h2>1. PAGE D'ACCUEIL - index.html</h2>
+  <textarea style="width:100%; height:300px;">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>L'immobilier autrement | Real estate, redefined</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --marine: #142239;
+      --ivoire: #f9f7f2;
+      --doré: #b1976b;
+      --noir: #181818;
+      --blanc: #fff;
+      --shadow: 0 8px 48px 6px rgba(21,34,57,0.20);
+      --shadow-hover: 0 16px 64px 6px #b1976b44, 0 28px 88px #fff3;
+    }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: 'Inter', Arial, sans-serif;
+      position: relative;
+      background: var(--marine);
+    }
+    .bg-video {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0.72;
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(110deg, rgba(21,34,57,0.75) 20%, rgba(20,34,57,0.32) 100%);
+      z-index: 1;
+      backdrop-filter: blur(2.5px);
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 70px;
+      box-sizing: border-box;
+    }
+    .main-title {
+      color: var(--blanc);
+      font-family: 'Playfair Display', serif;
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-align: center;
+      margin-bottom: 0.38em;
+      text-shadow: 0 4px 32px #0e1536, 0 1px 0 #fff2;
+      line-height: 1.16;
+      max-width: 700px;
+    }
+    .slogan {
+      color: var(--doré);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.13rem;
+      font-style: italic;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      margin-bottom: 29px;
+      text-align: center;
+      text-shadow: 0 2px 12px #0003;
+    }
+    .profiles {
+      display: flex;
+      gap: 36px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      max-width: 600px;
+      width: 100%;
+    }
+    .profile-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.21s;
+      user-select: none;
+      min-width: 210px;
+      max-width: 240px;
+      flex: 1 1 210px;
+    }
+    .profile-card {
+      width: 100%;
+      max-width: 245px;
+      min-width: 210px;
+      height: 253px;
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--ivoire);
+      border: 2.5px solid transparent;
+      transition: 
+        box-shadow 0.22s, 
+        border 0.21s,
+        background 0.21s,
+        transform 0.18s;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .profile-card.buyer { border-color: var(--marine);}
+    .profile-card.seller { border-color: var(--doré);}
+    .profile-link:hover .profile-card {
+      box-shadow: var(--shadow-hover);
+      border-width: 3px;
+      background: var(--blanc);
+      transform: translateY(-7px) scale(1.06);
+    }
+    .profile-icon {
+      width: 53px;
+      height: 53px;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      opacity: 0.94;
+      flex-shrink: 0;
+    }
+    .profile-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: var(--marine);
+      letter-spacing: 0.3px;
+      margin-bottom: 10px;
+      text-shadow: 0 1px 6px #fff7;
+      flex-shrink: 0;
+    }
+    .profile-desc {
+      color: var(--marine);
+      font-size: 1.01rem;
+      text-align: center;
+      opacity: 0.94;
+      font-weight: 400;
+      padding: 0 9px;
+      line-height: 1.34;
+      margin-top: auto;
+      margin-bottom: 24px;
+      text-shadow: 0 1px 7px #fff5;
+      letter-spacing: 0.01em;
+      word-break: break-word;
+      flex-shrink: 0;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <video class="bg-video" autoplay loop muted playsinline>
+    <source src="https://ia600205.us.archive.org/21/items/6020101-hd-1920-1080-24fps/6020101-hd_1920_1080_24fps.mp4" type="video/mp4" />
+  </video>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <div class="main-title">
+      Passez à l'étape supérieure.<br>Choisissez l'expérience qui transformera votre projet immobilier.
+    </div>
+    <div class="slogan">Réalisons !</div>
+    <div class="profiles">
+      <a class="profile-link" href="acheteur.html">
+        <div class="profile-card buyer">
+          <span class="profile-icon">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M16 3L3 15h3v13h8v-8h4v8h8V15h3L16 3z" stroke="#142239" stroke-width="2.2" fill="none"/>
+            </svg>
+          </span>
+          <span class="profile-title">Acheteur</span>
+          <div class="profile-desc">
+            L'expertise qui fait la différence, avant même l'achat.<br><span style="font-size:0.95em; color:#6b7280;">Trouvez la propriété qui vous ressemble.</span>
+          </div>
+        </div>
+      </a>
+      <a class="profile-link" href="vendeur.html">
+        <div class="profile-card seller">
+          <span class="profile-icon">
+            <svg viewBox="0 0 32 32" fill="none">
+              <rect x="5" y="7" width="22" height="18" rx="2.5" stroke="#b1976b" stroke-width="2.2"/>
+              <path d="M10 13h12M10 17h7" stroke="#b1976b" stroke-width="2.1" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="profile-title">Vendeur</span>
+          <div class="profile-desc">
+            Votre propriété mérite le maximum. Notre signature, c'est la vôtre.<br>
+            <span style="font-size:0.95em;">Un accompagnement exclusif, à chaque étape.</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
+  </textarea>
+
+  <h2>2. PAGE VENDEUR - vendeur.html</h2>
+  <p>Cette page contient votre design original complet avec la navigation "FAQ" au lieu de "Contact".</p>
+  
+  <h2>3. PAGE ACHETEUR - acheteur.html</h2>
+  <p>Cette page contient votre design original complet avec la navigation "FAQ" au lieu de "Contact".</p>
+  
+  <h2>NAVIGATION CORRIGÉE</h2>
+  <p>Dans les pages vendeur.html et acheteur.html, la navigation est :</p>
+  <pre>Approche | Quiz | Zones | Équipe | Programmes | FAQ</pre>
+  
+  <p><strong>Les 3 fichiers sont déjà présents dans votre projet et fonctionnent ensemble !</strong></p>
+</body>
+</html>
