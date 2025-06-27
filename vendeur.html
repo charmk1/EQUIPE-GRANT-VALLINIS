@@ -1486,7 +1486,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const targetSection = document.getElementById(targetId);
       
       if (targetSection) {
-        const offsetTop = targetSection.offsetTop - 80; // Compensation pour header fixe
+        const offsetTop = targetSection.offsetTop - 120; // Compensation pour header fixe
         window.scrollTo({
           top: offsetTop,
           behavior: 'smooth'
@@ -1503,7 +1503,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mise en évidence de la section active
   function updateActiveNav() {
     let currentSection = '';
-    const scrollPosition = window.scrollY + 100;
+    const scrollPosition = window.scrollY + 150;
     
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
