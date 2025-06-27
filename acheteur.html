@@ -241,7 +241,7 @@
     }
     
     @media (max-width: 768px) {
-      .nav-menu {
+      .nav-menu, .nav-menu-updated {
         position: fixed;
         top: 65px;
         left: 0;
@@ -259,7 +259,7 @@
         transition: all 0.3s ease;
       }
       
-      .nav-menu.active {
+      .nav-menu.active, .nav-menu-updated.active {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
@@ -1474,7 +1474,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Mobile menu toggle
   const mobileToggle = document.querySelector('.mobile-menu-toggle');
-  const navMenu = document.querySelector('.nav-menu');
+  const navMenu = document.querySelector('.nav-menu-updated');
   
   if (mobileToggle && navMenu) {
     mobileToggle.addEventListener('click', function() {
@@ -1483,7 +1483,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Smooth scrolling et navigation active
-  const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+  const navLinks = document.querySelectorAll('.nav-menu-updated a[href^="#"]');
   const sections = document.querySelectorAll('section[id], div[id]');
   
   // Smooth scroll pour les liens de navigation
