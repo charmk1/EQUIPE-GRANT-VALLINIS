@@ -60,6 +60,15 @@ Le site Grant Vallinis est maintenant complet avec :
 - Cartes interactives Leaflet
 - Prêt pour déploiement
 
+## Version GitHub Ready (29 juin 2025)
+- **SITE-CODE-GITHUB-READY.html** créé pour compatibilité universelle
+- Fichier unique complètement autonome sans dépendances externes
+- Pas d'iframes : navigation JavaScript pure entre pages
+- Fond dégradé élégant remplace la vidéo pour compatibilité
+- Fonctionne parfaitement sur GitHub Pages et toutes plateformes
+- Design préservé avec animations et responsive
+- Solution au problème de déformation d'interface sur autres plateformes
+
 ## Préférences utilisateur
 - Conserver le design visuel exact entre les pages
 - Utiliser uniquement les vidéos et contenus spécifiques à chaque type de client
