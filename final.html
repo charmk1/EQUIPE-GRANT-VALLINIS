@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grant Vallinis - Version Finale</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #152239;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #152239;
+            margin-bottom: 20px;
+        }
+        
+        .success-badge {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px 30px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .team-section {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .team-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #152239;
+            margin-bottom: 40px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .team-member {
+            background: #f9f7f2;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .photo-circle {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #b1976b, #d4af7a);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            border: 4px solid #152239;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #152239;
+            margin-bottom: 10px;
+        }
+        
+        .team-role {
+            color: #666;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .team-phone {
+            color: #152239;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            background: #e8f4f8;
+            border-radius: 25px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .team-phone:hover {
+            background: #b1976b;
+            color: white;
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="success-badge">✓ PROBLÈME RÉSOLU - ÉQUIPE MISE À JOUR</div>
+            <h1>Grant Vallinis</h1>
+            <p>Votre équipe immobilière de confiance</p>
+        </div>
+        
+        <div class="team-section">
+            <h2>Notre Équipe d'Experts</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                4 professionnels dédiés à votre réussite immobilière
+            </p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="photo-circle">WAFAA</div>
+                    <div class="team-name">Wafaa Obbad</div>
+                    <div class="team-role">Courtière immobilière résidentielle</div>
+                    <a href="tel:5144672161" class="team-phone">514-467-2161</a>
+                </div>
+                
+                <div class="team-member">
+                    <div class="photo-circle">WISSEM</div>
+                    <div class="team-name">Wissem Nessah</div>
+                    <div class="team-role">Courtière immobilière résidentielle</div>
+                    <a href="tel:4382208102" class="team-phone">438-220-8102</a>
+                </div>
+                
+                <div class="team-member">
+                    <div class="photo-circle">PAULO</div>
+                    <div class="team-name">Paulo Sergio Gonzalez</div>
+                    <div class="team-role">Courtier immobilier résidentiel</div>
+                    <a href="tel:5149626144" class="team-phone">514-962-6144</a>
+                </div>
+                
+                <div class="team-member">
+                    <div class="photo-circle">GRANT</div>
+                    <div class="team-name">Grant S. Vallinis</div>
+                    <div class="team-role">Courtier résidentiel et commercial</div>
+                    <a href="tel:4383786760" class="team-phone">438-378-6760</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-note">
+            <p><strong>Mission accomplie !</strong></p>
+            <p>Votre équipe de 4 personnes est maintenant correctement intégrée.</p>
+            <p>Fini les 6 anciens membres - place à votre vraie équipe Grant Vallinis.</p>
+        </div>
+    </div>
+</body>
+</html>
