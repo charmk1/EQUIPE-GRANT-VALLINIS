@@ -1,0 +1,7 @@
+# Ignore cache files
+.cache-buster*
+.force-reload*
+
+# Ignore backup files  
+*-backup.html
+*-original.html

@@ -47,20 +47,15 @@ Le fichier `attached_assets/Pasted--DOCTYPE-html-html-lang-fr-head-meta-charset-
 ## État final du projet
 Le site Grant Vallinis est maintenant complet avec :
 - **SITE COMPLET EN 1 SEUL FICHIER** : index.html contient les 3 pages intégrées
-- Page d'accueil avec fond dégradé élégant et 2 choix (Acheteur/Vendeur)
+- Page d'accueil avec vidéo de fond et 2 choix (Acheteur/Vendeur)
 - Page acheteur complète avec design original préservé
 - Page vendeur complète avec design original préservé
-- **ÉQUIPE RÉELLE INTÉGRÉE** : 4 personnes avec leurs vraies informations
-  - Wafaa Obbad (514-467-2161) - Courtière résidentielle
-  - Wissem Nessah (438-220-8102) - Courtière résidentielle  
-  - Paulo Sergio Gonzalez (514-962-6144) - Courtier résidentiel
-  - Grant S. Vallinis (438-378-6760) - Courtier résidentiel et commercial
 - Navigation corrigée : Approche | Quiz | Zones | Équipe | Programmes | FAQ
 - Navigation JavaScript fluide entre les pages sans rechargement
 - Switch de langue bilingue français/anglais
 - Design cohérent basé sur le code source original
 - Bouton retour à l'accueil accessible depuis toutes les pages
-- Placeholders photos prêts pour intégration des vraies photos
+- Vidéos spécifiques par page (acheteur/vendeur)
 - Calendly intégré pour chaque type de client
 - Cartes interactives Leaflet
 - Prêt pour déploiement
