@@ -173,6 +173,42 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
+    /* EQUIPE STYLES */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem; margin-top: 2rem;
+    }
+    .team-member {
+      background: var(--blanc-casse); padding: 2rem; border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .team-member:hover {
+      transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .team-photo {
+      width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+      margin: 0 auto 1.5rem; display: block; border: 4px solid var(--doré);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .team-name {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem;
+      font-weight: 700; color: var(--marine); margin-bottom: 0.5rem;
+    }
+    .team-role {
+      color: var(--grey); font-size: 0.95rem; margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    .team-phone {
+      color: var(--doré); font-weight: 600; font-size: 1rem;
+      text-decoration: none; display: inline-block;
+      padding: 0.5rem 1rem; border: 2px solid var(--doré);
+      border-radius: 25px; transition: all 0.3s ease;
+    }
+    .team-phone:hover {
+      background: var(--doré); color: var(--blanc);
+    }
+
     /* RESPONSIVE */
     @media (max-width: 768px) {
       .page-accueil .main-title { font-size: 1.5rem; }
@@ -284,6 +320,32 @@
     <div class="section" id="equipe-acheteur">
       <h2>Notre Équipe</h2>
       <p>Rencontrez nos experts dédiés aux acheteurs.</p>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://postimg.cc/zLbgjtDC" alt="Wafaa Obbad" class="team-photo">
+          <div class="team-name">Wafaa Obbad</div>
+          <div class="team-role">Courtière immobilière résidentielle</div>
+          <a href="tel:5144672161" class="team-phone">514-467-2161</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/K1KPqvJ3" alt="Wissem Nessah" class="team-photo">
+          <div class="team-name">Wissem Nessah</div>
+          <div class="team-role">Courtière immobilière résidentielle</div>
+          <a href="tel:4382208102" class="team-phone">438-220-8102</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/5XFz5K2w" alt="Paulo Sergio Gonzalez" class="team-photo">
+          <div class="team-name">Paulo Sergio Gonzalez</div>
+          <div class="team-role">Courtier immobilier résidentiel</div>
+          <a href="tel:5149626144" class="team-phone">514-962-6144</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/K1KPqvJ3" alt="Grant S. Vallinis" class="team-photo">
+          <div class="team-name">Grant S. Vallinis</div>
+          <div class="team-role">Courtier immobilier résidentiel et commercial</div>
+          <a href="tel:4383786760" class="team-phone">438-378-6760</a>
+        </div>
+      </div>
     </div>
 
     <div class="section" id="programmes-acheteur">
@@ -348,6 +410,32 @@
     <div class="section" id="equipe-vendeur">
       <h2>Notre Équipe</h2>
       <p>Rencontrez nos spécialistes de la vente immobilière.</p>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://postimg.cc/zLbgjtDC" alt="Wafaa Obbad" class="team-photo">
+          <div class="team-name">Wafaa Obbad</div>
+          <div class="team-role">Courtière immobilière résidentielle</div>
+          <a href="tel:5144672161" class="team-phone">514-467-2161</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/K1KPqvJ3" alt="Wissem Nessah" class="team-photo">
+          <div class="team-name">Wissem Nessah</div>
+          <div class="team-role">Courtière immobilière résidentielle</div>
+          <a href="tel:4382208102" class="team-phone">438-220-8102</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/5XFz5K2w" alt="Paulo Sergio Gonzalez" class="team-photo">
+          <div class="team-name">Paulo Sergio Gonzalez</div>
+          <div class="team-role">Courtier immobilier résidentiel</div>
+          <a href="tel:5149626144" class="team-phone">514-962-6144</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/K1KPqvJ3" alt="Grant S. Vallinis" class="team-photo">
+          <div class="team-name">Grant S. Vallinis</div>
+          <div class="team-role">Courtier immobilier résidentiel et commercial</div>
+          <a href="tel:4383786760" class="team-phone">438-378-6760</a>
+        </div>
+      </div>
     </div>
 
     <div class="section" id="programmes-vendeur">
