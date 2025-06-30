@@ -208,14 +208,17 @@
     </div>
   </div>
 
-  <!-- PAGE ACHETEUR (CONTENU DE acheteur-complet.html SERA INSERÉ ICI) -->
-  <div id="page-acheteur" class="page page-interne">
-    <iframe src="acheteur.html" width="100%" height="100%" style="border:none; position:fixed; top:0; left:0; width:100vw; height:100vh;"></iframe>
-  </div>
-
-  <!-- PAGE VENDEUR (CONTENU DE vendeur-complet.html SERA INSERÉ ICI) -->
-  <div id="page-vendeur" class="page page-interne">
-    <iframe src="vendeur.html" width="100%" height="100%" style="border:none; position:fixed; top:0; left:0; width:100vw; height:100vh;"></iframe>
+  <!-- Rediriger vers le fichier complet -->
+  <script>
+    if (window.location.hash !== '#preview') {
+      window.location.href = 'SITE-CODE-GITHUB-READY.html';
+    }
+  </script>
+  
+  <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 1000;">
+    <h2 style="color: #152239; margin-bottom: 1rem;">Version mise à jour disponible</h2>
+    <p style="margin-bottom: 1.5rem;">Cliquez pour voir la version avec votre équipe :</p>
+    <a href="SITE-CODE-GITHUB-READY.html" style="background: #152239; color: white; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 600;">Voir la version complète</a>
   </div>
 
   <!-- BOUTONS DE NAVIGATION -->
