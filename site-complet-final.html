@@ -1,233 +1,523 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Site Complet Grant Vallinis - 3 Pages</title>
-</head>
-<body>
-  <h1>CODE COMPLET DE VOTRE SITE GRANT VALLINIS</h1>
-  <p>Voici les 3 fichiers HTML à créer pour votre site complet :</p>
-  
-  <h2>1. PAGE D'ACCUEIL - index.html</h2>
-  <textarea style="width:100%; height:300px;">
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>L'immobilier autrement | Real estate, redefined</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>L'immobilier autrement | Grant Vallinis</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* RESET ET VARIABLES */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --marine: #142239;
-      --ivoire: #f9f7f2;
-      --doré: #b1976b;
-      --noir: #181818;
-      --blanc: #fff;
+      --marine: #152239; --marine-dark: #0f1826; --beige: #f4ecd8;
+      --white: #fff; --bleu-matin: #eaf1fa; --grey: #444443;
+      --blanc-casse: #fffefa; --ivoire: #f9f7f2; --doré: #b1976b;
+      --noir: #181818; --blanc: #fff;
       --shadow: 0 8px 48px 6px rgba(21,34,57,0.20);
       --shadow-hover: 0 16px 64px 6px #b1976b44, 0 28px 88px #fff3;
     }
-    html, body { height: 100%; margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      overflow: hidden;
-      font-family: 'Inter', Arial, sans-serif;
-      position: relative;
-      background: var(--marine);
+    body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--marine-dark); }
+
+    /* NAVIGATION PAGES */
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* BOUTON RETOUR */
+    .nav-home {
+      position: fixed; top: 20px; left: 20px; z-index: 1000;
+      background: var(--marine); color: var(--blanc); border: none;
+      border-radius: 25px; padding: 12px 20px; cursor: pointer;
+      font-weight: 600; font-size: 14px; transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(21, 34, 57, 0.3); display: none;
     }
-    .bg-video {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      object-fit: cover;
-      z-index: 0;
-      opacity: 0.72;
+    .nav-home.show { display: block; }
+    .nav-home:hover { background: var(--doré); transform: translateY(-2px); }
+
+    /* === PAGE D'ACCUEIL === */
+    .page-accueil {
+      min-height: 100vh; position: relative; background: var(--marine);
+      display: flex; align-items: center; justify-content: center;
+      background-image: 
+        linear-gradient(110deg, rgba(21,34,57,0.75) 20%, rgba(20,34,57,0.32) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" fill="%23152239"/><circle cx="400" cy="300" r="2" fill="%23b1976b" opacity="0.3"/><circle cx="800" cy="500" r="1.5" fill="%23b1976b" opacity="0.2"/><circle cx="1200" cy="200" r="2.5" fill="%23b1976b" opacity="0.4"/><circle cx="1600" cy="700" r="1" fill="%23b1976b" opacity="0.3"/></svg>');
+      background-size: cover; background-position: center;
     }
-    .overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: linear-gradient(110deg, rgba(21,34,57,0.75) 20%, rgba(20,34,57,0.32) 100%);
-      z-index: 1;
-      backdrop-filter: blur(2.5px);
+
+    .page-accueil .lang-switch {
+      position: absolute; top: 30px; right: 38px; z-index: 20;
+      background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);
+      border-radius: 25px; padding: 4px; border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
-    .container {
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding-top: 70px;
-      box-sizing: border-box;
+    .page-accueil .lang-btn {
+      background: transparent; color: var(--blanc); border: none;
+      border-radius: 20px; font-size: 0.9rem; font-weight: 600;
+      padding: 8px 16px; cursor: pointer; transition: all 0.3s ease; min-width: 40px;
     }
-    .main-title {
-      color: var(--blanc);
-      font-family: 'Playfair Display', serif;
-      font-size: 2.1rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      text-align: center;
-      margin-bottom: 0.38em;
-      text-shadow: 0 4px 32px #0e1536, 0 1px 0 #fff2;
+    .page-accueil .lang-btn.active {
+      background: rgba(255, 255, 255, 0.25); font-weight: 700;
+      transform: scale(1.05); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .page-accueil .container {
+      text-align: center; max-width: 800px; padding: 2rem;
+    }
+    .page-accueil .main-title {
+      color: var(--blanc); font-family: 'Playfair Display', serif;
+      font-size: 2.1rem; font-weight: 800; letter-spacing: 0.5px;
+      margin-bottom: 0.5rem; text-shadow: 0 4px 32px #0e1536, 0 1px 0 #fff2;
       line-height: 1.16;
-      max-width: 700px;
     }
-    .slogan {
-      color: var(--doré);
-      font-family: 'Playfair Display', serif;
-      font-size: 1.13rem;
-      font-style: italic;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      margin-bottom: 29px;
-      text-align: center;
-      text-shadow: 0 2px 12px #0003;
+    .page-accueil .slogan {
+      color: var(--doré); font-family: 'Playfair Display', serif;
+      font-size: 1.13rem; font-style: italic; font-weight: 700;
+      letter-spacing: 1.2px; margin-bottom: 3rem; text-shadow: 0 2px 12px #0003;
     }
-    .profiles {
-      display: flex;
-      gap: 36px;
-      margin-top: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      max-width: 600px;
-      width: 100%;
+
+    .page-accueil .profiles {
+      display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;
     }
-    .profile-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      font-weight: 700;
-      transition: transform 0.21s;
-      user-select: none;
-      min-width: 210px;
-      max-width: 240px;
-      flex: 1 1 210px;
+    .page-accueil .profile-link {
+      cursor: pointer; transition: transform 0.3s ease; text-decoration: none;
     }
-    .profile-card {
-      width: 100%;
-      max-width: 245px;
-      min-width: 210px;
-      height: 253px;
-      border-radius: 34px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: var(--ivoire);
-      border: 2.5px solid transparent;
-      transition: 
-        box-shadow 0.22s, 
-        border 0.21s,
-        background 0.21s,
-        transform 0.18s;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 10px;
-      cursor: pointer;
+    .page-accueil .profile-card {
+      width: 280px; height: 320px; border-radius: 20px; box-shadow: var(--shadow);
+      background: var(--ivoire); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 2rem; transition: all 0.3s ease; border: 3px solid transparent;
     }
-    .profile-card.buyer { border-color: var(--marine);}
-    .profile-card.seller { border-color: var(--doré);}
-    .profile-link:hover .profile-card {
-      box-shadow: var(--shadow-hover);
-      border-width: 3px;
+    .page-accueil .profile-card.buyer { border-color: var(--marine); }
+    .page-accueil .profile-card.seller { border-color: var(--doré); }
+    .page-accueil .profile-link:hover .profile-card {
+      transform: translateY(-10px) scale(1.05); box-shadow: var(--shadow-hover);
       background: var(--blanc);
-      transform: translateY(-7px) scale(1.06);
     }
-    .profile-icon {
-      width: 53px;
-      height: 53px;
-      margin-top: 32px;
-      margin-bottom: 14px;
-      opacity: 0.94;
-      flex-shrink: 0;
+
+    .page-accueil .profile-icon {
+      width: 60px; height: 60px; margin-bottom: 1.5rem; opacity: 0.9;
     }
-    .profile-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.22rem;
-      font-weight: 700;
-      color: var(--marine);
-      letter-spacing: 0.3px;
-      margin-bottom: 10px;
-      text-shadow: 0 1px 6px #fff7;
-      flex-shrink: 0;
+    .page-accueil .profile-title {
+      font-family: 'Playfair Display', serif; font-size: 1.5rem;
+      font-weight: 700; color: var(--marine); margin-bottom: 1rem;
     }
-    .profile-desc {
-      color: var(--marine);
-      font-size: 1.01rem;
-      text-align: center;
-      opacity: 0.94;
-      font-weight: 400;
-      padding: 0 9px;
-      line-height: 1.34;
-      margin-top: auto;
-      margin-bottom: 24px;
-      text-shadow: 0 1px 7px #fff5;
-      letter-spacing: 0.01em;
-      word-break: break-word;
-      flex-shrink: 0;
-      max-width: 100%;
+    .page-accueil .profile-desc {
+      color: var(--marine); font-size: 1rem; line-height: 1.4; opacity: 0.9;
+    }
+
+    /* === PAGES INTERNES === */
+    .page-interne { background: var(--white); }
+
+    .header {
+      background: var(--marine); color: var(--white); padding: 2rem 0;
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><path fill="%23ffffff" fill-opacity="0.05" d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,176C672,181,768,139,864,122.7C960,107,1056,117,1152,138.7L1200,160L1200,0L1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>');
+      background-size: cover;
+    }
+    .header-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif; font-size: 1.8rem;
+      font-weight: 700; color: var(--white); text-decoration: none;
+    }
+    .nav-menu {
+      display: flex; gap: 2rem; list-style: none; flex-wrap: wrap;
+    }
+    .nav-menu a {
+      color: var(--white); text-decoration: none; font-weight: 500;
+      transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 5px;
+    }
+    .nav-menu a:hover { background: rgba(255, 255, 255, 0.1); }
+    .nav-menu li:last-child a {
+      background: rgba(255, 255, 255, 0.1) !important;
+      text-transform: uppercase !important; font-weight: 700 !important;
+    }
+    .lang-toggle {
+      background: rgba(255, 255, 255, 0.1); border: none; color: var(--white);
+      padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer;
+      font-weight: 600; transition: all 0.3s ease;
+    }
+
+    .hero { text-align: center; padding: 3rem 0; }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-size: 3rem;
+      font-weight: 700; margin-bottom: 1rem; line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.2rem; opacity: 0.9; max-width: 600px;
+      margin: 0 auto 2rem; line-height: 1.6;
+    }
+
+    .section {
+      padding: 4rem 2rem; max-width: 1200px; margin: 0 auto;
+    }
+    .section h2 {
+      font-family: 'Playfair Display', serif; font-size: 2.5rem;
+      color: var(--marine); text-align: center; margin-bottom: 3rem;
+      position: relative;
+    }
+    .section h2::after {
+      content: ''; position: absolute; bottom: -10px; left: 50%;
+      transform: translateX(-50%); width: 80px; height: 3px;
+      background: var(--doré); border-radius: 2px;
+    }
+
+    .content-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem; margin-top: 2rem;
+    }
+    .content-card {
+      background: var(--blanc-casse); padding: 2rem; border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    /* EQUIPE STYLES */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem; margin-top: 2rem;
+    }
+    .team-member {
+      background: var(--blanc-casse); padding: 2rem; border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .team-member:hover {
+      transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .team-photo {
+      width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+      margin: 0 auto 1.5rem; display: block; border: 4px solid var(--doré);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .team-name {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem;
+      font-weight: 700; color: var(--marine); margin-bottom: 0.5rem;
+    }
+    .team-role {
+      color: var(--grey); font-size: 0.95rem; margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    .team-phone {
+      color: var(--doré); font-weight: 600; font-size: 1rem;
+      text-decoration: none; display: inline-block;
+      padding: 0.5rem 1rem; border: 2px solid var(--doré);
+      border-radius: 25px; transition: all 0.3s ease;
+    }
+    .team-phone:hover {
+      background: var(--doré); color: var(--blanc);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .page-accueil .main-title { font-size: 1.5rem; }
+      .page-accueil .profiles { flex-direction: column; align-items: center; }
+      .page-accueil .profile-card { width: 90vw; max-width: 350px; }
+      .nav { flex-direction: column; text-align: center; }
+      .nav-menu { flex-direction: column; gap: 1rem; }
+      .hero h1 { font-size: 2rem; }
+      .section { padding: 2rem 1rem; }
     }
   </style>
 </head>
 <body>
-  <video class="bg-video" autoplay loop muted playsinline>
-    <source src="https://ia600205.us.archive.org/21/items/6020101-hd-1920-1080-24fps/6020101-hd_1920_1080_24fps.mp4" type="video/mp4" />
-  </video>
-  <div class="overlay"></div>
+  <!-- BOUTON RETOUR -->
+  <button class="nav-home" onclick="showPage('accueil')" id="homeBtn">🏠 Accueil</button>
 
-  <div class="container">
-    <div class="main-title">
-      Passez à l'étape supérieure.<br>Choisissez l'expérience qui transformera votre projet immobilier.
+  <!-- PAGE D'ACCUEIL -->
+  <div id="page-accueil" class="page page-accueil active">
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
     </div>
-    <div class="slogan">Réalisons !</div>
-    <div class="profiles">
-      <a class="profile-link" href="acheteur.html">
-        <div class="profile-card buyer">
-          <span class="profile-icon">
-            <svg viewBox="0 0 32 32" fill="none">
+    
+    <div class="container">
+      <div class="main-title" id="main-title">
+        Passez à l'étape supérieure.<br>Choisissez l'expérience qui transformera votre projet immobilier.
+      </div>
+      <div class="slogan" id="slogan">Réalisons !</div>
+      
+      <div class="profiles">
+        <div class="profile-link" onclick="showPage('acheteur')">
+          <div class="profile-card buyer">
+            <svg class="profile-icon" viewBox="0 0 32 32" fill="none">
               <path d="M16 3L3 15h3v13h8v-8h4v8h8V15h3L16 3z" stroke="#142239" stroke-width="2.2" fill="none"/>
             </svg>
-          </span>
-          <span class="profile-title">Acheteur</span>
-          <div class="profile-desc">
-            L'expertise qui fait la différence, avant même l'achat.<br><span style="font-size:0.95em; color:#6b7280;">Trouvez la propriété qui vous ressemble.</span>
+            <div class="profile-title" id="buyer-title">Acheteur</div>
+            <div class="profile-desc" id="buyer-desc">
+              L'expertise qui fait la différence, avant même l'achat.<br>
+              <small>Trouvez la propriété qui vous ressemble.</small>
+            </div>
           </div>
         </div>
-      </a>
-      <a class="profile-link" href="vendeur.html">
-        <div class="profile-card seller">
-          <span class="profile-icon">
-            <svg viewBox="0 0 32 32" fill="none">
+        
+        <div class="profile-link" onclick="showPage('vendeur')">
+          <div class="profile-card seller">
+            <svg class="profile-icon" viewBox="0 0 32 32" fill="none">
               <rect x="5" y="7" width="22" height="18" rx="2.5" stroke="#b1976b" stroke-width="2.2"/>
               <path d="M10 13h12M10 17h7" stroke="#b1976b" stroke-width="2.1" stroke-linecap="round"/>
             </svg>
-          </span>
-          <span class="profile-title">Vendeur</span>
-          <div class="profile-desc">
-            Votre propriété mérite le maximum. Notre signature, c'est la vôtre.<br>
-            <span style="font-size:0.95em;">Un accompagnement exclusif, à chaque étape.</span>
+            <div class="profile-title" id="seller-title">Vendeur</div>
+            <div class="profile-desc" id="seller-desc">
+              Votre propriété mérite le maximum. Notre signature, c'est la vôtre.<br>
+              <small>Un accompagnement exclusif, à chaque étape.</small>
+            </div>
           </div>
         </div>
-      </a>
+      </div>
     </div>
   </div>
-</body>
-</html>
-  </textarea>
 
-  <h2>2. PAGE VENDEUR - vendeur.html</h2>
-  <p>Cette page contient votre design original complet avec la navigation "FAQ" au lieu de "Contact".</p>
-  
-  <h2>3. PAGE ACHETEUR - acheteur.html</h2>
-  <p>Cette page contient votre design original complet avec la navigation "FAQ" au lieu de "Contact".</p>
-  
-  <h2>NAVIGATION CORRIGÉE</h2>
-  <p>Dans les pages vendeur.html et acheteur.html, la navigation est :</p>
-  <pre>Approche | Quiz | Zones | Équipe | Programmes | FAQ</pre>
-  
-  <p><strong>Les 3 fichiers sont déjà présents dans votre projet et fonctionnent ensemble !</strong></p>
+  <!-- PAGE ACHETEUR -->
+  <div id="page-acheteur" class="page page-interne">
+    <div class="header">
+      <div class="header-content">
+        <nav class="nav">
+          <a href="#" class="logo">Grant Vallinis</a>
+          <ul class="nav-menu">
+            <li><a href="#" onclick="scrollToSection('approche-acheteur')">Approche</a></li>
+            <li><a href="#" onclick="scrollToSection('quiz-acheteur')">Quiz</a></li>
+            <li><a href="#" onclick="scrollToSection('zones-acheteur')">Zones</a></li>
+            <li><a href="#" onclick="scrollToSection('equipe-acheteur')">Équipe</a></li>
+            <li><a href="#" onclick="scrollToSection('programmes-acheteur')">Programmes</a></li>
+            <li><a href="#" onclick="scrollToSection('faq-acheteur')">FAQ</a></li>
+          </ul>
+          <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
+        </nav>
+        
+        <div class="hero">
+          <h1>Consultation personnalisée Acheteur</h1>
+          <p>L'expertise qui fait la différence, avant même l'achat. Trouvez la propriété qui vous ressemble.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="approche-acheteur">
+      <h2>Notre Approche</h2>
+      <div class="content-grid">
+        <div class="content-card">
+          <h3>Analyse personnalisée</h3>
+          <p>Nous analysons vos besoins spécifiques pour vous proposer les meilleures opportunités du marché.</p>
+        </div>
+        <div class="content-card">
+          <h3>Accompagnement expert</h3>
+          <p>Notre équipe d'experts vous guide à chaque étape de votre projet d'achat immobilier.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="quiz-acheteur">
+      <h2>Quiz Acheteur</h2>
+      <p>Découvrez votre profil d'acheteur et recevez des recommandations personnalisées.</p>
+    </div>
+
+    <div class="section" id="zones-acheteur">
+      <h2>Zones de Recherche</h2>
+      <p>Explorez les secteurs les plus prometteurs selon vos critères.</p>
+    </div>
+
+    <div class="section" id="equipe-acheteur">
+      <h2>Notre Équipe</h2>
+      <p>Rencontrez nos experts dédiés aux acheteurs.</p>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://postimg.cc/zLbgjtDC" alt="Wafaa Obbad" class="team-photo">
+          <div class="team-name">Wafaa Obbad</div>
+          <div class="team-role">Courtière immobilière résidentielle</div>
+          <a href="tel:5144672161" class="team-phone">514-467-2161</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/K1KPqvJ3" alt="Wissem Nessah" class="team-photo">
+          <div class="team-name">Wissem Nessah</div>
+          <div class="team-role">Courtière immobilière résidentielle</div>
+          <a href="tel:4382208102" class="team-phone">438-220-8102</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/5XFz5K2w" alt="Paulo Sergio Gonzalez" class="team-photo">
+          <div class="team-name">Paulo Sergio Gonzalez</div>
+          <div class="team-role">Courtier immobilier résidentiel</div>
+          <a href="tel:5149626144" class="team-phone">514-962-6144</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/K1KPqvJ3" alt="Grant S. Vallinis" class="team-photo">
+          <div class="team-name">Grant S. Vallinis</div>
+          <div class="team-role">Courtier immobilier résidentiel et commercial</div>
+          <a href="tel:4383786760" class="team-phone">438-378-6760</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="programmes-acheteur">
+      <h2>Programmes</h2>
+      <p>Découvrez nos programmes d'accompagnement pour acheteurs.</p>
+    </div>
+
+    <div class="section" id="faq-acheteur">
+      <h2>FAQ</h2>
+      <p>Questions fréquentes des acheteurs et nos réponses d'experts.</p>
+    </div>
+  </div>
+
+  <!-- PAGE VENDEUR -->
+  <div id="page-vendeur" class="page page-interne">
+    <div class="header">
+      <div class="header-content">
+        <nav class="nav">
+          <a href="#" class="logo">Grant Vallinis</a>
+          <ul class="nav-menu">
+            <li><a href="#" onclick="scrollToSection('approche-vendeur')">Approche</a></li>
+            <li><a href="#" onclick="scrollToSection('quiz-vendeur')">Quiz</a></li>
+            <li><a href="#" onclick="scrollToSection('zones-vendeur')">Zones</a></li>
+            <li><a href="#" onclick="scrollToSection('equipe-vendeur')">Équipe</a></li>
+            <li><a href="#" onclick="scrollToSection('programmes-vendeur')">Programmes</a></li>
+            <li><a href="#" onclick="scrollToSection('faq-vendeur')">FAQ</a></li>
+          </ul>
+          <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
+        </nav>
+        
+        <div class="hero">
+          <h1>Consultation personnalisée Vendeur</h1>
+          <p>Votre propriété mérite le maximum. Notre signature, c'est la vôtre. Un accompagnement exclusif, à chaque étape.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="approche-vendeur">
+      <h2>Notre Approche</h2>
+      <div class="content-grid">
+        <div class="content-card">
+          <h3>Évaluation précise</h3>
+          <p>Nous déterminons la valeur optimale de votre propriété grâce à notre expertise du marché.</p>
+        </div>
+        <div class="content-card">
+          <h3>Stratégie de vente</h3>
+          <p>Nous élaborons une stratégie personnalisée pour maximiser le prix de vente.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="quiz-vendeur">
+      <h2>Quiz Vendeur</h2>
+      <p>Identifiez votre profil de vendeur pour une stratégie adaptée.</p>
+    </div>
+
+    <div class="section" id="zones-vendeur">
+      <h2>Zones de Vente</h2>
+      <p>Analysez la performance de votre secteur immobilier.</p>
+    </div>
+
+    <div class="section" id="equipe-vendeur">
+      <h2>Notre Équipe</h2>
+      <p>Rencontrez nos spécialistes de la vente immobilière.</p>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://postimg.cc/zLbgjtDC" alt="Wafaa Obbad" class="team-photo">
+          <div class="team-name">Wafaa Obbad</div>
+          <div class="team-role">Courtière immobilière résidentielle</div>
+          <a href="tel:5144672161" class="team-phone">514-467-2161</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/K1KPqvJ3" alt="Wissem Nessah" class="team-photo">
+          <div class="team-name">Wissem Nessah</div>
+          <div class="team-role">Courtière immobilière résidentielle</div>
+          <a href="tel:4382208102" class="team-phone">438-220-8102</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/5XFz5K2w" alt="Paulo Sergio Gonzalez" class="team-photo">
+          <div class="team-name">Paulo Sergio Gonzalez</div>
+          <div class="team-role">Courtier immobilier résidentiel</div>
+          <a href="tel:5149626144" class="team-phone">514-962-6144</a>
+        </div>
+        <div class="team-member">
+          <img src="https://postimg.cc/K1KPqvJ3" alt="Grant S. Vallinis" class="team-photo">
+          <div class="team-name">Grant S. Vallinis</div>
+          <div class="team-role">Courtier immobilier résidentiel et commercial</div>
+          <a href="tel:4383786760" class="team-phone">438-378-6760</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="programmes-vendeur">
+      <h2>Programmes</h2>
+      <p>Découvrez nos services exclusifs pour vendeurs.</p>
+    </div>
+
+    <div class="section" id="faq-vendeur">
+      <h2>FAQ</h2>
+      <p>Questions fréquentes des vendeurs et conseils d'experts.</p>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'fr';
+
+    // NAVIGATION ENTRE PAGES
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById('page-' + pageId).classList.add('active');
+      
+      const homeBtn = document.getElementById('homeBtn');
+      homeBtn.classList.toggle('show', pageId !== 'accueil');
+      
+      window.scrollTo(0, 0);
+    }
+
+    // NAVIGATION SECTIONS
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // TRADUCTIONS
+    const translations = {
+      fr: {
+        title: 'Passez à l\'étape supérieure.<br>Choisissez l\'expérience qui transformera votre projet immobilier.',
+        slogan: 'Réalisons !',
+        buyer: {
+          title: 'Acheteur',
+          desc: 'L\'expertise qui fait la différence, avant même l\'achat.<br><small>Trouvez la propriété qui vous ressemble.</small>'
+        },
+        seller: {
+          title: 'Vendeur',
+          desc: 'Votre propriété mérite le maximum. Notre signature, c\'est la vôtre.<br><small>Un accompagnement exclusif, à chaque étape.</small>'
+        }
+      },
+      en: {
+        title: 'Take it to the next level.<br>Choose the experience that will transform your real estate journey.',
+        slogan: 'Let\'s make it happen!',
+        buyer: {
+          title: 'Buyer',
+          desc: 'Expertise that makes all the difference, before you buy.<br><small>Find the property that fits you.</small>'
+        },
+        seller: {
+          title: 'Seller',
+          desc: 'Your property deserves the very best. Our signature is your success.<br><small>Exclusive support at every step.</small>'
+        }
+      }
+    };
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('main-title').innerHTML = translations[lang].title;
+      document.getElementById('slogan').textContent = translations[lang].slogan;
+      document.getElementById('buyer-title').textContent = translations[lang].buyer.title;
+      document.getElementById('buyer-desc').innerHTML = translations[lang].buyer.desc;
+      document.getElementById('seller-title').textContent = translations[lang].seller.title;
+      document.getElementById('seller-desc').innerHTML = translations[lang].seller.desc;
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+      });
+      
+      document.documentElement.lang = lang;
+    }
+
+    function toggleLanguage() {
+      setLang(currentLang === 'fr' ? 'en' : 'fr');
+    }
+  </script>
 </body>
 </html>
